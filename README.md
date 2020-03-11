@@ -1,1 +1,3 @@
 # EQTransformer
+
+pip install EQTransformer
