@@ -1,6 +1,6 @@
 # EQTransformer
 
-#### you can install the code using:
+#### The code can be installed using:
 pip install EQTransformer
 
-##### models, sample data, and examples are comming soon. 
+##### Models, sample data, and examples are comming soon. 
