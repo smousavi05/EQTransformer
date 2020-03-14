@@ -4,4 +4,4 @@
 
     pip install EQTransformer
 
-##### Models, sample data, and examples are comming soon. 
+##### Instruction, models, sample data, and examples will be uploaded later ... 
