@@ -1,4 +1,4 @@
-# EQTransformer
+# EQTransformer. 
 
 #### The code can be installed using:
 
