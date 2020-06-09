@@ -93,6 +93,8 @@ It will also generate one "station_name.hdf5" and one "station_name.csv" file fo
 
 This is another example for a longer priod and a larger network in west Texas:
 
+![](./figs/Xdata_chart.png)
+
 
 #### 3) Performing the detection&picking:
 
@@ -128,31 +130,42 @@ Prediction outputs for each station will be written in your output directory (i.
 You can choose between two different modes for your plots:
 the 'time_frequency'
 
+![](./figs/Fig_2.png)
+
 or 'time'
+
+![](./figs/Fig_3.png)
 
 These plots are useful to check out if your defined thresholds are a good choice or if you get some false positives.
 
 To check if you are missing too many events in the continuous data or catch most of them, it is always good to check out the raw data. You can do it using these commands:
 
-First checking the raw data:
+First lesson of observational seismology: always check the raw data:
 
     from EQTransformer.utils.plot import plot_detections, plot_helicorder
     plot_helicorder(input_mseed='downloads_mseeds/CA06/GS.CA06.00.HHZ__20190902T000000Z__20190903T000000Z.mseed', 
                     input_csv=None, save_plot=True)
+                    
+![](./figs/Fig_4.png)
 
 Now you can mark all the detected events in your helicorder plot to check if you have catched most of them or you are missing too many of them (high false negativ). 
 
     plot_helicorder(input_mseed='downloads_mseeds/CA06/GS.CA06.00.HHZ__20190902T000000Z__20190903T000000Z.mseed', 
                     input_csv='detections/CA06_outputs/X_prediction_results.csv', save_plot=True)
 
+![](./figs/Fig_5.png)
+
 You can also visulaize the number of detections over your network using this:
 
     plot_detections(input_dir ="detections",  input_json="station_list.json", plot_type='station_map', marker_size=50)
+
+![](./figs/Fig_6.png)
 
 And this command will generate detection histograms for each station in your detection folder:
 
     plot_detections(input_dir ="detections",  input_json="station_list.json", plot_type='hist', time_window=120)
 
+![](./figs/Fig_7.png)
 
 
 #### 5) Phase Association:
