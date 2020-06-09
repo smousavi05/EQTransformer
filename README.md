@@ -128,6 +128,7 @@ Prediction outputs for each station will be written in your output directory (i.
 'X_prediction_results.csv' contains detection/picking results in the figures folder you can find the plots for the number of events that you specified in the above comment.
 
 You can choose between two different modes for your plots:
+
 the 'time_frequency'
 
 ![](./figs/Fig_2.png)
