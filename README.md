@@ -89,11 +89,10 @@ It will also generate one "station_name.hdf5" and one "station_name.csv" file fo
     from EQTransformer.utils.plot import plot_data_chart
     plot_data_chart('time_tracks.pkl', time_interval=10)
 
-![](./figs/Fig_1.png =250x)
+![](./figs/Fig_1.png=250x)
 
 This is another example for a longer priod and a larger network in west Texas:
 
-![map](Xdata_chart.png =100x20)
 
 #### 3) Performing the detection&picking:
 
