@@ -22,7 +22,6 @@ Or download this repository, cd to EQTransformer and type:
     from EQTransformer.utils.downloader import downloadMseeds, makeStationList
 
 You can use help(name_of_function) for input syntax and explanations.
-help(makeStationList)
 
 Defining the location and time period of interest
 
