@@ -90,7 +90,7 @@ It will also generate one "station_name.hdf5" and one "station_name.csv" file fo
     plot_data_chart('time_tracks.pkl', time_interval=10)
 
 
-#### 2) Performing the detection&picking:
+#### 3) Performing the detection&picking:
 
 Now you can perform the detection/picking using the following:
 All you need is to pass the name of the directory containing your hdf5 & CSV files and a model. 
@@ -115,7 +115,7 @@ You can use very low threshold values for the detection and picking since EQTran
              spLimit=60) 
 
 
-#### 3) visualizing the results:
+#### 4) Visualizing the Results:
 
 Prediction outputs for each station will be written in your output directory (i.e. 'detections'). 
 'X_report.txt' contains processing info on input parameters used for the detection/picking and final results such as running time, the total number of detected events (these are unique events and duplicated ones have been already removed).
@@ -151,7 +151,7 @@ And this command will generate detection histograms for each station in your det
 
 
 
-#### 4) Phase Association:
+#### 5) Phase Association:
 
 After detection, the following performs a simple and fast association and writes down the results in Hypoinverse format (Y2000.phs) which can directly be used to locate the detected earthquakes.
 This is appropriate for a small number of stations located relatively close to each other.
@@ -180,7 +180,7 @@ This can be used later to access the traces for calculating the cross-correlatio
 This also outputs a file ('traceName_dic.json') which provides the list of trace names (the name of 1 min slices in the hdf5 files that were used as the input of the dector) for each associated event. This is useful for accessing to the raw waveforms of each event either for quality control, or for cross-correlation calculation, or magnitude estimation. 
 
 
-#### 5) Building a new model:
+#### 6) Building a new model:
 You can also train the neural network on your data and build and test your own model using the following modules.
 Your data should be in the same format as our sample data.  
 
