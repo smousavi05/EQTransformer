@@ -73,7 +73,7 @@ Continuous data for each station should have been downloaded in your output dire
 
 #### Note "if you already have your mseed files you can skip the previous steps and start from here"
 
-## 2) Data pre-processing:
+#### 2) Data pre-processing:
 
 To pre-process the continuous data and convert your mseed files into hdf5 file (the input of EQTransformer)
 
