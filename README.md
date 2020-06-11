@@ -25,7 +25,9 @@ Note: if Opspy did not get installed using the above commends and you got error,
 
     from EQTransformer.utils.downloader import downloadMseeds, makeStationList
 
-You can use help(name_of_function) for input syntax and explanations.
+You can use help() to learn about input parameters of each fuunction.
+help(makeStationList)
+![](./figs/help.png)
 
 Defining the location and time period of interest
 
