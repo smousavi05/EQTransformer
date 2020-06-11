@@ -1,4 +1,4 @@
-# EQTransformer. 
+# Earthquake Transformer (EQTransformer or EqT). 
 
 
 
