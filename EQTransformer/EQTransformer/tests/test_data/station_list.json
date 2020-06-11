@@ -1,0 +1,20 @@
+{
+  "ARK1": {
+    "network": "7F",
+    "channels": ["EHE", "EHN", "EHZ"],
+    "coords": [35.266602, -92.403503, 176.0],
+    "sampling_rate": 100
+  },
+  "ARK2": {
+    "network": "7F",
+    "channels": ["EHE", "EHN", "EHZ"],
+    "coords": [35.334099, -92.298203, 212.0],
+    "sampling_rate": 100
+  },
+  "WHAR": {
+    "network": "AG",
+    "channels": ["HHE", "HHN", "HHZ"],
+    "coords": [35.2902, -92.2885, 184.0],
+    "sampling_rate": 100
+  }
+}
