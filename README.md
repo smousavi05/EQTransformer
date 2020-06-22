@@ -207,7 +207,29 @@ This can be used later to access the traces for calculating the cross-correlatio
 This also outputs a file ('traceName_dic.json') which provides the list of trace names (the name of 1 min slices in the hdf5 files that were used as the input of the dector) for each associated event. This is useful for accessing to the raw waveforms of each event either for quality control, or for cross-correlation calculation, or magnitude estimation. 
 
 
-#### 6) Building a new model:
+##### 6) Performing a fast detection&picking directky in mseed files:
+You can perform the detection/picking directly on MiniSeed files. 
+This is much faster but is more memory intensive. So it is recommended when each of your mseed fils are smaller than 1 month.
+This does not allwo the uncertainty estimation anymore or writting the output probabilities. 
+
+        from EQTransformer.core.mseed_predictor import mseed_predictor
+        mseed_predictor(input_dir= 'downloads_mseeds',   
+                 input_model='sampleData&Model/EqT1D8pre_048.h5',
+                 stations_json='station_list.json',
+                 output_dir='detections',
+                 loss_weights=[0.02, 0.40, 0.58],          
+                 detection_threshold=0.50,                
+                 P_threshold=0.2,
+                 S_threshold=0.2, 
+                 number_of_plots=100,
+                 plot_mode = 'time_frequency',
+                 normalization_mode='std',
+                 overlap = 0.3,
+                 gpuid=None,
+                 gpu_limit=None) 
+         
+
+#### 7) Building a new model:
 You can also train the neural network on your data and build and test your own model using the following modules.
 Your data should be in the same format as our sample data.  
 
