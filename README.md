@@ -6,7 +6,7 @@
 
 ### Installation:
 
-Open your terminal and type:
+Open your terminal and type (recommmended):
 
     pip install EQTransformer
     
