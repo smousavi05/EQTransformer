@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="EQTransformer",
-    version="0.1.11",
+    version="0.1.13",
     author="S. Mostafa Mousavi",
     author_email="smousavi05@gmail.com",
     description="A python package for making and using attentive deep-learning models for earthquake signal detection and phase picking.",
