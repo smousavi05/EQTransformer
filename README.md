@@ -1,6 +1,8 @@
 # Earthquake Transformer (EQTransformer or EqT)   
 
 
+#### Last update: 06/23/2020
+version 1.13 was uploaded 
 
 ------
 
