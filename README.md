@@ -129,6 +129,7 @@ You can use very low threshold values for the detection and picking since EQTran
              keepPS=False,
              spLimit=60) 
 
+Note: each time you run the detection it is better to refresh the terminal or your console. Sometime Tensorflow takes too long to reload the model. But if you empty the memory from old variable or open a new terminal this will be solved. 
 
 #### 4) Visualizing the Results:
 
