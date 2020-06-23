@@ -5,7 +5,7 @@ Created on Fri Dec 27 18:52:42 2019
 
 @author: mostafamousavi
 
-last update: 06/22/2020
+last update: 06/23/2020
 """
 
 from datetime import datetime, timedelta
@@ -429,14 +429,22 @@ def _dbs_associator(start_time, end_time, moving_window,
                                 
                             station = "{:<5}".format(row['station'])
                             network = "{:<2}".format(row['network']) 
-                            
-                            yrp = "{:>4}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[0])
-                            mop = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[1]) 
-                            dyp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[2]) 
-                            hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
-                            mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
-                            sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
                             try:
+                                yrp = "{:>4}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[0])
+                                mop = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[1]) 
+                                dyp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[2]) 
+                                hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
+                                mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
+                                sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
+                            except Exception:
+                                sec_p = None
+                                
+                            try:
+                                yrs = "{:>4}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[0])
+                                mos = "{:>2}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[1]) 
+                                dys = "{:>2}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[2]) 
+                                hrs = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[0]) 
+                                mis = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[1])                                 
                                 sec_s = "{:>4}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[2]) 
                             except Exception:
                                 sec_s = None
@@ -445,14 +453,10 @@ def _dbs_associator(start_time, end_time, moving_window,
                                 tr_names.append(trace_name)
                                 station_buffer.append(row['station'])                      
                                 if sec_s:
-                                   # LTTS.append(row['stlon'])
-                                   # TTS.append(UTCDateTime(str(row['s_arrival_time']).replace(' ', 'T')+'Z')-STUTC)
                                     Y2000_writer.write("%5s%2s  HHE     %4d%2d%2d%2d%2d%5.2f       %5.2fES %1d\n"%
-                                                       (station,network,int(yrp),int(mop),int(dyp),int(hrp),int(mip),
+                                                       (station,network,int(yrs),int(mos),int(dys),int(hrs),int(mis),
                                                         float(0.0),float(sec_s), Sweihgt))
                                 if sec_p:
-                                   # LTTP.append(row['stlon'])
-                                   # TTP.append(UTCDateTime(str(row['p_arrival_time']).replace(' ', 'T')+'Z')-STUTC)
                                     Y2000_writer.write("%5s%2s  HHZ IP %1d%4d%2d%2d%2d%2d%5.2f       %5.2f   0\n"%
                                                        (station,network,Pweihgt,int(yrp),int(mop),int(dyp),int(hrp),
                                                         int(mip),float(sec_p),float(0.0)))                        
@@ -460,8 +464,8 @@ def _dbs_associator(start_time, end_time, moving_window,
                                 tr_names2.append(trace_name)
                                 if sec_s:
                                     row_buffer.append("%5s%2s  HHE     %4d%2d%2d%2d%2d%5.2f       %5.2fES %1d\n"%(station,network,
-                                                                                                                 int(yrp),int(mop),int(dyp),
-                                                                                                                 int(hrp),int(mip),0.0,
+                                                                                                                 int(yrs),int(mos),int(dys),
+                                                                                                                 int(hrs),int(mis),0.0,
                                                                                                                  float(sec_s), Sweihgt)); 
                                 if sec_p:
                                     row_buffer.append("%5s%2s  HHZ IP %1d%4d%2d%2d%2d%2d%5.2f       %5.2f   0\n"%(station,network,
@@ -563,21 +567,33 @@ def _dbs_associator(start_time, end_time, moving_window,
                     station = "{:<5}".format(row['station'])
                     network = "{:<2}".format(row['network']) 
                     
-                    yrp = "{:>4}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[0])
-                    mop = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[1]) 
-                    dyp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[2]) 
-                    hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
-                    mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
-                    sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
-                    sec_s = "{:>4}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[2]) 
+                    try:
+                        yrp = "{:>4}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[0])
+                        mop = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[1]) 
+                        dyp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[2]) 
+                        hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
+                        mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
+                        sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
+                    except Exception:
+                        sec_p = None
+
+                    try:
+                        yrs = "{:>4}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[0])
+                        mos = "{:>2}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[1]) 
+                        dys = "{:>2}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[2]) 
+                        hrs = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[0]) 
+                        mis = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[1])                                 
+                        sec_s = "{:>4}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[2]) 
+                    except Exception:
+                        sec_s = None                              
     
                     if row['station'] not in station_buffer:
                         tr_names.append(trace_name)
                         station_buffer.append(row['station'])  
                         if sec_s:
                             Y2000_writer.write("%5s%2s  HHE     %4d%2d%2d%2d%2d%5.2f       %5.2fES %1d\n"%(station,network,
-                                                                                                         int(yrp),int(mop),int(dyp),
-                                                                                                         int(hrp),int(mip),float(0.0),
+                                                                                                         int(yrs),int(mos),int(dys),
+                                                                                                         int(hrs),int(mis),float(0.0),
                                                                                                          float(sec_s), Sweihgt))
                         if sec_p:
                             Y2000_writer.write("%5s%2s  HHZ IP %1d%4d%2d%2d%2d%2d%5.2f       %5.2f   0\n"%(station,network,
@@ -589,8 +605,8 @@ def _dbs_associator(start_time, end_time, moving_window,
                         tr_names2.append(trace_name)
                         if sec_s:
                             row_buffer.append("%5s%2s  HHE     %4d%2d%2d%2d%2d%5.2f       %5.2fES %1d\n"%(station,network,
-                                                                                                         int(yrp),int(mop),int(dyp),
-                                                                                                         int(hrp),int(mip),0.0,
+                                                                                                         int(yrs),int(mos),int(dys),
+                                                                                                         int(hrs),int(mis),0.0,
                                                                                                          float(sec_s), Sweihgt)); 
                         if sec_p:
                             row_buffer.append("%5s%2s  HHZ IP %1d%4d%2d%2d%2d%2d%5.2f       %5.2f   0\n"%(station,network,
