@@ -151,13 +151,11 @@ except Exception:
     pass
 os.makedirs(out_dir) 
 run_associator(input_dir='detections', 
-               preprocessed_dir='downloads_mseeds_processed_hdfs', 
                start_time=STIME, 
                end_time=ETIME,
                moving_window = 15,
                pair_n = 3,
                output_dir=out_dir,
-               double_checkinglen=False,
                consider_combination=True)
  
 
