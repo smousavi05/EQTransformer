@@ -179,36 +179,7 @@ And this command will generate detection histograms for each station in your det
 ![](./figs/Fig_7.png)
 
 
-#### 5) Phase Association:
-
-After detection, the following performs a simple and fast association and writes down the results in Hypoinverse format (Y2000.phs) which can directly be used to locate the detected earthquakes.
-This is appropriate for a small number of stations located relatively close to each other.
-This also outputs "traceNmae_dic.json", A dictionary where the trace name for all the detections associated with an event is listed. 
-This can be used later to access the traces for calculating the cross-correlations during the relocation process.    
-
-    import shutil
-    import os
-    from EQTransformer.utils.associator import run_associator
-    out_dir = "asociation"
-    try:
-        shutil.rmtree(out_dir)
-    except Exception:
-        pass
-    os.makedirs(out_dir) 
-    run_associator(input_dir='detections', 
-                   preprocessed_dir='downloads_mseeds_processed_hdfs', 
-                   start_time=STIME, 
-                   end_time=ETIME,
-                   moving_window = 15,
-                   pair_n = 3,
-                   output_dir=out_dir,
-                   double_checkinglen=False,
-                   consider_combination=True)
-
-This also outputs a file ('traceName_dic.json') which provides the list of trace names (the name of 1 min slices in the hdf5 files that were used as the input of the dector) for each associated event. This is useful for accessing to the raw waveforms of each event either for quality control, or for cross-correlation calculation, or magnitude estimation. 
-
-
-##### 6) Performing a fast detection&picking directky in mseed files:
+##### 5) Performing a fast detection&picking directky in mseed files:
 You can perform the detection/picking directly on MiniSeed files. 
 This is much faster but is more memory intensive. So it is recommended when each of your mseed fils are smaller than 1 month.
 This does not allwo the uncertainty estimation anymore or writting the output probabilities. 
@@ -228,7 +199,35 @@ This does not allwo the uncertainty estimation anymore or writting the output pr
                  overlap = 0.3,
                  gpuid=None,
                  gpu_limit=None) 
-         
+      
+      
+      
+#### 6) Phase Association:
+
+After detection, the following performs a simple and fast association and writes down the results in Hypoinverse format (Y2000.phs) which can directly be used to locate the detected earthquakes.
+This is appropriate for a small number of stations located relatively close to each other.
+This also outputs "traceNmae_dic.json", A dictionary where the trace name for all the detections associated with an event is listed. 
+This can be used later to access the traces for calculating the cross-correlations during the relocation process.    
+
+    import shutil
+    import os
+    from EQTransformer.utils.associator import run_associator
+    out_dir = "asociation"
+    try:
+        shutil.rmtree(out_dir)
+    except Exception:
+        pass
+    os.makedirs(out_dir) 
+    run_associator(input_dir='detections', 
+                   start_time=STIME, 
+                   end_time=ETIME,
+                   moving_window = 15,
+                   pair_n = 3,
+                   output_dir=out_dir,
+                   consider_combination=True)
+
+This also outputs a file ('traceName_dic.json') which provides the list of trace names (the name of 1 min slices in the hdf5 files that were used as the input of the dector) for each associated event. This is useful for accessing to the raw waveforms of each event either for quality control, or for cross-correlation calculation, or magnitude estimation. 
+
 
 #### 7) Building a new model:
 You can also train the neural network on your data and build and test your own model using the following modules.
