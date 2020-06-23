@@ -5,7 +5,7 @@ Created on Fri Dec 27 18:52:42 2019
 
 @author: mostafamousavi
 
-last update: 06/05/2020
+last update: 06/22/2020
 """
 
 from datetime import datetime, timedelta
@@ -26,13 +26,11 @@ from itertools import combinations
 
 
 def run_associator(input_dir,
-                   preprocessed_dir, 
                    start_time, 
                    end_time, 
                    moving_window=15, 
                    pair_n=3,
                    output_dir='.',
-                   double_checkinglen=False,
                    thr_on=4.5,
                    thr_of=2.7,
                    consider_combination=False):
@@ -46,8 +44,6 @@ def run_associator(input_dir,
     ----------
        input_dir: str
            Path to a dicrectory containing detection results.
-       preprocessed_dir: str
-           Path to a dicrectory containing preprocessed data (hdf5 and csv files).
        start_time: str
            Start of a time period of interest in 'YYYY-MM-DD hh:mm:ss.f' format
        end_time: str
@@ -58,8 +54,6 @@ def run_associator(input_dir,
            The minimum number of stations used for the association.  
        output_dir: str, (default = '.')
            Path to the directory to write the output file.
-       double_checkinglen: bool, (default = False)
-           If True, it will search for the missing events based on detected events on neirby stations using a traditional detector&picker.
        thr_on: float, (default = 4.5)
            Threshold value for traditional detector.         
        thr_of: float, (default = 2.7)
@@ -135,8 +129,6 @@ def run_associator(input_dir,
                     pair_n,
                     output_dir,
                     station_list,
-                    preprocessed_dir,
-                    double_checkinglen,
                     thr_on,
                     thr_of,
                     consider_combination)
@@ -160,12 +152,6 @@ def _pick_database_maker(conn, cur, input_file):
             line_count += 1
             
             traceID = row[0]
-            st_time = traceID.split('_')[3].replace('T', ' ').replace('Z', '')
-            mls = st_time.split('.')
-            if len(mls) == 1:
-                start_time = datetime.strptime(st_time, '%Y-%m-%d %H:%M:%S')
-            else:
-                start_time = datetime.strptime(st_time, '%Y-%m-%d %H:%M:%S.%f')
                 
             network = row[1]
             station = row[2]
@@ -305,13 +291,14 @@ def _weighcalculator_prob(pr):
 
 
 def _date_convertor(r):  
-          
-    mls = r.split('.')
-    if len(mls) == 1:
-        new_t = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
-    else:
-        new_t = datetime.strptime(r, '%Y-%m-%d %H:%M:%S.%f')
-    return new_t
+    if r and len(r)>5:
+        mls = r.split('.')
+        if len(mls) == 1:
+            new_t = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
+        else:
+            new_t = datetime.strptime(r, '%Y-%m-%d %H:%M:%S.%f')
+        return new_t
+            
 
 
 def _doubleChecking(station_list, detections, preprocessed_dir, moving_window, thr_on=3.7, thr_of=0.5):
@@ -366,7 +353,6 @@ def _doubleChecking(station_list, detections, preprocessed_dir, moving_window, t
 
 def _dbs_associator(start_time, end_time, moving_window, 
                     tbl, pair_n, save_dir, station_list,
-                    preprocessed_dir, double_checkinglen,
                     thr_on, thr_of, consider_combination=False):  
     
     if consider_combination==True: 
@@ -395,12 +381,6 @@ def _dbs_associator(start_time, end_time, moving_window,
                 st_lon_DMS = _decimalDegrees2DMS(float(detections.iloc[0]['stlon']),  "Longitude")
                 depth = 5.0
                 mag = 0.0
-               
-                if double_checkinglen and (detections) >= 2*pair_n:
-                    try:
-                        detections = _doubleChecking(station_list, detections, preprocessed_dir, moving_window, thr_on, thr_of)
-                    except Exception:
-                        pass
                       
                 if len(detections)/pair_n <= 2:
                     ch = pair_n
