@@ -7,6 +7,7 @@ import warnings
 from EQTransformer.core.trainer import trainer 
 from EQTransformer.core.tester import tester
 from EQTransformer.core.predictor import predictor
+from EQTransformer.core.mseed_predictor import mseed_predictor
 from EQTransformer.core.EqT_utils import *
 from EQTransformer.utils.associator import run_associator
 from EQTransformer.utils.downloader import downloadMseeds, makeStationList, downloadSacs

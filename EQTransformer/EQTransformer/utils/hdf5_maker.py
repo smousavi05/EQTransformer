@@ -5,7 +5,7 @@ Created on Sat Aug 31 21:21:31 2019
 
 @author: mostafamousavi
 
-last update: 05-07-2020 
+last update: 06-21-2020 
 
 - downsampling using the interpolation function can cause false segmentaiton error. 
     This depend on your data and its sampling rate. If you kept getting this error when 
@@ -53,7 +53,11 @@ def preprocessor(mseed_dir, stations_json, overlap=0.3, n_processor=None):
         A table containing trace names.
     ./mseed_dir_processed_hdfs/station.hdf5
         Containes all slices and preprocessed traces.        
-                
+    ./X_preprocessor_report.txt
+        A summary of processing performance.
+    ./time_tracks.pkl
+        Contain the time track of the continous data and its type.
+        
     """  
     
     if not n_processor:
@@ -168,14 +172,22 @@ def preprocessor(mseed_dir, stations_json, overlap=0.3, n_processor=None):
                 slide_estimates.append((end_time - start_time)//tim_shift)                
                 fl_counts += 1 
                 
+                chanL = [st1[0].stats.channel[-1], st1[1].stats.channel[-1], st1[2].stats.channel[-1]]
                 next_slice = start_time+60               
                 while next_slice <= end_time:
                     w = st1.slice(start_time, next_slice) 
                     npz_data = np.zeros([6000,3])
-                    npz_data[:,0] = w[0].data[:6000]
-                    npz_data[:,1] = w[1].data[:6000]
-                    npz_data[:,2] = w[2].data[:6000]                    
-                    
+                                        
+                    npz_data[:,2] = w[chanL.index('Z')].data[:6000]
+                    try: 
+                        npz_data[:,0] = w[chanL.index('E')].data[:6000]
+                    except Exception:
+                        npz_data[:,0] = w[chanL.index('1')].data[:6000]
+                    try: 
+                        npz_data[:,1] = w[chanL.index('N')].data[:6000]
+                    except Exception:
+                        npz_data[:,1] = w[chanL.index('2')].data[:6000]                        
+                                     
                     tr_name = st1[0].stats.station+'_'+st1[0].stats.network+'_'+st1[0].stats.channel[:2]+'_'+str(start_time)
                     HDF = h5py.File(os.path.join(save_dir,output_name+'.hdf5'), 'r')
                     dsF = HDF.create_dataset('data/'+tr_name, npz_data.shape, data = npz_data, dtype= np.float32)        
@@ -358,7 +370,9 @@ def preprocessor(mseed_dir, stations_json, overlap=0.3, n_processor=None):
                     fln += 1            
             
                     start_time = start_time+tim_shift
-                    next_slice = next_slice+tim_shift                
+                    next_slice = next_slice+tim_shift 
+                    
+            st1, st2, st3 = None, None, None
                 
         HDF.close() 
         

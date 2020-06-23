@@ -4,7 +4,7 @@
 Created on Wed Apr 25 17:44:14 2018
 
 @author: mostafamousavi
-last update: 06/06/2020
+last update: 06/21/2020
 
 """
 
@@ -195,10 +195,7 @@ def predictor(input_dir=None,
     parser.add_argument("--spLimit", default=spLimit)  
 
     args = parser.parse_args() 
-    
-
-
-    
+        
     availble_cpus = multiprocessing.cpu_count()
     if args.number_of_cpus > availble_cpus:
         args.number_of_cpus = availble_cpus
@@ -262,7 +259,6 @@ def predictor(input_dir=None,
     for ct, st in enumerate(station_list):
         args.input_hdf5 = args.input_dir+'/'+st+'.hdf5'
         args.input_csv = args.input_dir+'/'+st+'.csv'
-
     
         save_dir = os.path.join(out_dir, str(st)+'_outputs')
         out_probs = os.path.join(save_dir, 'prediction_probabilities.hdf5')
@@ -458,7 +454,7 @@ def _gen_predictor(new_list, args, model):
 def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, spLimit):
     
     """ 
-    Applies the detection and picking on the output predicted probabilities and if it founds any write them out in the csv file,
+    Applies the detection and picking on the output predicted probabilities and if it founds any, write them out in the csv file,
     makes the plots, and save the probabilities and uncertainties.
 
     Parameters
@@ -536,7 +532,7 @@ def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, sa
                                               matches)
                         plt_n += 1 ; det_buffer = len(detection_memory)
         else:
-            if (len(matches) >= 1) and (matches[list(matches)[0]][3] or matches[list(matches)[0]][6]):
+            if (len(matches) >= 1) and ((matches[list(matches)[0]][3] or matches[list(matches)[0]][6])):
                 snr = [_get_snr(dat, matches[list(matches)[0]][3], window = 100), _get_snr(dat, matches[list(matches)[0]][6], window = 100)] 
                 detection_memory=_output_writter_prediction(dataset, predict_writer, csvPr_gen, matches, snr, detection_memory)
                 if plt_n < args.number_of_plots and len(detection_memory) > det_buffer:
@@ -648,8 +644,7 @@ def _output_writter_prediction(dataset, predict_writer, csvPr, matches, snr, det
             if s_prob:
                 s_prob = round(s_prob, 2)
                 
-            if p_time and s_prob and s_time and s_prob:
-                predict_writer.writerow([trace_name, 
+            predict_writer.writerow([trace_name, 
                                          network_name,
                                          station_name, 
                                          instrument_type,
@@ -670,11 +665,8 @@ def _output_writter_prediction(dataset, predict_writer, csvPr, matches, snr, det
                                          snr[1]
                                          ]) 
             
-                csvPr.flush()
-                
-                detection_memory.append(ev_strt)
-                
-                
+            csvPr.flush()
+            detection_memory.append(ev_strt)
             
     return detection_memory
             
