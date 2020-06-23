@@ -107,9 +107,11 @@ This is another example for a longer priod and a larger network in west Texas:
 
 #### 3) Performing the detection&picking:
 
-Now you can perform the detection/picking using the following:
+##### Option (I) from hdf5 files:
+
+This option is recommended for smaller time periods (a few days to a month). This allows you to test the perfomance and explore the effects of different parameters while the provided hdf5 file makes it easy to access the waveforms.
 All you need is to pass the name of the directory containing your hdf5 & CSV files and a model. 
-You can use very low threshold values for the detection and picking since EQTransformer is very robust to false positives. Enaibeling uncertaintiy estimation, outpur probabilities, or plotting all the predictions will slow down the process. 
+You can use relatively low threshold values for the detection and picking since EQTransformer is very robust to false positives. Enaibeling uncertaintiy estimation, outputing probabilities, or plotting all the detected events will slow down the process. 
 
     from EQTransformer.core.predictor import predictor
     predictor(input_dir= 'downloads_mseeds_processed_hdfs',   
@@ -129,6 +131,30 @@ You can use very low threshold values for the detection and picking since EQTran
              keepPS=False,
              spLimit=60) 
 
+
+##### Option (II) directky from mseed files:
+
+This option is faster and does not require the preprocessing step.
+YOu just need to give the address to the folder containing your downloaded MiniSeed files. 
+This is much faster but is more memory intensive. So it is recommended when each of your mseed files is smaller than 1 month.
+This also does not allwo the uncertainty estimation or writting the output probabilities anymore. 
+
+        from EQTransformer.core.mseed_predictor import mseed_predictor
+        mseed_predictor(input_dir= 'downloads_mseeds',   
+                 input_model='sampleData&Model/EqT1D8pre_048.h5',
+                 stations_json='station_list.json',
+                 output_dir='detections',
+                 loss_weights=[0.02, 0.40, 0.58],          
+                 detection_threshold=0.50,                
+                 P_threshold=0.2,
+                 S_threshold=0.2, 
+                 number_of_plots=100,
+                 plot_mode = 'time_frequency',
+                 normalization_mode='std',
+                 overlap = 0.3,
+                 gpuid=None,
+                 gpu_limit=None) 
+                 
 Note: each time you run the detection it is better to refresh the terminal or your console. Sometime Tensorflow takes too long to reload the model. But if you empty the memory from old variable or open a new terminal this will be solved. 
 
 #### 4) Visualizing the Results:
@@ -178,31 +204,10 @@ And this command will generate detection histograms for each station in your det
 
 ![](./figs/Fig_7.png)
 
-
-##### 5) Performing a fast detection&picking directky in mseed files:
-You can perform the detection/picking directly on MiniSeed files. 
-This is much faster but is more memory intensive. So it is recommended when each of your mseed fils are smaller than 1 month.
-This does not allwo the uncertainty estimation anymore or writting the output probabilities. 
-
-        from EQTransformer.core.mseed_predictor import mseed_predictor
-        mseed_predictor(input_dir= 'downloads_mseeds',   
-                 input_model='sampleData&Model/EqT1D8pre_048.h5',
-                 stations_json='station_list.json',
-                 output_dir='detections',
-                 loss_weights=[0.02, 0.40, 0.58],          
-                 detection_threshold=0.50,                
-                 P_threshold=0.2,
-                 S_threshold=0.2, 
-                 number_of_plots=100,
-                 plot_mode = 'time_frequency',
-                 normalization_mode='std',
-                 overlap = 0.3,
-                 gpuid=None,
-                 gpu_limit=None) 
       
       
       
-#### 6) Phase Association:
+#### 5) Phase Association:
 
 After detection, the following performs a simple and fast association and writes down the results in Hypoinverse format (Y2000.phs) which can directly be used to locate the detected earthquakes.
 This is appropriate for a small number of stations located relatively close to each other.
