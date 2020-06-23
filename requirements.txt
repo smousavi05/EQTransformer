@@ -1,0 +1,11 @@
+tensorflow==2.0.1
+keras
+matplotlib
+scipy
+pandas
+tqdm
+Obspy
+H5py
+cudatoolkit=9.0 
+pytest
+
