@@ -82,37 +82,25 @@ This may take a few minutes.
     
 Continuous data for each station should have been downloaded in your output directory (i.e. downloads_mseeds).
 
-#### Note "if you already have your mseed files you can skip the previous steps and start from here"
+#### Note "if you already have your mseed files you can skip the step (1) and start from here"
 
-#### 2) Data pre-processing:
 
-To pre-process the continuous data and convert your mseed files into hdf5 file (the input of EQTransformer)
+
+#### 2) Performing the detection&picking:
+
+##### Option (I) from hdf5 files:
+This option is recommended for smaller time periods (a few days to a month). This allows you to test the perfomance and explore the effects of different parameters while the provided hdf5 file makes it easy to access the waveforms.
+
+For this option you first need to convert your MiniSeed files for each station into a single hdf5 file and generated a csv file containting the list of traces in the hdf5 file. You can do this using the following command:
 
     from EQTransformer.utils.hdf5_maker import preprocessor
     preprocessor(mseed_dir='downloads_mseeds', 
                  stations_json='station_list.json', 
                  overlap=0.3,
                  n_processor=2)
-
-After it finished you can see its report in "X_preprocessor_report.txt"
-It will also generate one "station_name.hdf5" and one "station_name.csv" file for each of your stations and put them into a directory named "mseed_dir+_hdfs". The above script generates one pickle file ("time_tracks.pkl") that you can use it to visualize the continuity and type of your data using the following module:
-
-    from EQTransformer.utils.plot import plot_data_chart
-    plot_data_chart('time_tracks.pkl', time_interval=10)
-
-![](./figs/Fig_1.png)
-
-This is another example for a longer priod and a larger network in west Texas:
-
-![](./figs/Xdata_chart.png)
-
-
-#### 3) Performing the detection&picking:
-
-##### Option (I) from hdf5 files:
-
-This option is recommended for smaller time periods (a few days to a month). This allows you to test the perfomance and explore the effects of different parameters while the provided hdf5 file makes it easy to access the waveforms.
-All you need is to pass the name of the directory containing your hdf5 & CSV files and a model. 
+                 
+This will generate one "station_name.hdf5" and one "station_name.csv" file for each of your stations and put them into a directory named "mseed_dir+_hdfs". 
+Then you need is to pass the name of the directory containing your hdf5 & CSV files and a model. 
 You can use relatively low threshold values for the detection and picking since EQTransformer is very robust to false positives. Enaibeling uncertaintiy estimation, outputing probabilities, or plotting all the detected events will slow down the process. 
 
     from EQTransformer.core.predictor import predictor
@@ -156,8 +144,20 @@ This also does not allwo the uncertainty estimation or writting the output proba
                  overlap = 0.3,
                  gpuid=None,
                  gpu_limit=None) 
-                 
+
 Note: each time you run the detection it is better to refresh the terminal or your console. Sometime Tensorflow takes too long to reload the model. But if you empty the memory from old variable or open a new terminal this will be solved. 
+
+Either the "preprocessor" or "mseed_preditor" at the end will generate one pickle file ("time_tracks.pkl") that you can use it to visualize the continuity and type of your data using the following module:
+
+    from EQTransformer.utils.plot import plot_data_chart
+    plot_data_chart('time_tracks.pkl', time_interval=10)
+
+![](./figs/Fig_1.png)
+
+This is another example for a longer priod and a larger network in west Texas:
+
+![](./figs/Xdata_chart.png)
+                 
 
 #### 4) Visualizing the Results:
 
