@@ -159,7 +159,7 @@ This is another example for a longer priod and a larger network in west Texas:
 ![](./figs/Xdata_chart.png)
                  
 
-#### 4) Visualizing the Results:
+#### 3) Visualizing the Results:
 
 Prediction outputs for each station will be written in your output directory (i.e. 'detections'). 
 'X_report.txt' contains processing info on input parameters used for the detection/picking and final results such as running time, the total number of detected events (these are unique events and duplicated ones have been already removed).
@@ -209,7 +209,7 @@ And this command will generate detection histograms for each station in your det
       
       
       
-#### 5) Phase Association:
+#### 4) Phase Association:
 
 After detection, the following performs a simple and fast association and writes down the results in Hypoinverse format (Y2000.phs) which can directly be used to locate the detected earthquakes.
 This is appropriate for a small number of stations located relatively close to each other.
@@ -236,7 +236,7 @@ This can be used later to access the traces for calculating the cross-correlatio
 This also outputs a file ('traceName_dic.json') which provides the list of trace names (the name of 1 min slices in the hdf5 files that were used as the input of the dector) for each associated event. This is useful for accessing to the raw waveforms of each event either for quality control, or for cross-correlation calculation, or magnitude estimation. 
 
 
-#### 7) Building a new model:
+#### 5) Building a new model:
 You can also train the neural network on your data and build and test your own model using the following modules.
 Your data should be in the same format as our sample data.  
 
