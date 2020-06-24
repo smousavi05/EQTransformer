@@ -5,7 +5,7 @@ Created on Sun Jun 21 21:55:54 2020
 
 @author: mostafamousavi
 
-last update: 06/21/2020
+last update: 06/24/2020
 
 """
 
@@ -264,8 +264,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
         for _, month in enumerate(uni_list):
             print(month)
             matching = [s for s in file_list if month in s]
-            npz_data, meta, time_slots, comp_types = _mseed2nparry(args, matching, time_slots, comp_types)
-            meta["trace_name"] = uni_list[0]
+            npz_data, meta, time_slots, comp_types = _mseed2nparry(args, matching, time_slots, comp_types, st)
             st_time = obspy.core.utcdatetime.UTCDateTime(str(meta['start_time']))
             meta["trace_start_time"] = [str(st_time+(i*60)).replace('T', ' ').replace('Z', '') for i in range(len(npz_data)//6000)]         
             ss = np.vsplit(npz_data, len(npz_data)//6000)
@@ -304,46 +303,46 @@ def mseed_predictor(input_dir='downloads_mseeds',
                         if plt_n < args.number_of_plots and post_write > pre_write:
                             _plotter_prediction(ss[ix, :, :], args, save_figs,predD[ix][:, 0], predP[ix][:, 0], predS[ix][:, 0], meta["trace_start_time"][ix], matches)
                             plt_n += 1   
-                            
-                 
-            end_Predicting = time.time() 
-            delta = (end_Predicting - start_Predicting) 
-            hour = int(delta / 3600)
-            delta -= hour * 3600
-            minute = int(delta / 60)
-            delta -= minute * 60
-            seconds = delta     
+                                          
+        end_Predicting = time.time() 
+        data_track[st]=[time_slots, comp_types] 
+        delta = (end_Predicting - start_Predicting) 
+        hour = int(delta / 3600)
+        delta -= hour * 3600
+        minute = int(delta / 60)
+        delta -= minute * 60
+        seconds = delta     
                         
-            dd = pd.read_csv(os.path.join(save_dir,'X_prediction_results.csv'))
-            print(f'\n', flush=True)
-            print(' *** Finished the prediction in: {} hours and {} minutes and {} seconds.'.format(hour, minute, round(seconds, 2)), flush=True)         
-            print(' *** Detected: '+str(len(dd))+' events.', flush=True)
-            print(' *** Wrote the results into --> " ' + str(save_dir)+' "', flush=True)
+        dd = pd.read_csv(os.path.join(save_dir,'X_prediction_results.csv'))
+        print(f'\n', flush=True)
+        print(' *** Finished the prediction in: {} hours and {} minutes and {} seconds.'.format(hour, minute, round(seconds, 2)), flush=True)         
+        print(' *** Detected: '+str(len(dd))+' events.', flush=True)
+        print(' *** Wrote the results into --> " ' + str(save_dir)+' "', flush=True)
         
-            with open(os.path.join(save_dir,'X_report.txt'), 'a') as the_file: 
-                the_file.write('================== PREDICTION FROM MSEED ===================='+'\n')               
-                the_file.write('================== Overal Info =============================='+'\n')               
-                the_file.write('date of report: '+str(datetime.now())+'\n')         
-                the_file.write('input_model: '+str(args.input_model)+'\n')
-                the_file.write('input_dir: '+str(args.input_dir)+'\n')  
-                the_file.write('output_dir: '+str(save_dir)+'\n')  
-                the_file.write('================== Prediction Parameters ====================='+'\n')  
-                the_file.write('finished the prediction in:  {} hours and {} minutes and {} seconds \n'.format(hour, minute, round(seconds, 2))) 
-                the_file.write('detected: '+str(len(dd))+' events.'+'\n')                                       
-                the_file.write('loss_types: '+str(args.loss_types)+'\n')
-                the_file.write('loss_weights: '+str(args.loss_weights)+'\n')
-                the_file.write('================== Other Parameters =========================='+'\n')            
-                the_file.write('normalization_mode: '+str(args.normalization_mode)+'\n')
-                the_file.write('overlap: '+str(args.overlap)+'\n')                  
-                the_file.write('detection_threshold: '+str(args.detection_threshold)+'\n')            
-                the_file.write('P_threshold: '+str(args.P_threshold)+'\n')
-                the_file.write('S_threshold: '+str(args.S_threshold)+'\n')
-                the_file.write('number_of_plots: '+str(args.number_of_plots)+'\n')                        
-                the_file.write('gpuid: '+str(args.gpuid)+'\n')
-                the_file.write('gpu_limit: '+str(args.gpu_limit)+'\n')    
+        with open(os.path.join(save_dir,'X_report.txt'), 'a') as the_file: 
+            the_file.write('================== PREDICTION FROM MSEED ===================='+'\n')               
+            the_file.write('================== Overal Info =============================='+'\n')               
+            the_file.write('date of report: '+str(datetime.now())+'\n')         
+            the_file.write('input_model: '+str(args.input_model)+'\n')
+            the_file.write('input_dir: '+str(args.input_dir)+'\n')  
+            the_file.write('output_dir: '+str(save_dir)+'\n')  
+            the_file.write('================== Prediction Parameters ====================='+'\n')  
+            the_file.write('finished the prediction in:  {} hours and {} minutes and {} seconds \n'.format(hour, minute, round(seconds, 2))) 
+            the_file.write('detected: '+str(len(dd))+' events.'+'\n')                                       
+            the_file.write('loss_types: '+str(args.loss_types)+'\n')
+            the_file.write('loss_weights: '+str(args.loss_weights)+'\n')
+            the_file.write('================== Other Parameters =========================='+'\n')            
+            the_file.write('normalization_mode: '+str(args.normalization_mode)+'\n')
+            the_file.write('overlap: '+str(args.overlap)+'\n')                  
+            the_file.write('detection_threshold: '+str(args.detection_threshold)+'\n')            
+            the_file.write('P_threshold: '+str(args.P_threshold)+'\n')
+            the_file.write('S_threshold: '+str(args.S_threshold)+'\n')
+            the_file.write('number_of_plots: '+str(args.number_of_plots)+'\n')                        
+            the_file.write('gpuid: '+str(args.gpuid)+'\n')
+            the_file.write('gpu_limit: '+str(args.gpu_limit)+'\n')    
 
 
-        data_track[st]=[time_slots, comp_types]
+        
 
     with open('time_tracks.pkl', 'wb') as f:
         pickle.dump(data_track, f, pickle.HIGHEST_PROTOCOL)
@@ -351,7 +350,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
        
         
         
-def _mseed2nparry(args, matching, time_slots, comp_types):
+def _mseed2nparry(args, matching, time_slots, comp_types, st_name):
     
     json_file = open(args.stations_json)
     stations_ = json.load(json_file)
@@ -398,17 +397,29 @@ def _mseed2nparry(args, matching, time_slots, comp_types):
         except Exception:
             npz_data[:len(st[0].data)-1,1] = st[chanL.index('2')].data[:-1]
                 
-    start_time = st[0].stats.starttime                          
+    start_time = st[0].stats.starttime 
+                         
 
     meta = {"start_time":start_time,
             "trace_start_time":None,
-            "receiver_code":st[0].stats.station,
-            "network_code":stations_[st[0].stats.station]['network'],
-            "receiver_latitude":stations_[st[0].stats.station]['coords'][0],
-            "receiver_longitude":stations_[st[0].stats.station]['coords'][1],
-            "receiver_elevation_m":stations_[st[0].stats.station]['coords'][2],
-            "instrument_type":st[0].stats.channel[:2]
-             }  
+            "trace_name":m
+             } 
+    try:
+        meta["receiver_code"]=st[0].stats.station
+        meta["instrument_type"]=st[0].stats.channel[:2]
+        meta["network_code"]=stations_[st[0].stats.station]['network']
+        meta["receiver_latitude"]=stations_[st[0].stats.station]['coords'][0]
+        meta["receiver_longitude"]=stations_[st[0].stats.station]['coords'][1]
+        meta["receiver_elevation_m"]=stations_[st[0].stats.station]['coords'][2]  
+    except Exception:
+        meta["receiver_code"]=st_name
+        meta["instrument_type"]=stations_[st_name]['channels'][0][:2]
+        meta["network_code"]=stations_[st_name]['network']
+        meta["receiver_latitude"]=stations_[st_name]['coords'][0]
+        meta["receiver_longitude"]=stations_[st_name]['coords'][1]
+        meta["receiver_elevation_m"]=stations_[st_name]['coords'][2] 
+
+
         
     return npz_data, meta, time_slots, comp_types
           
@@ -1075,7 +1086,7 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
             
         plt.xlim(0, 6000)
         fig.tight_layout()
-        fig.savefig(os.path.join(save_figs, str(evi)+'.png'), dpi=200) 
+        fig.savefig(os.path.join(save_figs, str(evi)+'.png')) 
         plt.close(fig)
         plt.clf()
     
