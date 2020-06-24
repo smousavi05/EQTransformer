@@ -403,7 +403,7 @@ def _dbs_associator(start_time, end_time, moving_window,
                         station_buffer=[]; row_buffer=[]; tr_names=[]; tr_names2=[]
                         for _, row in sorted_detections.iterrows():
                             
-                            trace_name = row['traceID']
+                            trace_name = row['traceID']+'*'+row['station']+'*'+str(row['event_start_time'])
                             p_unc = row['p_unc']
                             p_prob = row['p_prob']
                             s_unc = row['s_unc']
@@ -540,7 +540,7 @@ def _dbs_associator(start_time, end_time, moving_window,
                 tr_names = []
                 tr_names2 = []
                 for _, row in sorted_detections.iterrows():
-                    trace_name = row['traceID']
+                    trace_name = row['traceID']+'*'+row['station']+'*'+str(row['event_start_time'])
                     p_unc = row['p_unc']
                     p_prob = row['p_prob']
                     s_unc = row['s_unc']
