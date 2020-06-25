@@ -2,7 +2,7 @@
 
 [![Downloads](https://pepy.tech/badge/eqtransformer)](https://pepy.tech/project/eqtransformer)
 ![GitHub](https://img.shields.io/github/license/smousavi05/EQTransformer?style=plastic)
-
+![PyPI](https://img.shields.io/pypi/v/EQTransformer)
 
 #### Last update: 06/24/2020
 version 1.15 was uploaded 
