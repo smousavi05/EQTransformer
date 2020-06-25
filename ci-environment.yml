@@ -1,0 +1,19 @@
+name: EQTransformer
+channels:
+  - tensorflow
+  - defaults
+  - conda-forge
+dependencies:
+  - tensorflow
+  - keras
+  - cudatoolkit=9.0
+  - pytest
+  - H5py
+  - tqdm
+  - pandas
+  - scipy
+  - sphinx
+  - sphinx_rtd_theme
+  - nbsphinx
+  - jupyter
+  - obspy
