@@ -4,7 +4,7 @@ matplotlib
 scipy
 pandas
 tqdm
-Obspy
+pip install obspy-0.x.x.zip
 H5py
 pytest
 
