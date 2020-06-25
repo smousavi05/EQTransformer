@@ -1,7 +1,8 @@
 # Earthquake Transformer (EQTransformer or EqT)   
 
 [![Downloads](https://pepy.tech/badge/eqtransformer)](https://pepy.tech/project/eqtransformer)
-/github/license/:user/:repo
+
+![GitHub](https://img.shields.io/github/license/smousavi05/EQTransformer)
 
 
 #### Last update: 06/24/2020
