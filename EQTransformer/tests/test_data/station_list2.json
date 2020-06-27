@@ -1,0 +1,8 @@
+{
+  "ARPT": {
+    "network": "NM",
+    "channels": ["EHE", "EHN", "EHZ"],
+    "coords": [35.756001, -89.672997, 122]
+  }
+
+}
