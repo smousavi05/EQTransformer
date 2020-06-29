@@ -1,9 +1,0 @@
-tensorflow==2.0.1
-keras
-matplotlib
-scipy
-pandas
-tqdm
-H5py
-pytest
-
