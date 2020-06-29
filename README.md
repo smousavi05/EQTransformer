@@ -1,4 +1,2 @@
 
-===============
-EQTransformer
-===============
+# EQTransformer
