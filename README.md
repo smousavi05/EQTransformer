@@ -60,7 +60,7 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
     conda config --add channels conda-forge
 
-    conda install eqtransformer 
+    conda install -c smousavi05 eqtransformer 
   
 
 #### Via Pypi:
