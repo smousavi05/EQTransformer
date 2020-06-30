@@ -29,7 +29,7 @@ This repository is related to the WhiteboxTools Python Frontend only. You can re
 * PyPI: https://pypi.org/project/EQTransformer/
 * Anaconda: https://anaconda.org/smousavi05/eqtransformer
 * Documentation:https://eqtransformer.readthedocs.io
-* Free software: `MIT license`_
+
 
 Description
 -----------
