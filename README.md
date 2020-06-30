@@ -20,6 +20,13 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/smousavi05?style=social)
 
 
+## Description
+-----------
+
+**EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously. In addition to the prediction probabilities, it also provides estimated model uncertainties.   
+ 
+The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
+
 ## Links
 --------------
 
@@ -28,14 +35,6 @@
 * GitHub repo: https://github.com/smousavi05/EQTransformer
 * PyPI: https://pypi.org/project/EQTransformer/
 * Anaconda: https://anaconda.org/smousavi05/eqtransformer
-
-
-## Description
------------
-
-**EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously. In addition to the prediction probabilities, it also provides estimated model uncertainties.   
- 
-The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
 
 
 ## Reference
