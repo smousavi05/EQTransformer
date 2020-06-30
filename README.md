@@ -18,6 +18,7 @@
 
 ## Links
 --------------
+
 * Authors: S. Mostafa Mousavi
 * GitHub repo: https://github.com/smousavi05/EQTransformer
 * PyPI: https://pypi.org/project/EQTransformer/
@@ -27,6 +28,7 @@
 
 ## Description
 -----------
+
 **EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously. In addition to the prediction probabilities, it also provides estimated model uncertainties.   
  
 The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
@@ -34,17 +36,18 @@ The ``EQTransformer`` python 3 package includes modules for downloading continuo
 
 ## Reference
 -----------
+
 To cite **EQTransformer**, use the following reference To cite EQTransformer, use the following reference:
 
 * Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L.Y., Beroza, G.C., "Earthquake Transformer: An Attentive Deep-learning Model for Simultaneous Earthquake Detection and Phase Picking ". Nature Communications, (2020).
 
 
 ## Installation
-------------
+-----------------
+
 **EQTransformer** supports a variety of platforms, including Microsoft Windows, macOS, and Linux operating systems. Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
 
 #### Via Anaconda (recommended):
-
 
 .. code:: python
 
@@ -76,7 +79,6 @@ You can either clone the public repository:
 
     git clone git://github.com/smousavi05/EQTransformer
 
-
 Once you have a copy of the source, you can cd to EQTransformer directory and install it with:
 
 .. code:: python
@@ -93,6 +95,7 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
 ## Tutorials
 -------------
+
 See either:
 
 https://eqtransformer.readthedocs.io
@@ -149,6 +152,7 @@ The **EQTransformer** package is distributed under the `MIT license`_, a permiss
 
 ## Reporting Bugs
 --------------
+
 Report bugs at https://github.com/smousavi05/EQTransformer/issues.
 
 If you are reporting a bug, please include:
