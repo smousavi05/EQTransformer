@@ -16,6 +16,9 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/smousavi05?style=social)
 
 
+![event](docs/source/figures/logo.png)
+
+
 ## Links
 --------------
 
