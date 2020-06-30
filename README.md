@@ -58,14 +58,12 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
     Conda activate eqt
 
-    conda config --add channels conda-forge
-
     conda install -c smousavi05 eqtransformer 
   
 
-#### Via Pypi:
+#### Via PyPI:
 
-If you already have `Obspy` installed on your machine, you can get EQTransformer through Pypi:
+If you already have `Obspy` installed on your machine, you can get EQTransformer through PyPI:
 
 .. code:: python
 
@@ -118,14 +116,14 @@ Tool names in the **EQTransformer** Python package can be called using the Camel
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
     mseed_predictor(input_dir= 'downloads_mseeds',   
-             input_model='sampleData&Model/EqT1D8pre_048.h5',
+             input_model='ModelsAndSampleData/EqT1D8pre_048.h5',
              stations_json='station_list.json',
              output_dir='detections2',
              loss_weights=[0.02, 0.40, 0.58],          
              detection_threshold=0.3,                
              P_threshold=0.1,
              S_threshold=0.1, 
-             number_of_plots=100,
+             number_of_plots=10,
              plot_mode = 'time_frequency',
              normalization_mode='std',
              batch_size=500,
