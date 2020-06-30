@@ -18,9 +18,6 @@
 
 Important Note
 --------------
-.. image:: https://i.imgur.com/Ic8BA7C.png
-
-This repository is related to the WhiteboxTools Python Frontend only. You can report issues to this repo if you have problems installing this Python package. If you encounter any tool functioning specific errors, please `open an issue`_ on Dr. John Lindsay's WhiteboxTools_ repo.  
 
 **Links**
 
