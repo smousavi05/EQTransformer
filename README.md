@@ -16,11 +16,8 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/smousavi05?style=social)
 
 
-Important Note
+## Links
 --------------
-
-**Links**
-
 * Authors: S. Mostafa Mousavi
 * GitHub repo: https://github.com/smousavi05/EQTransformer
 * PyPI: https://pypi.org/project/EQTransformer/
@@ -28,21 +25,21 @@ Important Note
 * Documentation:https://eqtransformer.readthedocs.io
 
 
-Description
+## Description
 -----------
 **EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously. In addition to the prediction probabilities, it also provides estimated model uncertainties.   
  
 The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
 
 
-Reference
+## Reference
 -----------
 To cite **EQTransformer**, use the following reference To cite EQTransformer, use the following reference:
 
 * Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L.Y., Beroza, G.C., "Earthquake Transformer: An Attentive Deep-learning Model for Simultaneous Earthquake Detection and Phase Picking ". Nature Communications, (2020).
 
 
-Installation
+## Installation
 ------------
 **EQTransformer** supports a variety of platforms, including Microsoft Windows, macOS, and Linux operating systems. Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
 
@@ -62,7 +59,7 @@ Installation
 
 #### Via Pypi:
 
-If you already have `Obspy <https://github.com/obspy/obspy/wiki/>`_ installed on your machine, you can get EQTransformer through Pypi:
+If you already have `Obspy` installed on your machine, you can get EQTransformer through Pypi:
 
 .. code:: python
 
@@ -71,7 +68,7 @@ If you already have `Obspy <https://github.com/obspy/obspy/wiki/>`_ installed on
 
 #### From source:
 
-The sources for EQTransformer can be downloaded from the `Github repo`_.
+The sources for EQTransformer can be downloaded from the `Github repo`.
 
 You can either clone the public repository:
 
@@ -87,19 +84,16 @@ Once you have a copy of the source, you can cd to EQTransformer directory and in
     python setup.py install
 
 
-.. _Github repo: https://github.com/smousavi05/EQTransformer
-
-
-
 If you have installed **EQTransformer** Python package before and want to upgrade to the latest version, you can use the following command:
 
 .. code:: python
 
-  pip install EQTransformer -U
+    pip install EQTransformer -U
 
 
-Tutorials
----------
+## Tutorials
+-------------
+See either:
 
 https://eqtransformer.readthedocs.io
 
@@ -108,8 +102,8 @@ or
 https://github.com/smousavi05/EQTransformer/tree/master/examples
 
 
-Quick Example
-=============
+## A Quick Example
+-----------------
 
 Tool names in the **EQTransformer** Python package can be called using the CamelCase convention (e.g. *LidarInfo*).
 
@@ -135,7 +129,7 @@ Tool names in the **EQTransformer** Python package can be called using the Camel
 
 
 
-Contributing
+## Contributing
 ------------
 
 If you would like to contribute to the project as a developer, follow these instructions to get started:
@@ -147,13 +141,13 @@ If you would like to contribute to the project as a developer, follow these inst
 5. Create a new Pull Request
 
 
-License
+## License
 -------
 
 The **EQTransformer** package is distributed under the `MIT license`_, a permissive open-source (free software) license.
 
 
-Reporting Bugs
+## Reporting Bugs
 --------------
 Report bugs at https://github.com/smousavi05/EQTransformer/issues.
 
