@@ -1,5 +1,8 @@
 
-# EQTransformer
+# EQTransformer (Earthquake Transformer): An AI-Based Earthquake Signal Detector and Phase Picker
+
+![event](docs/source/figures/logo.png)
+
 
 ![PyPI](https://img.shields.io/pypi/v/EQTransformer?style=plastic)
 ![Conda](https://img.shields.io/conda/v/smousavi05/eqtransformer?style=plastic)
@@ -14,9 +17,6 @@
 ![GitHub followers](https://img.shields.io/github/followers/smousavi05?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/smousavi05?style=social)
-
-
-![event](docs/source/figures/logo.png)
 
 
 ## Links
