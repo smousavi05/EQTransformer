@@ -116,7 +116,7 @@ Tool names in the **EQTransformer** Python package can be called using the Camel
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
     mseed_predictor(input_dir= 'downloads_mseeds',   
-             input_model='ModelsAndSampleData/EqT1D8pre_048.h5',
+             input_model='ModelsAndSampleData/EqT_model.h5',
              stations_json='station_list.json',
              output_dir='detections2',
              loss_weights=[0.02, 0.40, 0.58],          
