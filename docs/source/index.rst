@@ -34,7 +34,6 @@ Contents
     overview.rst
     installation.rst
     tutorial.rst
-    documentation.rst
     copyrightlicense.rst
     developers.rst
     references.rst
