@@ -83,7 +83,7 @@ This will generate one ``station_name.hdf5`` and one ``station_name.csv`` file f
 
     from EQTransformer.core.predictor import predictor
     
-    predictor(input_dir= 'downloads_mseeds_processed_hdfs', input_model='./ModelsAndSampleData/EqT1D8pre_034.h5', output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time')
+    predictor(input_dir= 'downloads_mseeds_processed_hdfs', input_model='EqT_model.h5', output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time')
 
 You can use relatively low threshold values for the detection and picking since **EQTransformer** is robust to false positives. Note that enabling uncertainty estimation, outputting probabilities, or plotting all the detected events will slow down the process.
 
@@ -111,7 +111,7 @@ This option also does not allow you to estimate the uncertainties, save the pred
 
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
-    mseed_predictor(input_dir= 'downloads_mseeds', input_model='ModelsAndSampleData/EqT1D8pre_048.h5', stations_json='station_list.json', output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time_frequency', overlap=0.3, batch_size=500) 
+    mseed_predictor(input_dir= 'downloads_mseeds', input_model='EqT_model.h5', stations_json='station_list.json', output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time_frequency', overlap=0.3, batch_size=500) 
 
 As you can see from the above example, you can choose between two different modes for your plots. The selected time_frequency mode will output following plots that can be useful to identify non-earthquake signals from earthquake ones based on their frequency contents:
 
@@ -234,7 +234,7 @@ You can also generate your own **EQTransformer** network (e.g. with different en
 
     	from EQTransformer.core.trainer import trainer
 
-	trainer(input_hdf5='ModelsAndSampleData/waveforms.hdf5', input_csv='ModelsAndSampleData/metadata.csv', output_name='test_trainer', cnn_blocks=2, lstm_blocks=1, padding='same', activation='relu', drop_rate=0.2, label_type='gaussian', add_event_r=0.6, add_gap_r=0.2, shift_event_r=0.9, add_noise_r=0.5, mode='generator', train_valid_test_split=[0.60, 0.20, 0.20], batch_size=20, epochs=10, patience=2, gpuid=None, gpu_limit=None) 
+	trainer(input_hdf5='waveforms.hdf5', input_csv='metadata.csv', output_name='test_trainer', cnn_blocks=2, lstm_blocks=1, padding='same', activation='relu', drop_rate=0.2, label_type='gaussian', add_event_r=0.6, add_gap_r=0.2, shift_event_r=0.9, add_noise_r=0.5, mode='generator', train_valid_test_split=[0.60, 0.20, 0.20], batch_size=20, epochs=10, patience=2, gpuid=None, gpu_limit=None) 
 	
 After you built your model you can also test it using your ground truth data:
 
@@ -242,7 +242,7 @@ After you built your model you can also test it using your ground truth data:
 
 	from EQTransformer.core.tester import tester
 
-	tester(input_hdf5='ModelsAndSampleData/waveforms.hdf5', input_testset='test_trainer_outputs/test.npy', input_model='test_trainer_outputs/models/test_trainer_001.h5', output_name='test_tester', detection_threshold=0.20, P_threshold=0.1, S_threshold=0.1, number_of_plots=3, estimate_uncertainty=True, number_of_sampling=2, input_dimention=(6000, 3), normalization_mode='std', mode='generator', batch_size=10, gpuid=None, gpu_limit=None)      
+	tester(input_hdf5='waveforms.hdf5', input_testset='test.npy', input_model='test_trainer_001.h5', output_name='test_tester', detection_threshold=0.20, P_threshold=0.1, S_threshold=0.1, number_of_plots=3, estimate_uncertainty=True, number_of_sampling=2, input_dimention=(6000, 3), normalization_mode='std', mode='generator', batch_size=10, gpuid=None, gpu_limit=None)      
 
 Check the training.ipynb_ or API Documentations for more details.
 
