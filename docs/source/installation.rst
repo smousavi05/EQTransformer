@@ -15,8 +15,6 @@ It is recommended that you use a Python virtual environment (e.g., conda) to tes
 
   Conda activate eqt
 
-  conda config --add channels conda-forge
-
   conda install -c smousavi05 eqtransformer 
 
 
