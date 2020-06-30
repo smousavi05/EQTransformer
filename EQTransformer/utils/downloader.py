@@ -59,9 +59,9 @@ def makeStationList(client_list, min_lat, max_lat, min_lon, max_lon, start_time,
     filter_station: str, default=[]
         A list containing the station names that need to be avoided.
 
-     Returns
-     ----------
-     stations_list.json: A dictionary containing information for the available stations.      
+    Returns
+    ----------
+    stations_list.json: A dictionary containing information for the available stations.      
         
      """  
  

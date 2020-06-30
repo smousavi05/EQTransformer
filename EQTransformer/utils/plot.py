@@ -14,7 +14,7 @@ import matplotlib
 import matplotlib.cm
 import pickle
 import datetime as dt
-from matplotlib.dates import MINUTELY, HOURLY, DAILY,  MONTHLY, DateFormatter, rrulewrapper, RRuleLocator
+from matplotlib.dates import  HOURLY, DateFormatter, rrulewrapper, RRuleLocator
 import matplotlib.font_manager as font_manager
 from obspy import read
 from obspy import UTCDateTime
@@ -42,7 +42,7 @@ def plot_helicorder(input_mseed, input_csv=None, save_plot=False):
 
     Returns
     ----------       
-    miniseed_name.png: 
+    miniseed_name.png: fig
        
     """  
           
@@ -97,9 +97,9 @@ def plot_detections(input_dir, input_json, plot_type=None, time_window=60, marke
 
     Returns
     ----------   
-    station_output.png: 
+    station_output.png: fig
         
-    station_map.png:
+    station_map.png: fig
        
      """  
 
@@ -177,7 +177,7 @@ def plot_data_chart(time_tracks, time_interval):
 
     Returns
     ----------      
-    data_chart.png:
+    data_chart.png: fig
        
     """      
      

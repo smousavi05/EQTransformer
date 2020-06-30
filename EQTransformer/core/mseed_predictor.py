@@ -72,76 +72,75 @@ def mseed_predictor(input_dir='downloads_mseeds',
               gpuid=None,
               gpu_limit=None): 
     
- 
-    """
+    """ 
     
     To perform fast detection directly on mseed data.
-    This version does not allow uncertainty estimation or writing the probabilities out. 
-
+    
     Parameters
     ----------
-    input_dir: str, default=None
+    input_dir: str
         Directory name containing hdf5 and csv files-preprocessed data.
-
-    input_model: str, default=None
+            
+    input_model: str
         Path to a trained model.
-
-    stations_json: str, default=None
-        Path to a JSON file containing station information.       
-         
-    output_dir: str, default=None
-        Output directory that will be generated. 
-
-    detection_threshold : float, default=0.3
+            
+    stations_json: str
+        Path to a JSON file containing station information. 
+           
+    output_dir: str
+        Output directory that will be generated.
+            
+    detection_threshold: float, default=0.3
         A value in which the detection probabilities above it will be considered as an event.
-          
+            
     P_threshold: float, default=0.1
-        A value which the P probabilities above it will be considered as P arrival.
-
+        A value which the P probabilities above it will be considered as P arrival.                
+            
     S_threshold: float, default=0.1
         A value which the S probabilities above it will be considered as S arrival.
-               
+            
     number_of_plots: float, default=10
         The number of plots for detected events outputed for each station data.
-
-    plot_mode: str, default='time'
-        The type of plots: 'time': only time series or 'time_frequency', time and spectrograms.
-          
+            
+    plot_mode: str, default=time
+        The type of plots: time only time series or time_frequency time and spectrograms.
+            
     loss_weights: list, default=[0.03, 0.40, 0.58]
-        Loss weights for detection, P picking, and S picking respectively.
+        Loss weights for detection P picking and S picking respectively.
+            
+    loss_types: list, default=['binary_crossentropy', 'binary_crossentropy', 'binary_crossentropy']
+        Loss types for detection P picking and S picking respectively.
              
-    loss_types: list, default=['binary_crossentropy', 'binary_crossentropy', 'binary_crossentropy'] 
-        Loss types for detection, P picking, and S picking respectively.
- 
-    normalization_mode : str, default='std' 
-        Mode of normalization for data preprocessing, 'max', maximum amplitude among three components, 'std', standard deviation.
-           
-    batch_size: int, default=500 
+    normalization_mode: str, default=std
+        Mode of normalization for data preprocessing max maximum amplitude among three components std standard deviation.
+             
+    batch_size: int, default=500
         Batch size. This wont affect the speed much but can affect the performance. A value beteen 200 to 1000 is recommanded.
-
+             
     overlap: float, default=0.3
-        If set, detection, and picking are performed in overlapping windows.
-
-    gpuid: int, default=None
-        Id of GPU used for the prediction. If using CPU set to None.
-         
-    gpu_limit: int, default=None
-        Set the maximum percentage of memory usage for the GPU.
-          
-
+        If set the detection and picking are performed in overlapping windows.
+             
+    gpuid: int
+        Id of GPU used for the prediction. If using CPU set to None.        
+             
+    gpu_limit: int
+       Set the maximum percentage of memory usage for the GPU. 
+           
     Returns
-    -------- 
-    ./output_dir/STATION_OUTPUT/X_prediction_results.csv: A table containing all the detection, and picking results. Duplicated events are already removed.      
+    --------        
+    output_dir/STATION_OUTPUT/X_prediction_results.csv: A table containing all the detection, and picking results. Duplicated events are already removed.
+    output_dir/STATION_OUTPUT/X_report.txt: A summary of the parameters used for prediction and performance.
+    output_dir/STATION_OUTPUT/figures: A folder containing plots detected events and picked arrival times.
+    time_tracks.pkl: A file containing the time track of the continous data and its type. 
     
-    ./output_dir/STATION_OUTPUT/X_report.txt: A summary of the parameters used for prediction and performance.
+    Note
+    --------        
+    This does not allow uncertainty estimation or writing the probabilities out.
     
-    ./output_dir/STATION_OUTPUT/figures: A folder containing plots detected events and picked arrival times. 
     
-    ./time_tracks.pkl: A file containing the time track of the continous data and its type.
-    
+    """  
         
-    """      
-    
+ 
     args = {
     "input_dir": input_dir,
     "input_model": input_model,
@@ -451,7 +450,7 @@ class PreLoadGeneratorTest(keras.utils.Sequence):
     norm_mode: str, default=max
         The mode of normalization, 'max' or 'std'                
             
-    Returns:
+    Returns
     --------        
     Batches of two dictionaries: {'input': X}: pre-processed waveform as input {'detector': y1, 'picker_P': y2, 'picker_S': y3}: outputs including three separate numpy arrays as labels for detection, P, and S respectively.
     
@@ -648,7 +647,7 @@ def _get_snr(data, pat, window=200):
         The length of the window for calculating the SNR (in the sample).         
         
     Returns
-    -------   
+   --------   
     snr : {float, None}
        Estimated SNR in db. 
        

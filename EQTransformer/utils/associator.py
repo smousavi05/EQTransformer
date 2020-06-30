@@ -35,8 +35,7 @@ def run_associator(input_dir,
     
     """
     
-    It performs a very simple association based on detection times on multiple stations.
-    It works fine when you have a small and local network of seismic stations. 
+    It performs a very simple association based on detection times on multiple stations. It works fine when you have a small and local network of seismic stations. 
 
     Parameters
     ----------

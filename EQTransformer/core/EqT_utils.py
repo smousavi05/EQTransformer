@@ -24,8 +24,7 @@ import matplotlib
 from tensorflow.python.util import deprecation
 deprecation._PRINT_DEPRECATION_WARNINGS = False
 
-###############################################################################
-###################################################################  Generator
+
 class DataGenerator(keras.utils.Sequence):
     
     """ 
@@ -1090,6 +1089,7 @@ def data_reader( list_IDs,
     Note
     -----
     Label type is fixed to box.
+    
         
     """  
     
@@ -1415,7 +1415,7 @@ class PreLoadGeneratorTest(keras.utils.Sequence):
     norm_mode: str, default=max
         The mode of normalization, 'max' or 'std'                
             
-    Returns:
+    Returns
     --------        
     Batches of two dictionaries: {'input': X}: pre-processed waveform as input {'detector': y1, 'picker_P': y2, 'picker_S': y3}: outputs including three separate numpy arrays as labels for detection, P, and S respectively.
     
@@ -1731,12 +1731,12 @@ def _detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising', kpsh=False, va
         if True (1), detect valleys (local minima) instead of peaks.
 
     Returns
-    -------
+    ---------
     ind : 1D array_like
         indeces of the peaks in `x`.
 
     Modified from 
-    ----------
+   ----------------
     .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb
     
 
@@ -1834,17 +1834,17 @@ def picker(args, yh1, yh2, yh3, yh1_std, yh2_std, yh3_std, spt=None, sst=None):
         
    
     Returns
-    -------    
-    matches : dic
+    --------    
+    matches: dic
         Contains the information for the detected and picked event.            
         
-    matches : dic
+    matches: dic
         {detection statr-time:[ detection end-time, detection probability, detectin uncertainty, P arrival, P probabiliy, P uncertainty, S arrival,  S probability, S uncertainty]}
             
     pick_errors : dic                
         {detection statr-time:[ P_ground_truth - P_pick, S_ground_truth - S_pick]}
         
-    yh3 : 1D array             
+    yh3: 1D array             
         normalized S_probability                              
                 
     """               
@@ -2041,7 +2041,7 @@ def generate_arrays_from_file(file_list, step):
         Batch size.  
         
     Returns
-    -------  
+    --------  
     chunck : str
         A batch of trace names. 
         
@@ -2143,34 +2143,34 @@ def normalize(data, mode='std'):
   
 class LayerNormalization(keras.layers.Layer):
     
-    """
+    """ 
     
-    Layer normalization layer.
+    Layer normalization layer modified from https://github.com/CyberZHG based on [Layer Normalization](https://arxiv.org/pdf/1607.06450.pdf)
     
     Parameters
     ----------
-    center : 
-        Add an offset parameter if it is True.
-
-    scale : 
-        Add a scale parameter if it is True.
+    center: bool
+        Add an offset parameter if it is True. 
         
-    epsilon : 
-        Epsilon for calculating variance.
-
-    gamma_initializer : 
-        Initializer for the gamma weight.
+    scale: bool
+        Add a scale parameter if it is True.     
         
-    beta_initializer : 
-        Initializer for the beta weight.
+    epsilon: bool
+        Epsilon for calculating variance.     
         
-    References
-    -------        
-    See : [Layer Normalization](https://arxiv.org/pdf/1607.06450.pdf)
-
-
-    """
-    
+    gamma_initializer: str
+        Initializer for the gamma weight.     
+        
+    beta_initializer: str
+        Initializer for the beta weight.     
+                    
+    Returns
+    -------  
+    data: 3D tensor
+        with shape: (batch_size, …, input_dim) 
+            
+    """   
+              
     def __init__(self,
                  center=True,
                  scale=True,
@@ -2238,48 +2238,22 @@ class LayerNormalization(keras.layers.Layer):
     
     
 class FeedForward(keras.layers.Layer):
-    
+    """Position-wise feed-forward layer. modified from https://github.com/CyberZHG 
+    # Arguments
+        units: int >= 0. Dimension of hidden units.
+        activation: Activation function to use
+        use_bias: Boolean, whether the layer uses a bias vector.
+        kernel_initializer: Initializer for the `kernel` weights matrix.
+        bias_initializer: Initializer for the bias vector.
+        dropout_rate: 0.0 <= float <= 1.0. Dropout rate for hidden units.
+    # Input shape
+        3D tensor with shape: `(batch_size, ..., input_dim)`.
+    # Output shape
+        3D tensor with shape: `(batch_size, ..., input_dim)`.
+    # References
+        - [Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
     """
     
-    Position-wise feed-forward layer.
-
-    Parameters
-    ----------
-    units : int >= 0
-        Dimension of hidden units.
-
-    activation : 
-        Activation function to use.
-        
-    use_bias : bool
-        Whether the layer uses a bias vector.
-
-    kernel_initializer : 
-        Initializer for the `kernel` weights matrix.
-
-    bias_initializer : 
-        Initializer for the bias vector.
-
-    dropout_rate : float
-        Dropout rate for hidden units.
-
-    Input shape : float
-        3D tensor with shape: `(batch_size, ..., input_dim)`.
-
-    Input shape : float
-        3D tensor with shape: `(batch_size, ..., input_dim)`.
- 
-    Returns
-    -------  
-    3D numpy array : 
-        3D tensor with shape: `(batch_size, ..., input_dim)`.
-            
-    References
-    -------  
-    [Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
-    
-    """
-
     def __init__(self,
                  units,
                  activation='relu',
@@ -2359,69 +2333,26 @@ class FeedForward(keras.layers.Layer):
         return y
 
 
-
-
 class SeqSelfAttention(keras.layers.Layer):
-    
-    """
-    Layer initialization.
-    
-    Parameters
-    ----------
-    units : 
-        The dimension of the vectors that used to calculate the attention weights.    
-
-    attention_width : 
-        The width of local attention. 
-
-    attention_type : 
-        'additive' or 'multiplicative'.
-
-    return_attention : 
-        Whether to return the attention weights for visualization.
-
-    history_only : 
-        Only use historical pieces of data.
- 
-    kernel_initializer : 
-        The initializer for weight matrices.
-
-    bias_initializer : 
-        The initializer for biases.
-
-    kernel_regularizer : 
-        The regularization for weight matrices.
-
-    bias_regularizer : 
-        The regularization for biases.
-
-    kernel_constraint : 
-        The constraint for weight matrices.
-
-    bias_constraint : 
-        The constraint for biases.
-
-    use_additive_bias: 
-        Whether to use bias while calculating the relevance of inputs features in additive mode.
- 
-    use_attention_bias: 
-        Whether to use bias while calculating the weights of attention.
-
-    attention_activation: 
-        The activation used for calculating the weights of attention.
-
-    attention_regularizer_weight: 
-        The weights of attention regularizer.
-
-    kwargs: 
-        Parameters for parent class.
-
-    References
-    -------          
-    https://github.com/CyberZHG, For additive attention, see: https://arxiv.org/pdf/1806.01264.pdf
-    
-    
-
+    """Layer initialization. modified from https://github.com/CyberZHG
+    For additive attention, see: https://arxiv.org/pdf/1806.01264.pdf
+    :param units: The dimension of the vectors that used to calculate the attention weights.
+    :param attention_width: The width of local attention.
+    :param attention_type: 'additive' or 'multiplicative'.
+    :param return_attention: Whether to return the attention weights for visualization.
+    :param history_only: Only use historical pieces of data.
+    :param kernel_initializer: The initializer for weight matrices.
+    :param bias_initializer: The initializer for biases.
+    :param kernel_regularizer: The regularization for weight matrices.
+    :param bias_regularizer: The regularization for biases.
+    :param kernel_constraint: The constraint for weight matrices.
+    :param bias_constraint: The constraint for biases.
+    :param use_additive_bias: Whether to use bias while calculating the relevance of inputs features
+                              in additive mode.
+    :param use_attention_bias: Whether to use bias while calculating the weights of attention.
+    :param attention_activation: The activation used for calculating the weights of attention.
+    :param attention_regularizer_weight: The weights of attention regularizer.
+    :param kwargs: Parameters for parent class.
     """
         
     ATTENTION_TYPE_ADD = 'additive'
@@ -2643,9 +2574,7 @@ class SeqSelfAttention(keras.layers.Layer):
 
 
 def _block_BiLSTM(filters, drop_rate, padding, inpR):
-    """
-    Returns LSTM residual block
-    """
+    'Returns LSTM residual block'    
     prev = inpR
     x_rnn = Bidirectional(LSTM(filters, return_sequences=True, dropout=drop_rate, recurrent_dropout=drop_rate))(prev)
     NiN = Conv1D(filters, 1, padding = padding)(x_rnn)     
@@ -2654,9 +2583,7 @@ def _block_BiLSTM(filters, drop_rate, padding, inpR):
 
 
 def _block_CNN_1(filters, ker, drop_rate, activation, padding, inpC): 
-    """
-    Returns CNN residual blocks
-     """
+    ' Returns CNN residual blocks '
     prev = inpC
     layer_1 = BatchNormalization()(prev) 
     act_1 = Activation(activation)(layer_1) 
@@ -2674,10 +2601,7 @@ def _block_CNN_1(filters, ker, drop_rate, activation, padding, inpC):
 
 
 def _transformer(drop_rate, width, name, inpC): 
-    """
-    Returns a transformer block containing one addetive attention and one feed 
-    forward layer with residual connections. 
-    """
+    ' Returns a transformer block containing one addetive attention and one feed  forward layer with residual connections '
     x = inpC
     
     att_layer, weight = SeqSelfAttention(return_attention =True,                                       
@@ -2698,9 +2622,7 @@ def _transformer(drop_rate, width, name, inpC):
      
 
 def _encoder(filter_number, filter_size, depth, drop_rate, ker_regul, bias_regul, activation, padding, inpC):
-    """
-    Returns the encoder that is a combination of residual blocks and maxpooling
-    """        
+    ' Returns the encoder that is a combination of residual blocks and maxpooling.'        
     e = inpC
     for dp in range(depth):
         e = Conv1D(filter_number[dp], 
@@ -2715,9 +2637,7 @@ def _encoder(filter_number, filter_size, depth, drop_rate, ker_regul, bias_regul
 
 
 def _decoder(filter_number, filter_size, depth, drop_rate, ker_regul, bias_regul, activation, padding, inpC):
-    """
-    Returns the dencoder that is a combination of residual blocks and upsampling
-    """           
+    ' Returns the dencoder that is a combination of residual blocks and upsampling. '           
     d = inpC
     for dp in range(depth):        
         d = UpSampling1D(2)(d) 
@@ -2735,9 +2655,8 @@ def _decoder(filter_number, filter_size, depth, drop_rate, ker_regul, bias_regul
 
 
 def _lr_schedule(epoch):
-    """
-    Learning rate is scheduled to be reduced after 40, 60, 80, 90 epochs.
-    """
+    ' Learning rate is scheduled to be reduced after 40, 60, 80, 90 epochs.'
+    
     lr = 1e-3
     if epoch > 90:
         lr *= 0.5e-3
@@ -2752,61 +2671,63 @@ def _lr_schedule(epoch):
 
 
 
-class cred2:
+class cred2():
     
     """ 
-    Creates the model.
+    
+    Creates the model
     
     Parameters
     ----------
-    Input shape : 
-        A tensor of shape (batch_size, timesteps, channels).    
-
-    nb_filters : list, default=[8, 16, 16, 32, 32, 96, 96, 128]
+    nb_filters: list
         The list of filter numbers. 
         
-    kernel_size : list, default=[11, 9, 7, 7, 5, 5, 3, 3]
+    kernel_size: list
         The size of the kernel to use in each convolutional layer.
         
-    padding : str, default='same'
+    padding: str
         The padding to use in the convolutional layers.
 
-    activationf : str, default='relu'
+    activationf: str
         Activation funciton type.
 
-    endcoder_depth : int, default=7
+    endcoder_depth: int
         The number of layers in the encoder.
         
-    decoder_depth : int, default=7
+    decoder_depth: int
         The number of layers in the decoder.
 
-    cnn_blocks : int, default=5
+    cnn_blocks: int
         The number of residual CNN blocks.
 
-    BiLSTM_blocks : int, default=3
+    BiLSTM_blocks: int=
         The number of Bidirectional LSTM blocks.
   
-    drop_rate: float, default=0.1 
+    drop_rate: float 
         Dropout rate.
 
-    loss_weights: list, default=[0.2, 0.3, 0.5]
+    loss_weights: list
         Weights of the loss function for the detection, P picking, and S picking.       
                 
-    loss_types: list, default=['binary_crossentropy', 'binary_crossentropy', 'binary_crossentropy']
+    loss_types: list
         Types of the loss function for the detection, P picking, and S picking. 
 
-    kernel_regularizer: keras.regularizers.l1(1e-4)
+    kernel_regularizer: str
+        l1 norm regularizer.
 
-    bias_regularizer: keras.regularizers.l1(1e-4)
+    bias_regularizer: str
+        l1 norm regularizer.
 
-    multi_gpu: bool, default=False
+    multi_gpu: bool
         If use multiple GPUs for the training. 
 
-    gpu_number: int, default=4
+    gpu_number: int
         The number of GPUs for the muli-GPU training. 
            
-    Returns:
-        The complied model.
+    Returns
+    ----------
+        The complied model: keras model
+        
     """
 
     def __init__(self,

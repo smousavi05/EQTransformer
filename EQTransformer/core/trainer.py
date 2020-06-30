@@ -452,12 +452,7 @@ def _split(args, save_dir):
         List of trace names for the training set. 
     validation : str
         List of trace names for the validation set. 
-        
-    Generates
-    -------   
-    test.npy: str
-        List of trace names for the test set.     
-        
+                
     """       
     
     df = pd.read_csv(args['input_csv'])
