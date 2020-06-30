@@ -1,7 +1,7 @@
 Overview
 =====================
 
-**EQTransformer** is a multi-task deep neural network for simultaneous earthquake detection and phase picking with a hierarchical attentive model. It mainly consists of one very deep encoder and three separate decoders (detector, P-picker, and S-picker branches). Two levels of self-attention (global and local) are embedded into the network in a hierarchical structure that helps the neural network capture and exploit dependencies between local (individual phases) and global (full waveform) features within an earthquake signal. This model has several distinctive characteristics: 1) it is the first hierarchical-attentive model specifically designed for earthquake signal; 2) with 56 activation layers, it is the deepest network that has been trained for seismic signal processing; 3) it has a multi-task architecture that simultaneously performs the detection and phase picking - using separate loss functions - while modeling the dependency of these tasks on each other through a hierarchical structure; 4) in addition to the prediction probabilities, it provides output variations based on Bayesian inference; 5) it is the first model trained using a globally distributed training set of 1.3 M local earthquake observations; 6) it consists of both convolutional and recurrent neurons. 
+**EQTransformer** is a multi-task deep neural network for simultaneous earthquake detection and phase picking with a hierarchical attentive model. It mainly consists of one very deep encoder and three separate decoders (detector, P-picker, and S-picker branches) with an attention mechanism. Attention mechanisms in Neural Networks are inspired by human visual attention. Humans focus on a certain region of an image with high resolution while perceiving the surrounding image at low resolution and then adjusting the focal point over time. Our model emulates this through two levels of attention mechanism in a hierarchical structure. one at the global level for identifying an earthquake signal in the input time series, and one at the local level for identifying different seismic phases within that earthquake signal. Two levels of self-attention (global and local) help the neural network capture and exploit dependencies between local (individual phases) and global (full-waveform) features within an earthquake signal. This model has several distinctive characteristics: 1) it is the first hierarchical-attentive model specifically designed for earthquake signal; 2) with 56 activation layers, it is the deepest network that has been trained for seismic signal processing; 3) it has a multi-task architecture that simultaneously performs the detection and phase picking - using separate loss functions - while modeling the dependency of these tasks on each other through a hierarchical structure; 4) in addition to the prediction probabilities, it provides output variations based on Bayesian inference; 5) it is the first model trained using a globally distributed training set of 1.3 M local earthquake observations; 6) it consists of both convolutional and recurrent neurons. Read our paper for more details. 
 
 
 .. figure:: figures/9arch.png
@@ -17,53 +17,59 @@ Dataset
 .. figure:: figures/8eqmap.png
     :scale: 25%
 
-STEAD contains earthquake signals from most of the seismically active countries with a few exceptions like Japan.
+STEAD_ contains earthquake signals from most of the seismically active countries with a few exceptions like Japan.
 
 
 .. _STEAD: https://github.com/smousavi05/STEAD
 
 Application to Japan
 --------------------
-However, **EQTransformer** has a high generalization ability. Applying it to 5 weeks of continuous data recorded during the 2000 Mw 6.6 western Tottori_, Japan earthquake, two times more events was detected compared with the catalog of Japan Meteorological Agency (JMA). 
+However, **EQTransformer** has a high generalization ability. Applying it to 5 weeks of continuous data recorded during the 2000 Mw 6.6_ western Tottori_, Japan earthquake, two times more events were detected compared with the catalog of Japan Meteorological Agency (JMA). 
 
-.. _Tottori: https://pubs.geoscienceworld.org/ssa/bssa/article/93/4/1468/120827
+.. _6.6: https://pubs.geoscienceworld.org/ssa/bssa/article/93/4/1468/120827
+
+.. _Tottori: https://www.google.com/maps/place/Tottori,+Japan/@35.4220364,133.9132257,10z/data=!3m1!4b1!4m5!3m4!1s0x355596c9a0846f89:0x3847638629e55456!8m2!3d35.5011082!4d134.2351011
 
 .. figure:: figures/10toto.jpg
     :scale: 30%
 
-In total, JMA's analysts picked 279,104 P and S arrival times on 57 stations, while EQTransformer was able to pick 401,566 P and S arrival time on 18 of those stations (due to unavailability of data for other stations). To compare the manual picks by JMA with our automatic picks we used about 42,000 picks on the common stations and calculated the arrival time differences. The distributions of these arrival time differences between the manual and deep-learning picks for P and S waves are shown in following figure. The standard deviation of differences between picks are around 0.08 second with mean absolute error of around 0.06 second or 6 samples. The mean error is only 1 sample (0.01 s). 
+In total, JMA's analysts picked 279,104 P and S arrival times on 57 stations, while EQTransformer was able to pick 401,566 P and S arrival-time on 18 of those stations (due to unavailability of data for other stations). To compare the manual picks by JMA with our automatic picks we used about 42,000 picks on the common stations and calculated the arrival time differences. The distributions of these arrival time differences between the manual and deep-learning picks for P and S waves are shown in the following figure. The standard deviation of differences between picks is around 0.08 second with a mean absolute error of around 0.06 second or 6 samples. The mean error is only 1 sample (0.01 s). 
 
 .. figure:: figures/11histtoto.png
     :scale: 100%
 
 Application to Other Regions
 -----------------------------
-Test set data from STEAD:
+Test set data from STEAD_:
 
 .. figure:: figures/SF3.jpg
     :scale: 25%
 
-Ridgecrest, California:
+Ridgecrest_, California:
+
+.. _Ridgecrest: https://www.google.com/maps/place/Ridgecrest,+CA+93555/@35.6225618,-117.7312539,12z/data=!3m1!4b1!4m5!3m4!1s0x80c16cbc000c8aa5:0xdcb273036710aeba!8m2!3d35.6224561!4d-117.6708966
 
 .. figure:: figures/SF5.png
     :scale: 55%
 
-Tottori, Japan:
+Tottori_, Japan:
 
 .. figure:: figures/SF6.png
     :scale: 25%
 
-West Texas, USA:
+West Texas_, USA:
+
+.. _Texas: https://www.google.com/maps/place/West,+TX+76691/@31.8052808,-97.1087705,14z/data=!3m1!4b1!4m5!3m4!1s0x864f7566cf0ca5c7:0xfb25f7a61ca24545!8m2!3d31.8023057!4d-97.0909551
 
 .. figure:: figures/SF13.png
     :scale: 25%
 
-Variations in the output probability predictions (model uncertainty) can be useful to identify false positive events (like the one shown in the above figure).
+Variations in the output probability predictions (model uncertainty) can be useful to identify false-positive events (like the one shown in the above figure).
 
 
 Comparison of Picking Errors
 ----------------------------
-Bellow are the picking errors for P and S waves. All methods have been applied to a same benchmark test set from STEAD_.
+Below are the picking errors for P and S waves. All methods have been applied to the same benchmark test set from STEAD_.
 
 1) Comparing with some deep-learning pickers:
 
