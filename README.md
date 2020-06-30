@@ -1,8 +1,7 @@
 
-# EQTransformer  
-## An AI-Based Earthquake Signal Detector and Phase Picker
-
 ![event](docs/source/figures/logo.png)
+
+## An AI-Based Earthquake Signal Detector and Phase Picker
 
 
 ![PyPI](https://img.shields.io/pypi/v/EQTransformer?style=plastic)
