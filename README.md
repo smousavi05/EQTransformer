@@ -51,13 +51,13 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
 .. code:: python
 
-  conda create -n eqt python=3.7
+    conda create -n eqt python=3.7
 
-  Conda activate eqt
+    Conda activate eqt
 
-  conda config --add channels conda-forge
+    conda config --add channels conda-forge
 
-  conda install eqtransformer 
+    conda install eqtransformer 
   
 
 #### Via Pypi:
