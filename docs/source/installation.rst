@@ -7,7 +7,7 @@ Installation via conda (recommended)
 ------------------------------------
 The following will download and install **EQTransformer** that supports a variety of platforms, including Windows, macOS, and Linux operating systems. Note that you will need to have Python 3.x (3.6 or 3.7) installed.
 
-It is recommended that you use a Python virtual environment (e.g., conda) to test the whitebox package. Please follow the |conda user guide| to install conda if you do not have either a miniconda or anaconda installed on your machine. Once you have conda installed, you can use Terminal or an Anaconda Prompt to create a Python virtual environment. Check managing |anaconda environment| for more information.
+It is recommended that you use a Python virtual environment (e.g., conda) to test the **EQTransformer** package. Please follow the |conda user guide| to install conda if you do not have either a miniconda or anaconda installed on your machine. Once you have conda installed, you can use Terminal or an Anaconda Prompt to create a Python virtual environment. Check managing |anaconda environment| for more information.
 
 .. code-block:: console
 
@@ -15,7 +15,7 @@ It is recommended that you use a Python virtual environment (e.g., conda) to tes
 
   Conda activate eqt
 
-  conda install -c smousavi05 eqtransformer 
+  conda install -c smousavi05 eqtransformer
 
 
 This will download and install **EQTransformer** and all required packages (including Tensorflow and Obspy) into your machine. 
@@ -33,9 +33,9 @@ This will download and install **EQTransformer** and all required packages (incl
     <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank">conda-install</a>
 
 
-Installation via Pypi 
+Installation via PyPI
 --------------------------
-If you already have `Obspy <https://github.com/obspy/obspy/wiki/>`_ installed on your machine, you can get EQTransformer through Pypi:
+If you already have `Obspy <https://github.com/obspy/obspy/wiki/>`_ installed on your machine, you can get EQTransformer through PyPI:
 
 
 .. code-block:: console
