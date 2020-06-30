@@ -52,8 +52,6 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
 #### Via Anaconda (recommended):
 
-.. code:: python
-
     conda create -n eqt python=3.7
 
     Conda activate eqt
@@ -82,14 +80,10 @@ You can either clone the public repository:
 
 Once you have a copy of the source, you can cd to EQTransformer directory and install it with:
 
-.. code:: python
-
     python setup.py install
 
 
 If you have installed **EQTransformer** Python package before and want to upgrade to the latest version, you can use the following command:
-
-.. code:: python
 
     pip install EQTransformer -U
 
@@ -110,8 +104,6 @@ https://github.com/smousavi05/EQTransformer/tree/master/examples
 -----------------
 
 Tool names in the **EQTransformer** Python package can be called using the CamelCase convention (e.g. *LidarInfo*).
-
-.. code:: python
 
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
