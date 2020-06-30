@@ -24,10 +24,10 @@
 --------------
 
 * Authors: S. Mostafa Mousavi
+* Documentation:https://eqtransformer.readthedocs.io
 * GitHub repo: https://github.com/smousavi05/EQTransformer
 * PyPI: https://pypi.org/project/EQTransformer/
 * Anaconda: https://anaconda.org/smousavi05/eqtransformer
-* Documentation:https://eqtransformer.readthedocs.io
 
 
 ## Description
