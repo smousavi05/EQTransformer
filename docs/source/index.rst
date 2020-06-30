@@ -15,7 +15,7 @@ Welcome to EQTransformer's documentation!
  
 The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
 
-To cite **EQTransformer**, use the following reference To cite EQTransformer, use the following reference:
+The following is the main reference **EQTransformer**:
 
 * Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L.Y., Beroza, G.C., "Earthquake Transformer: An Attentive Deep-learning Model for Simultaneous Earthquake Detection and Phase Picking ". Nature Communications, (2020).
 

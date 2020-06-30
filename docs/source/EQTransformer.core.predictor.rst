@@ -1,5 +1,5 @@
 EQTransformer.core.predictor module
-==================
+=====================================
 
 .. automodule:: EQTransformer.core.predictor
    :members:

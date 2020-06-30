@@ -1,5 +1,5 @@
 EQTransformer.core.tester module
-==================
+==================================
 
 .. automodule:: EQTransformer.core.tester
    :members:

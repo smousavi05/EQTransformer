@@ -1,5 +1,5 @@
 EQTransformer.core.trainer module
-==================
+==================================
 
 .. automodule:: EQTransformer.core.trainer
    :members:
