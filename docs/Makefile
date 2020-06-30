@@ -21,6 +21,6 @@ help:
 
 .PHONY: apidoc
 apidoc:
-	$(SPHINXAPIDOC) -fMTe ../../EQTransformer -o $(SOURCEDIR)
+	$(SPHINXAPIDOC) -fMTe ../EQTransformer -o $(SOURCEDIR)
 	@echo
 	@echo "API Documentation build finished. The rst files are in $(SOURCEDIR)."
