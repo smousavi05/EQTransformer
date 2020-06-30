@@ -63,8 +63,6 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
 If you already have `Obspy` installed on your machine, you can get EQTransformer through PyPI:
 
-.. code:: python
-
     pip install EQTransformer
 
 
@@ -73,8 +71,6 @@ If you already have `Obspy` installed on your machine, you can get EQTransformer
 The sources for EQTransformer can be downloaded from the `Github repo`.
 
 You can either clone the public repository:
-
-.. code:: python
 
     git clone git://github.com/smousavi05/EQTransformer
 
