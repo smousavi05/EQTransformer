@@ -1,5 +1,6 @@
 
-# EQTransformer (Earthquake Transformer): An AI-Based Earthquake Signal Detector and Phase Picker
+# EQTransformer  
+## An AI-Based Earthquake Signal Detector and Phase Picker
 
 ![event](docs/source/figures/logo.png)
 
