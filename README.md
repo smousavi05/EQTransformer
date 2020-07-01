@@ -101,6 +101,8 @@ https://github.com/smousavi05/EQTransformer/tree/master/examples
 
 Tool names in the **EQTransformer** Python package can be called using the CamelCase convention (e.g. *LidarInfo*).
 
+```python
+
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
     mseed_predictor(input_dir= 'downloads_mseeds',   
@@ -118,7 +120,7 @@ Tool names in the **EQTransformer** Python package can be called using the Camel
              overlap = 0.3,
              gpuid=None,
              gpu_limit=None)
-
+```
 
 
 ## Contributing
