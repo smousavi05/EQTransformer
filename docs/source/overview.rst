@@ -67,7 +67,7 @@ West Texas_, USA:
 Variations in the output probability predictions (model uncertainty) can be useful to identify false-positive events (like the one shown in the above figure).
 
 
-Comparison of Picking Errors
+Comparison with Other Methods
 ----------------------------
 Below are the picking errors for P and S waves. All methods have been applied to the same benchmark test set from STEAD_.
 
