@@ -94,6 +94,7 @@ or
 
 https://github.com/smousavi05/EQTransformer/tree/master/examples
 
+Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that EQTransformer has been installed.
 
 ## A Quick Example
 -----------------
