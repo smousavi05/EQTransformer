@@ -207,10 +207,13 @@ def mseed_predictor(input_dir='downloads_mseeds',
     if os.path.isdir(out_dir):
         print('============================================================================')        
         print(f' *** {out_dir} already exists!')
-        inp = input(" --> Type (Yes or y) to create a new empty directory! otherwise it will overwrite!   ")
+        inp = input(" --> Type (Yes or y) to create a new empty directory! This will erase your previous results so make a copy if you want them.")
         if inp.lower() == "yes" or inp.lower() == "y":
             shutil.rmtree(out_dir)  
             os.makedirs(out_dir) 
+        else:
+            print("Okay.")
+            break
      
     station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split('/')[-1] != '.DS_Store'];
     station_list = sorted(set(station_list))
