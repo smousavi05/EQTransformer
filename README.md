@@ -11,6 +11,7 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/EQTransformer?style=plastic)
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/EQTransformer?style=plastic)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/EQTransformer?style=plastic)
+![Conda](https://img.shields.io/conda/dn/smousavi05/eqtransformer?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/smousavi05/EQTransformer?style=plastic)
 ![GitHub stars](https://img.shields.io/github/stars/smousavi05/EQTransformer?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
