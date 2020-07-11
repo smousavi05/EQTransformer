@@ -31,11 +31,9 @@ The ``EQTransformer`` python 3 package includes modules for downloading continuo
 --------------
 
 * Authors: S. Mostafa Mousavi
-* Documentation: https://eqtransformer.readthedocs.io
-* GitHub repo: https://github.com/smousavi05/EQTransformer
+* Documentation: https://rebrand.ly/EQT-documentations
 * PyPI: https://pypi.org/project/EQTransformer/
 * Anaconda: https://anaconda.org/smousavi05/eqtransformer
-
 
 ## Reference
 -----------
@@ -89,11 +87,11 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
 See either:
 
-https://eqtransformer.readthedocs.io
+https://rebrand.ly/EQT-documentations
 
 or 
 
-https://github.com/smousavi05/EQTransformer/tree/master/examples
+https://rebrand.ly/EQT-examples
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that EQTransformer has been installed.
 
