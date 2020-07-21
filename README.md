@@ -98,8 +98,6 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 ## A Quick Example
 -----------------
 
-Tool names in the **EQTransformer** Python package can be called using the CamelCase convention (e.g. *LidarInfo*).
-
 ```python
 
     from EQTransformer.core.mseed_predictor import mseed_predictor
