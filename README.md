@@ -59,20 +59,21 @@ To cite **EQTransformer**, use the following reference To cite EQTransformer, us
 
 #### Via PyPI:
 
-If you already have `Obspy` installed on your machine, you can get EQTransformer through PyPI:
+If you already have `Obspy` installed on your machine, you can get **EQTransformer** through PyPI:
 
     pip install EQTransformer
 
 
 #### From source:
 
-The sources for EQTransformer can be downloaded from the `Github repo`.
+The sources for **EQTransformer** can be downloaded from the `Github repo`.
 
 You can either clone the public repository:
 
     git clone git://github.com/smousavi05/EQTransformer
+    
 
-Once you have a copy of the source, you can cd to EQTransformer directory and install it with:
+Once you have a copy of the source, you can cd to **EQTransformer** directory and install it with:
 
     python setup.py install
 
@@ -94,6 +95,7 @@ or
 https://rebrand.ly/EQT-examples
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
+
 
 ## A Quick Example
 -----------------
