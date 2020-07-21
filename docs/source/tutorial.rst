@@ -47,7 +47,7 @@ The above function will generate ``station_list.json`` file containing the stati
 
     from EQTransformer.utils.downloader import downloadMseeds
     
-    downloadMseeds(client_list=["SCEDC", "IRIS"], stations_json='station_list.json', output_dir="downloads_mseeds", min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", chunck_size=1, channel_list=[], n_processor=2)
+    downloadMseeds(client_list=["SCEDC", "IRIS"], stations_json='station_list.json', output_dir="downloads_mseeds", min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", chunk_size=1, channel_list=[], n_processor=2)
 
 This will download the continous data (in MiniSeed) and save them into individual folders for each station insider your defined output directory (i.e. downloads_mseeds).
 
