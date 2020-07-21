@@ -133,7 +133,7 @@ If you would like to contribute to the project as a developer, follow these inst
 ## License
 -------
 
-The **EQTransformer** package is distributed under the `MIT license`_, a permissive open-source (free software) license.
+The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
 
 
 ## Reporting Bugs
