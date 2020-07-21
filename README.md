@@ -25,7 +25,7 @@
 
 **EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously. In addition to the prediction probabilities, it also provides estimated model uncertainties.   
  
-The ``EQTransformer`` python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
+The **EQTransformer** python 3 package includes modules for downloading continuous seismic data, preprocessing, performing earthquake signal detection, and phase (P & S) picking using pre-trained models, building and testing new models, and performing a simple phase association. 
 
 ## Links
 --------------
@@ -93,7 +93,7 @@ or
 
 https://rebrand.ly/EQT-examples
 
-Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that EQTransformer has been installed.
+Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
 ## A Quick Example
 -----------------
@@ -121,7 +121,7 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 
 If you would like to contribute to the project as a developer, follow these instructions to get started:
 
-1. Fork the EQTransformer project (https://github.com/smousavi05/EQTransformer)
+1. Fork the **EQTransformer** project (https://github.com/smousavi05/EQTransformer)
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
