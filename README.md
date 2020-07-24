@@ -108,7 +108,7 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
                     input_model='ModelsAndSampleData/EqT_model.h5',
                     stations_json='station_list.json',
                     output_dir='detection_results',
-                    detection_threshold=0.3,                
+                    detection_threshold=0.2,                
                     P_threshold=0.1,
                     S_threshold=0.1, 
                     number_of_plots=10,
