@@ -28,9 +28,8 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 --------------
 
 * Authors: S. Mostafa Mousavi
+
 * Documentation: https://rebrand.ly/EQT-documentations
-* PyPI: https://pypi.org/project/EQTransformer/
-* Anaconda: https://anaconda.org/smousavi05/eqtransformer
 
 ## Reference
 -----------
