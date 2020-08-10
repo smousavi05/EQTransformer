@@ -88,7 +88,7 @@ See either:
 
 https://rebrand.ly/EQT-documentations
 
-or 
+and/or 
 
 https://rebrand.ly/EQT-examples
 
