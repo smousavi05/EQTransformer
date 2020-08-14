@@ -37,9 +37,9 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 ## Reference
 -----------
 
-To cite **EQTransformer**, use the following reference To cite EQTransformer, use the following reference:
+To cite **EQTransformer**, use the following reference:
 
-Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L.Y., Beroza, G.C., "Earthquake Transformer: An Attentive Deep-learning Model for Simultaneous Earthquake      Detection and Phase Picking ". Nature Communications, (2020).
+Mousavi, S.M., Ellsworth, W.L., Zhu, W. et al. Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nat Commun 11, 3952 (2020). https://doi.org/10.1038/s41467-020-17591-w
 
 BibTeX:
 
