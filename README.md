@@ -1,7 +1,9 @@
   
 ![event](docs/source/figures/logo.png)     
 
-# An AI-Based Earthquake Signal Detector and Phase Picker    
+# An AI-Based Earthquake Signal Detector and Phase Picker 
+
+* Developer: S. Mostafa Mousavi
 
 
 ![PyPI](https://img.shields.io/pypi/v/EQTransformer?style=plastic)
@@ -27,19 +29,29 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 ## Links
 --------------
 
-* Authors: S. Mostafa Mousavi
-
 * Documentation: https://rebrand.ly/EQT-documentations
+
+* Paper:https://rdcu.be/b58li
+
 
 ## Reference
 -----------
-
-You can get the paper from here: https://rdcu.be/b58li
 
 To cite **EQTransformer**, use the following reference To cite EQTransformer, use the following reference:
 
 * Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L.Y., Beroza, G.C., "Earthquake Transformer: An Attentive Deep-learning Model for Simultaneous Earthquake Detection and Phase Picking ". Nature Communications, (2020).
 
+
+@article{mousavi2020earthquake,
+  title={Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking},
+  author={Mousavi, S Mostafa and Ellsworth, William L and Zhu, Weiqiang and Chuang, Lindsay Y and Beroza, Gregory C},
+  journal={Nature Communications},
+  volume={11},
+  number={1},
+  pages={1--12},
+  year={2020},
+  publisher={Nature Publishing Group}
+}
 
 ## Installation
 -----------------
