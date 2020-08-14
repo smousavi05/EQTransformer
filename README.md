@@ -3,9 +3,6 @@
 
 # An AI-Based Earthquake Signal Detector and Phase Picker 
 
-* Developer: S. Mostafa Mousavi
-
-
 ![PyPI](https://img.shields.io/pypi/v/EQTransformer?style=plastic)
 ![Conda](https://img.shields.io/conda/v/smousavi05/eqtransformer?style=plastic)
 ![Read the Docs](https://img.shields.io/readthedocs/eqtransformer?style=plastic)
@@ -17,6 +14,8 @@
 ![GitHub followers](https://img.shields.io/github/followers/smousavi05?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/smousavi05/EQTransformer?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/smousavi05?style=social)
+
+Developer: S. Mostafa Mousavi
 
 
 ## Description
