@@ -148,7 +148,7 @@ def stationListFromMseed(mseed_directory, station_locations):
     -------
     directory = '/Users/human/Downloads/eqt/examples/downloads_mseeds'
     locations = {"CA06": [35.59962, -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
-    stationListFromMseed(directoy, locations)
+    stationListFromMseed(directory, locations)
 
     """
     
