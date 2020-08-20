@@ -18,6 +18,7 @@ import shutil
 from multiprocessing.pool import ThreadPool
 import multiprocessing
 import numpy as np
+from obspy import read
 
 
 def makeStationList(client_list, min_lat, max_lat, min_lon, max_lon, start_time, end_time, channel_list=[], filter_network=[], filter_station=[]):
@@ -120,7 +121,55 @@ def makeStationList(client_list, min_lat, max_lat, min_lon, max_lon, start_time,
          json.dump(station_list, fp)
          
          
-         
+def stationListFromMseed(mseed_directory, station_locations):
+    """
+    Reads all miniseed files contained within subdirectories in the specified directory and generates a station_list.json file that describes the miniseed files in the correct format for EQTransformer.
+    
+    Parameters
+    ----------
+    mseed_directory: str
+        String specifying the absolute path to the directory containing miniseed files. Directory must contain subdirectories of station names, which contain miniseed files in the EQTransformer format. 
+        Each component must be a seperate miniseed file, and the naming
+        convention is GS.CA06.00.HH1__20190901T000000Z__20190902T000000Z
+        .mseed, or more generally 
+        NETWORK.STATION.LOCATION.CHANNEL__STARTTIMESTAMP__ENDTIMESTAMP.mseed
+        where LOCATION is optional.
+
+    station_locations: dict
+        Dictonary with station names as keys and lists of latitude,
+        longitude, and elevation as items. For example: {"CA06": [35.59962,
+        -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+   
+    Returns
+    -------
+    stations_list.json: A dictionary containing information for the available stations.
+    
+    Example
+    -------
+    directory = '/Users/human/Downloads/eqt/examples/downloads_mseeds'
+    locations = {"CA06": [35.59962, -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+    stationListFromMseed(directoy, locations)
+
+    """
+    
+    station_list = {}
+    
+    # loop through subdirectories of specified directory
+    for subdirectory in os.scandir(mseed_directory):
+        if subdirectory.is_dir():
+            channels = []
+            # build channel list from miniseed files
+            for mseed_file in os.scandir(subdirectory.path):
+                temp_stream = read(mseed_file.path, debug_headers=True)
+                channels.append(temp_stream[0].stats.channel)
+            # add entry to station list for the current station
+            station_list[str(temp_stream[0].stats.station)] = {"network":
+                        temp_stream[0].stats.network, "channels": list(set(
+                        channels)), "coords": station_locations[str(
+                        temp_stream[0].stats.station)]}
+
+    with open('station_list.json', 'w') as fp:
+        json.dump(station_list, fp)             
          
          
 def downloadMseeds(client_list, stations_json, output_dir, start_time, end_time, min_lat, max_lat, min_lon, max_lon, chunk_size, channel_list=[], n_processor=None):
