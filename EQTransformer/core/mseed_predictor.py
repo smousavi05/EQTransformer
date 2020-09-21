@@ -213,6 +213,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
             os.makedirs(out_dir) 
         else:
             print("Okay.")
+            return
      
     station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split('/')[-1] != '.DS_Store'];
     station_list = sorted(set(station_list))
