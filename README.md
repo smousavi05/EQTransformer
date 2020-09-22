@@ -126,6 +126,12 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
                     overlap=0.3)
 ```
 
+## Test set
+------------
+test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
+Based on these trace names you can retrieve the data along with their labels from STEAD.
+The remaining traces in the STEAD were used for the training (85 %) and validation (5 %) respectively. 
+
 
 ## Contributing
 ------------
