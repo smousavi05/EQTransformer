@@ -162,11 +162,11 @@ def stationListFromMseed(mseed_directory, station_locations):
             for mseed_file in os.scandir(subdirectory.path):
                 temp_stream = read(mseed_file.path, debug_headers=True)
                 channels.append(temp_stream[0].stats.channel)
-            # add entry to station list for the current station
-            station_list[str(temp_stream[0].stats.station)] = {"network":
-                        temp_stream[0].stats.network, "channels": list(set(
-                        channels)), "coords": station_locations[str(
-                        temp_stream[0].stats.station)]}
+                # add entry to station list for the current station
+                station_list[str(temp_stream[0].stats.station)] = {"network":
+                            temp_stream[0].stats.network, "channels": list(set(
+                            channels)), "coords": station_locations[str(
+                            temp_stream[0].stats.station)]}
 
     with open('station_list.json', 'w') as fp:
         json.dump(station_list, fp)             
