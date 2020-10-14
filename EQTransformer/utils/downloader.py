@@ -123,7 +123,9 @@ def makeStationList(json_path,client_list, min_lat, max_lat, min_lon, max_lon, s
                                                       "channels": list(set(new_chan)),
                                                       "coords": [lat, lon, elv]
                                                       }
-
+     json_dir = os.path.dirname(json_path)
+     if not os.path.exists(json_dir):
+         os.makedirs(json_dir)
      with open(json_path, 'w') as fp:
          json.dump(station_list, fp)
          
