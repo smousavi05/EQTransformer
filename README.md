@@ -128,7 +128,7 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 ## Test set
 ------------
 test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
-Based on these trace names you can retrieve our test data along with their labels from STEAD.
+Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tabels 1, 2, and 3 in the paper. 
 The remaining traces in the STEAD were used for the training (85 %) and validation (5 %) respectively. 
 
 
