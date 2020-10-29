@@ -54,7 +54,7 @@ BibTeX:
 ## Installation
 -----------------
 
-**EQTransformer** supports a variety of platforms, including macOS, and Linux operating systems (Note: the current version does not run on Microsoft Windows. This issue will be fixed in the next release). Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
+**EQTransformer** supports a variety of platforms, including macOS and Linux operating systems (Note: the current version does not run on Microsoft Windows. This issue will be fixed in the next release). Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
 
 #### Via Anaconda (recommended):
 
