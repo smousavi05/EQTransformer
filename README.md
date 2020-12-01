@@ -14,9 +14,8 @@
 ![GitHub stars](https://img.shields.io/github/stars/smousavi05/EQTransformer?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
 
------------
+--------------
 ## Description
------------
 
 **EQTransformer** is an AI-based earthquake signal detector and phase (P&S) picker based on a deep neural network with an attention mechanism. It has a hierarchical architecture specifically designed for earthquake signals. **EQTransformer** has been trained on global seismic data and can perform detection and arrival time picking simultaneously and efficiently. In addition to the prediction probabilities, it can also provide estimated model uncertainties.   
  
@@ -27,15 +26,14 @@ Developer: S. Mostafa Mousavi
 
 -----------
 ## Links
---------------
 
 * Documentation: https://rebrand.ly/EQT-documentations
 
 * Paper:https://rdcu.be/b58li
 
 
+-------------
 ## Reference
------------
 
 Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L, Y., and Beroza, G, C. Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nat Commun 11, 3952 (2020). https://doi.org/10.1038/s41467-020-17591-w
 
@@ -52,8 +50,8 @@ BibTeX:
         publisher={Nature Publishing Group}
     }
 
-## Installation
 -----------------
+## Installation
 
 **EQTransformer** supports a variety of platforms, including macOS and Linux operating systems (Note: the current version does not run on Microsoft Windows. This issue will be fixed in the next release). Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
 
@@ -94,7 +92,6 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
 -------------
 ## Tutorials
--------------
 
 See either:
 
@@ -108,7 +105,6 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 
 -------------------
 ## A Quick Example
--------------------
 
 ```python
 
@@ -128,14 +124,13 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 ```
 -------------
 ## Test set
--------------
+
 test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
 Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tabels 1, 2, and 3 in the paper. 
 The remaining traces in the STEAD were used for the training (85 %) and validation (5 %) respectively. 
 
------------------
+---------------
 ## Contributing
-----------------
 
 If you would like to contribute to the project as a developer, follow these instructions to get started:
 
@@ -147,13 +142,11 @@ If you would like to contribute to the project as a developer, follow these inst
 
 -----------
 ## License
------------
 
 The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
 
 -----------------
 ## Reporting Bugs
------------------
 
 Report bugs at https://github.com/smousavi05/EQTransformer/issues.
 
