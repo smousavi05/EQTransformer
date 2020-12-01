@@ -14,7 +14,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/smousavi05/EQTransformer?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
 
-
+-----------
 ## Description
 -----------
 
@@ -25,6 +25,7 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 Developer: S. Mostafa Mousavi
 
 
+-----------
 ## Links
 --------------
 
@@ -91,6 +92,7 @@ If you have installed **EQTransformer** Python package before and want to upgrad
     pip install EQTransformer -U
 
 
+-------------
 ## Tutorials
 -------------
 
@@ -104,9 +106,9 @@ https://rebrand.ly/EQT-examples
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
-
+-------------------
 ## A Quick Example
------------------
+-------------------
 
 ```python
 
@@ -124,16 +126,16 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
                     batch_size=500,
                     overlap=0.3)
 ```
-
+-------------
 ## Test set
-------------
+-------------
 test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
 Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tabels 1, 2, and 3 in the paper. 
 The remaining traces in the STEAD were used for the training (85 %) and validation (5 %) respectively. 
 
-
+-----------------
 ## Contributing
-------------
+----------------
 
 If you would like to contribute to the project as a developer, follow these instructions to get started:
 
@@ -143,15 +145,15 @@ If you would like to contribute to the project as a developer, follow these inst
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-
+-----------
 ## License
--------
+-----------
 
 The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
 
-
+-----------------
 ## Reporting Bugs
---------------
+-----------------
 
 Report bugs at https://github.com/smousavi05/EQTransformer/issues.
 
