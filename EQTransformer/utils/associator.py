@@ -23,6 +23,7 @@ from obspy import UTCDateTime
 from obspy.signal.trigger import ar_pick
 from obspy.signal.trigger import recursive_sta_lta, trigger_onset
 from itertools import combinations
+from obspy.core.event import Catalog, Event, Origin, Arrival, Pick, WaveformStreamID
 
 
 def run_associator(input_dir,
@@ -349,7 +350,7 @@ def _dbs_associator(start_time, end_time, moving_window,
     
     if consider_combination==True: 
         Y2000_writer = open(save_dir+'/'+'Y2000.phs', 'w')
-        traceNmae_dic = dict()    
+        traceNmae_dic = dict()   
         st = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
         et = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
         total_t = et-st;
@@ -373,13 +374,16 @@ def _dbs_associator(start_time, end_time, moving_window,
                 st_lon_DMS = _decimalDegrees2DMS(float(detections.iloc[0]['stlon']),  "Longitude")
                 depth = 5.0
                 mag = 0.0
+
+                # QuakeML
+                print(detections.iloc[0]['event_start_time'])
                       
                 if len(detections)/pair_n <= 2:
                     ch = pair_n
                 else:
                     ch = int(len(detections)-pair_n)
                   
-                                    
+                picks = []            
                 for ns in range(ch, len(detections)+1):
                     comb = 0
                     for ind in list(combinations(detections.index, ns)):
@@ -428,9 +432,14 @@ def _dbs_associator(start_time, end_time, moving_window,
                                 hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
                                 mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
                                 sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
+                                p = Pick(time=UTCDateTime(row['p_arrival_time']), 
+                                         waveform_id=WaveformStreamID(network_code=network,
+                                         station_code=station.rstrip()),
+                                         phase_hint="P")
+                                picks.append(p)
                             except Exception:
                                 sec_p = None
-                                
+
                             try:
                                 yrs = "{:>4}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[0])
                                 mos = "{:>2}".format(str(row['s_arrival_time']).split(' ')[0].split('-')[1]) 
@@ -438,6 +447,10 @@ def _dbs_associator(start_time, end_time, moving_window,
                                 hrs = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[0]) 
                                 mis = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[1])                                 
                                 sec_s = "{:>4}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[2]) 
+                                p = Pick(time=UTCDateTime(row['p_arrival_time']), 
+                                         waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
+                                         phase_hint="S")
+                                picks.append(p)
                             except Exception:
                                 sec_s = None
                             
@@ -498,9 +511,10 @@ def _dbs_associator(start_time, end_time, moving_window,
 
     else:    
         Y2000_writer = open(save_dir+'/'+'Y2000.phs', 'w')
+        cat = Catalog()
         traceNmae_dic = dict()    
-        st = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
-        et = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
+        st = datetime.strptime(start_time, '%Y-%m-%d')
+        et = datetime.strptime(end_time, '%Y-%m-%d')
         total_t = et-st;
         evid = 200000;  evidd = 100000
         tt = st
@@ -526,12 +540,20 @@ def _dbs_associator(start_time, end_time, moving_window,
                                                                                              int(hr),int(mi),float(sec), 
                                                                                              float(st_lat_DMS[0]), str(st_lat_DMS[1]), float(st_lat_DMS[2]),
                                                                                              float(st_lon_DMS[0]), str(st_lon_DMS[1]), float(st_lon_DMS[2]),
-                                                                                             float(depth), float(mag)));            
+                                                                                             float(depth), float(mag)));          
+                event = Event()
+                origin = Origin(time=UTCDateTime(detections.iloc[0]['event_start_time']),
+                                longitude=detections.iloc[0]['stlon'],
+                                latitude=detections.iloc[0]['stlat'],
+                                method="EqTransformer")
+                event.origins.append(origin)
+                
                 station_buffer = []
                 row_buffer = []
                 sorted_detections = detections.sort_values('p_arrival_time')
                 tr_names = []
                 tr_names2 = []
+                picks = []
                 for _, row in sorted_detections.iterrows():
                     trace_name = row['traceID']+'*'+row['station']+'*'+str(row['event_start_time'])
                     p_unc = row['p_unc']
@@ -558,7 +580,7 @@ def _dbs_associator(start_time, end_time, moving_window,
                         Sweihgt = 4
                         
                     station = "{:<5}".format(row['station'])
-                    network = "{:<2}".format(row['network']) 
+                    network = "{:<2}".format(row['network'])
                     
                     try:
                         yrp = "{:>4}".format(str(row['p_arrival_time']).split(' ')[0].split('-')[0])
@@ -567,6 +589,10 @@ def _dbs_associator(start_time, end_time, moving_window,
                         hrp = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[0]) 
                         mip = "{:>2}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[1]) 
                         sec_p = "{:>4}".format(str(row['p_arrival_time']).split(' ')[1].split(':')[2]) 
+                        p = Pick(time=UTCDateTime(row['p_arrival_time']), 
+                                     waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
+                                     phase_hint="P", method_id="EqTransformer")
+                        picks.append(p)
                     except Exception:
                         sec_p = None
 
@@ -577,6 +603,10 @@ def _dbs_associator(start_time, end_time, moving_window,
                         hrs = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[0]) 
                         mis = "{:>2}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[1])                                 
                         sec_s = "{:>4}".format(str(row['s_arrival_time']).split(' ')[1].split(':')[2]) 
+                        p = Pick(time=UTCDateTime(row['s_arrival_time']), 
+                                     waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
+                                     phase_hint="S", method_id="EqTransformer")
+                        picks.append(p)
                     except Exception:
                         sec_s = None                              
     
@@ -607,6 +637,9 @@ def _dbs_associator(start_time, end_time, moving_window,
                                                                                                          int(yrp),int(mop),int(dyp),
                                                                                                          int(hrp),int(mip),float(sec_p),
                                                                                                          float(0.0))); 
+                event.picks = picks
+                event.preferred_origin_id = event.origins[0].resource_id
+                cat.append(event)
     
                 evid += 1
                 Y2000_writer.write("{:<62}".format(' ')+"%10d"%(evid)+'\n');
@@ -645,4 +678,6 @@ def _dbs_associator(start_time, end_time, moving_window,
         f = open(save_dir+'/'+"traceNmae_dic.json","w")
         f.write(jj)
         f.close()
+        print(cat.__str__(print_all=True))
+        cat.write(save_dir+"/associations.xml", format="QUAKEML")
         
