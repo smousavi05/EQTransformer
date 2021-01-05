@@ -126,6 +126,9 @@ def mseed_predictor(input_dir='downloads_mseeds',
              
     gpu_limit: int
        Set the maximum percentage of memory usage for the GPU. 
+
+    overwrite: Bolean, default=False
+        Overwrite your results automatically.
            
     Returns
     --------        
