@@ -70,7 +70,8 @@ def mseed_predictor(input_dir='downloads_mseeds',
               batch_size=500,              
               overlap = 0.3,
               gpuid=None,
-              gpu_limit=None): 
+              gpu_limit=None,
+              overwrite=False): 
     
     """ 
     
@@ -125,6 +126,9 @@ def mseed_predictor(input_dir='downloads_mseeds',
              
     gpu_limit: int
        Set the maximum percentage of memory usage for the GPU. 
+
+    overwrite: Bolean, default=False
+        Overwrite your results automatically.
            
     Returns
     --------        
@@ -207,7 +211,11 @@ def mseed_predictor(input_dir='downloads_mseeds',
     if os.path.isdir(out_dir):
         print('============================================================================')        
         print(f' *** {out_dir} already exists!')
-        inp = input(" --> Type (Yes or y) to create a new empty directory! This will erase your previous results so make a copy if you want them.")
+        if overwrite == True:
+            inp = "y"
+            print("Overwriting your previous results")
+        else:
+            inp = input(" --> Type (Yes or y) to create a new empty directory! This will erase your previous results so make a copy if you want them.")
         if inp.lower() == "yes" or inp.lower() == "y":
             shutil.rmtree(out_dir)  
             os.makedirs(out_dir) 
