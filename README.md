@@ -89,6 +89,15 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
     pip install EQTransformer -U
 
+### Note:
+If after the installation you get the following error:
+
+AttributeError: 'str' object has no attribute 'decode'
+
+downgraded h5py to 2.10.0 version:
+
+    python -m pip uninstall h5py
+    pip install h5py==2.10.0
 
 -------------
 ## Tutorials
