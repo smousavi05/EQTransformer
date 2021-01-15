@@ -513,8 +513,8 @@ def _dbs_associator(start_time, end_time, moving_window,
         Y2000_writer = open(save_dir+'/'+'Y2000.phs', 'w')
         cat = Catalog()
         traceNmae_dic = dict()    
-        st = datetime.strptime(start_time, '%Y-%m-%d')
-        et = datetime.strptime(end_time, '%Y-%m-%d')
+        st = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
+        et = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
         total_t = et-st;
         evid = 200000;  evidd = 100000
         tt = st
