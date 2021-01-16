@@ -40,6 +40,7 @@ import json
 import pickle
 import faulthandler; faulthandler.enable()
 import obspy
+import logging
 from obspy.signal.trigger import trigger_onset
 from .EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
 warnings.filterwarnings("ignore")
@@ -171,7 +172,11 @@ def mseed_predictor(input_dir='downloads_mseeds',
         config.gpu_options.allow_growth = True
         config.gpu_options.per_process_gpu_memory_fraction = float(args['gpu_limit']) 
         K.tensorflow_backend.set_session(tf.Session(config=config))          
-                                  
+
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s [%(levelname)s] [%(name)s] %(message)s',
+                        datefmt='%m-%d %H:%M') 
+
     class DummyFile(object):
         file = None
         def __init__(self, file):
@@ -190,10 +195,13 @@ def mseed_predictor(input_dir='downloads_mseeds',
         sys.stdout = save_stdout
     
  
-    print('============================================================================')
-    print('Running EqTransformer ', str(EQT_VERSION))
+    # print('============================================================================')
+    # print('Running EqTransformer ', str(EQT_VERSION))
+    eqt_logger = logging.getLogger("EQTransformer")
+    eqt_logger.info(f"Running EqTransformer  {EQT_VERSION}")
             
-    print(' *** Loading the model ...', flush=True)        
+    # print(' *** Loading the model ...', flush=True)     
+    eqt_logger.info(f"*** Loading the model ...")
     model = load_model(args['input_model'], 
                        custom_objects={'SeqSelfAttention': SeqSelfAttention, 
                                        'FeedForward': FeedForward,
@@ -204,16 +212,19 @@ def mseed_predictor(input_dir='downloads_mseeds',
                   loss_weights = args['loss_weights'],           
                   optimizer = Adam(lr = 0.001),
                   metrics = [f1])
-    print('*** Loading is complete!', flush=True)  
+    # print('*** Loading is complete!', flush=True)  
+    eqt_logger.info(f"*** Loading is complete!")
 
 
     out_dir = os.path.join(os.getcwd(), str(args['output_dir']))
     if os.path.isdir(out_dir):
-        print('============================================================================')        
-        print(f' *** {out_dir} already exists!')
+        # print('============================================================================')        
+        # print(f' *** {out_dir} already exists!')
+        eqt_logger.info(f"*** {out_dir} already exists!")
         if overwrite == True:
             inp = "y"
-            print("Overwriting your previous results")
+            eqt_logger.info(f"Overwriting your previous results")
+            # print("Overwriting your previous results")
         else:
             inp = input(" --> Type (Yes or y) to create a new empty directory! This will erase your previous results so make a copy if you want them.")
         if inp.lower() == "yes" or inp.lower() == "y":
@@ -228,7 +239,8 @@ def mseed_predictor(input_dir='downloads_mseeds',
     
     data_track = dict()
 
-    print(f"######### There are files for {len(station_list)} stations in {args['input_dir']} directory. #########", flush=True)
+    # print(f"######### There are files for {len(station_list)} stations in {args['input_dir']} directory. #########", flush=True)
+    eqt_logger.info(f"There are files for {len(station_list)} stations in {args['input_dir']} directory.")
     for ct, st in enumerate(station_list):
     
         save_dir = os.path.join(out_dir, str(st)+'_outputs')
@@ -263,7 +275,9 @@ def mseed_predictor(input_dir='downloads_mseeds',
                                  's_snr'
                                      ])  
         csvPr_gen.flush()
-        print(f'========= Started working on {st}, {ct+1} out of {len(station_list)} ...', flush=True)
+        # print(f'========= Started working on {st}, {ct+1} out of {len(station_list)} ...', flush=True)
+        eqt_logger.info(f"Started working on {st}, {ct+1} out of {len(station_list)} ...")
+        
 
         start_Predicting = time.time()       
         
@@ -276,7 +290,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
         
         # print('============ Station {} has {} chunks of data.'.format(st, len(uni_list)), flush=True)      
         for _, month in enumerate(uni_list):
-            print(month)
+            eqt_logger.info(f"{month}")
             matching = [s for s in file_list if month in s]
             meta, time_slots, comp_types, data_set = _mseed2nparry(args, matching, time_slots, comp_types, st)
 
@@ -310,9 +324,12 @@ def mseed_predictor(input_dir='downloads_mseeds',
                         
         dd = pd.read_csv(os.path.join(save_dir,'X_prediction_results.csv'))
         print(f'\n', flush=True)
-        print(' *** Finished the prediction in: {} hours and {} minutes and {} seconds.'.format(hour, minute, round(seconds, 2)), flush=True)         
-        print(' *** Detected: '+str(len(dd))+' events.', flush=True)
-        print(' *** Wrote the results into --> " ' + str(save_dir)+' "', flush=True)
+        eqt_logger.info(f"Finished the prediction in: {hour} hours and {minute} minutes and {round(seconds, 2)} seconds.")
+        eqt_logger.info(f'*** Detected: '+str(len(dd))+' events.')
+        eqt_logger.info(f' *** Wrote the results into --> " ' + str(save_dir)+' "')
+        # print(' *** Finished the prediction in: {} hours and {} minutes and {} seconds.'.format(hour, minute, round(seconds, 2)), flush=True)         
+        # print(' *** Detected: '+str(len(dd))+' events.', flush=True)
+        # print(' *** Wrote the results into --> " ' + str(save_dir)+' "', flush=True)
         
         with open(os.path.join(save_dir,'X_report.txt'), 'a') as the_file: 
             the_file.write('================== PREDICTION FROM MSEED ===================='+'\n')               
