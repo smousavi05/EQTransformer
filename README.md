@@ -59,7 +59,7 @@ BibTeX:
 
     conda create -n eqt python=3.7
 
-    Conda activate eqt
+    conda activate eqt
 
     conda install -c smousavi05 eqtransformer 
   
