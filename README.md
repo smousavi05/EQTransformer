@@ -53,7 +53,7 @@ BibTeX:
 -----------------
 ## Installation
 
-**EQTransformer** supports a variety of platforms, including macOS and Linux operating systems (Note: the current version does not run on Microsoft Windows. This issue will be fixed in the next release). Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
+**EQTransformer** supports a variety of platforms, including macOS, Windows, and Linux operating systems. Note that you will need to have Python 3.x (3.6 or 3.7) installed. The **EQTransformer** Python package can be installed using the following options:
 
 #### Via Anaconda (recommended):
 
@@ -92,7 +92,7 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 ### Note:
 If after the installation you get the following error:
 
-AttributeError: 'str' object has no attribute 'decode'
+    AttributeError: 'str' object has no attribute 'decode'
 
 downgraded h5py to 2.10.0 version:
 
