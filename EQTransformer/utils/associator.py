@@ -13,6 +13,7 @@ from tqdm import tqdm
 import numpy as np
 import json
 import os
+import platform
 import sqlite3 
 import pandas as pd
 import csv
@@ -103,13 +104,19 @@ def run_associator(input_dir,
                                     s_snr NUMERIC,
                                     amp NUMERIC
                                     )''')
-    
-    station_list = [ev for ev in listdir(input_dir) if ev.split('/')[-1] != '.DS_Store'];
+    if platform.system() == 'Windows':
+        station_list = [ev for ev in listdir(input_dir) if ev.split("\\")[-1] != ".DS_Store"];
+    else:
+        station_list = [ev for ev in listdir(input_dir) if ev.split("/")[-1] != ".DS_Store"];
+        
     station_list = sorted(set(station_list))
 
     for st in station_list:       
         print(f'reading {st} ...')
-        _pick_database_maker(conn, cur, input_dir+'/'+st+'/X_prediction_results.csv')
+        if platform.system() == 'Windows':
+            _pick_database_maker(conn, cur, input_dir+"\\"+st+'"\\"X_prediction_results.csv')
+        else:
+            _pick_database_maker(conn, cur, input_dir+"/"+st+'/X_prediction_results.csv')
 
     #  read the database as dataframe 
     conn = sqlite3.connect("phase_dataset")
@@ -301,9 +308,13 @@ def _doubleChecking(station_list, detections, preprocessed_dir, moving_window, t
       #  print(sttt)
         if sttt not in detections['station'].to_list():
             new_picks = {}                    
-        
-            file_name = preprocessed_dir+'/'+sttt+'.hdf5'
-            file_csv = preprocessed_dir+"/"+sttt+".csv"
+            if platform.system() == 'Windows':
+                file_name = preprocessed_dir+"\\"+sttt+".hdf5"
+                file_csv = preprocessed_dir+"\\"+sttt+".csv"
+            else:
+                file_name = preprocessed_dir+"/"+sttt+".hdf5"
+                file_csv = preprocessed_dir+"/"+sttt+".csv"
+            
             df = pd.read_csv(file_csv)
             df['start_time'] = pd.to_datetime(df['start_time'])  
             
@@ -349,7 +360,11 @@ def _dbs_associator(start_time, end_time, moving_window,
                     consider_combination=False):  
     
     if consider_combination==True: 
-        Y2000_writer = open(save_dir+'/'+'Y2000.phs', 'w')
+        if platform.system() == 'Windows':
+            Y2000_writer = open(save_dir+"\\"+"Y2000.phs", "w")
+        else:
+            Y2000_writer = open(save_dir+"/"+"Y2000.phs", "w")
+            
         traceNmae_dic = dict()   
         st = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
         et = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
@@ -504,13 +519,20 @@ def _dbs_associator(start_time, end_time, moving_window,
     
         print('The Number of Realizations: '+str(evid)+'\n', flush=True)
             
-        jj = json.dumps(traceNmae_dic)     
-        f = open(save_dir+'/'+"traceNmae_dic.json","w")
+        jj = json.dumps(traceNmae_dic) 
+        if platform.system() == 'Windows':
+            f = open(save_dir+"\\"+"traceNmae_dic.json","w")
+        else:
+            f = open(save_dir+"/"+"traceNmae_dic.json","w")
         f.write(jj)
         f.close()
 
-    else:    
-        Y2000_writer = open(save_dir+'/'+'Y2000.phs', 'w')
+    else:  
+        if platform.system() == 'Windows':
+            Y2000_writer = open(save_dir+"\\"+"Y2000.phs", "w")
+        else:
+            Y2000_writer = open(save_dir+"/"+"Y2000.phs", "w")
+            
         cat = Catalog()
         traceNmae_dic = dict()    
         st = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
@@ -674,8 +696,12 @@ def _dbs_associator(start_time, end_time, moving_window,
             
         print('The Number of Associated Events: '+str(evid-200000)+'\n', flush=True)
             
-        jj = json.dumps(traceNmae_dic)     
-        f = open(save_dir+'/'+"traceNmae_dic.json","w")
+        jj = json.dumps(traceNmae_dic)  
+        if platform.system() == 'Windows':
+            f = open(save_dir+"\\"+"traceNmae_dic.json","w")
+        else:    
+            f = open(save_dir+"/"+"traceNmae_dic.json","w")
+            
         f.write(jj)
         f.close()
         print(cat.__str__(print_all=True))

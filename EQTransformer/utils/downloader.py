@@ -13,6 +13,7 @@ from obspy.clients.fdsn.mass_downloader import RectangularDomain, Restrictions, 
 from obspy import UTCDateTime
 import datetime
 import os
+import platform
 from obspy.clients.fdsn.client import Client
 import shutil
 from multiprocessing.pool import ThreadPool
@@ -268,14 +269,26 @@ def downloadSacs(client, stations_json, output_dir, start_time, end_time, patien
     fr = open(stations_json, 'r'); 
     new_list = json.load(fr)
     print(f"####### There are {len(new_list)} stations in the list. #######")
-    if not os.path.exists(output_dir+"/"):
-        os.makedirs(output_dir+"/")  
+
+    if platform.system() == 'Windows':
+        if not os.path.exists(output_dir+"\\"):
+            os.makedirs(output_dir+"\\")  
+    else:        
+        if not os.path.exists(output_dir+"/"):
+            os.makedirs(output_dir+"/")  
 
     def process(station):          
         net = new_list[station]['network']
-        dirname = str(station)+'/'
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)            
+        
+        if platform.system() == 'Windows':
+            dirname = str(station)+"\\"
+            if not os.path.exists(dirname):
+                os.makedirs(dirname) 
+        else:   
+            dirname = str(station)+"/"
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)  
+                
         chans = new_list[station]['channels']  
         
         for chan in chans:

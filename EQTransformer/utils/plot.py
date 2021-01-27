@@ -7,6 +7,7 @@ last update: 06/05/2020
 """
 import pandas as pd
 from os import listdir
+import platform
 import json
 import matplotlib.pyplot as plt
 from datetime import datetime
@@ -63,9 +64,12 @@ def plot_helicorder(input_mseed, input_csv=None, save_plot=False):
         for ev in ev_list:
             event_list.append({"time": UTCDateTime(ev)})
     if save_plot:    
-        
-        st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split('/')[-1].split('.mseed')[0]+'.png')
-        print('saved the plot as '+input_mseed.split('/')[-1].split('.mseed')[0]+'.png')
+        if platform.system() == 'Windows':
+            st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("\\")[-1].split('.mseed')[0]+'.png')
+            print('saved the plot as '+input_mseed.split("\\")[-1].split('.mseed')[0]+'.png')
+        else:    
+            st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("/")[-1].split('.mseed')[0]+'.png')
+            print('saved the plot as '+input_mseed.split("/")[-1].split('.mseed')[0]+'.png')
     else:    
         st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list)
 
@@ -103,8 +107,11 @@ def plot_detections(input_dir, input_json, plot_type=None, time_window=60, marke
        
      """  
 
-     
-     station_list = [ev for ev in listdir(input_dir) if ev.split('/')[-1] != '.DS_Store'];
+     if platform.system() == 'Windows':
+         station_list = [ev for ev in listdir(input_dir) if ev.split("\\")[-1] != '.DS_Store'];
+     else:
+         station_list = [ev for ev in listdir(input_dir) if ev.split("/")[-1] != '.DS_Store'];
+
      station_list = sorted(set(station_list))
     
     
@@ -112,8 +119,12 @@ def plot_detections(input_dir, input_json, plot_type=None, time_window=60, marke
      stations_ = json.load(json_file)
     
      detection_list = {}
-     for st in station_list:    
-         df_mulistaition = pd.read_csv(input_dir+'/'+st+'/X_prediction_results.csv') 
+     for st in station_list: 
+         if platform.system() == 'Windows':
+             df_mulistaition = pd.read_csv(input_dir+"\\"+st+'"\\"X_prediction_results.csv') 
+         else:
+             df_mulistaition = pd.read_csv(input_dir+"/"+st+"/X_prediction_results.csv") 
+             
          detection_list[st.split("_")[0]]=[stations_[st.split("_")[0]]['coords'][1],stations_[st.split("_")[0]]['coords'][0],len(df_mulistaition)]
     
      ln2=[]; lt2=[]; detections=[]
@@ -139,8 +150,12 @@ def plot_detections(input_dir, input_json, plot_type=None, time_window=60, marke
          plt.show()
          
      elif plot_type == 'hist':
-         for st in station_list:    
-             df = pd.read_csv(input_dir+'/'+st+'/X_prediction_results.csv')     
+         for st in station_list: 
+             if platform.system() == 'Windows':
+                 df = pd.read_csv(input_dir+"\\"+st+'"\\"X_prediction_results.csv')     
+             else:    
+                 df = pd.read_csv(input_dir+"/"+st+"/X_prediction_results.csv")
+                 
              df['event_start_time'] = df['event_start_time'].apply(lambda row : _date_convertor(row)) 
 
              plt.figure(constrained_layout=True)
