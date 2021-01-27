@@ -25,6 +25,7 @@ import h5py
 import time
 from os import listdir
 import os
+import platform
 import shutil
 from .EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
 from .EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
@@ -46,7 +47,7 @@ try:
         if li == 8:
             EQT_VERSION = l.split('"')[1]
 except Exception:
-    EQT_VERSION = None
+    EQT_VERSION = "0.1.58"
 
 def predictor(input_dir=None,
               input_model=None,
@@ -246,14 +247,20 @@ def predictor(input_dir=None,
         if inp.lower() == "yes" or inp.lower() == "y":
             shutil.rmtree(out_dir)  
             os.makedirs(out_dir) 
-     
-    station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split('/')[-1] != '.DS_Store'];
+    if platform.system() == 'Windows': 
+        station_list = [ev.split(".")[0] for ev in listdir(args["input_dir"]) if ev.split("\\")[-1] != ".DS_Store"];
+    else:
+        station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split("/")[-1] != ".DS_Store"];
     station_list = sorted(set(station_list))
     
     print(f"######### There are files for {len(station_list)} stations in {args['input_dir']} directory. #########", flush=True)
     for ct, st in enumerate(station_list):
-        args['input_hdf5'] = args['input_dir']+'/'+st+'.hdf5'
-        args['input_csv'] = args['input_dir']+'/'+st+'.csv'
+        if platform.system() == 'Windows': 
+            args["input_hdf5"] = args["input_dir"]+"\\"+st+".hdf5"
+            args["input_csv"] = args["input_dir"]+"\\"+st+".csv"
+        else:            
+            args["input_hdf5"] = args["input_dir"]+"/"+st+".hdf5"
+            args["input_csv"] = args["input_dir"]+"/"+st+".csv"
     
         save_dir = os.path.join(out_dir, str(st)+'_outputs')
         out_probs = os.path.join(save_dir, 'prediction_probabilities.hdf5')

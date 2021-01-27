@@ -26,6 +26,7 @@ import keras
 import time
 from os import listdir
 import os
+import platform
 import shutil
 from tqdm import tqdm
 from datetime import datetime, timedelta
@@ -53,7 +54,7 @@ try:
         if li == 8:
             EQT_VERSION = l.split('"')[1]
 except Exception:
-    EQT_VERSION = None
+    EQT_VERSION = "0.1.58"
     
 
 def mseed_predictor(input_dir='downloads_mseeds',
@@ -234,7 +235,12 @@ def mseed_predictor(input_dir='downloads_mseeds',
             print("Okay.")
             return
      
-    station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split('/')[-1] != '.DS_Store'];
+    if platform.system() == 'Windows':
+        station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split("\\")[-1] != ".DS_Store"];
+    else:     
+        station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split("/")[-1] != ".DS_Store"];
+        
+
     station_list = sorted(set(station_list))
     
     data_track = dict()
@@ -280,8 +286,11 @@ def mseed_predictor(input_dir='downloads_mseeds',
         
 
         start_Predicting = time.time()       
+        if platform.system() == 'Windows':
+            file_list = [join(st, ev) for ev in listdir(args["input_dir"]+"\\"+st) if ev.split("\\")[-1].split(".")[-1].lower() == "mseed"]; 
+        else:
+            file_list = [join(st, ev) for ev in listdir(args["input_dir"]+"/"+st) if ev.split("/")[-1].split(".")[-1].lower() == "mseed"]; 
         
-        file_list = [join(st, ev) for ev in listdir(args['input_dir']+'/'+st) if ev.split('/')[-1].split('.')[-1].lower() == 'mseed'];   
         mon = [ev.split('__')[1]+'__'+ev.split('__')[2] for ev in file_list ];
         uni_list = list(set(mon))
         uni_list.sort()  
@@ -500,8 +509,11 @@ class PreLoadGeneratorTest(keras.utils.Sequence):
         
     def __len__(self):
         'Denotes the number of batches per epoch'
-        return int(np.floor(len(self.list_IDs) / self.batch_size))
-
+        try:
+            return int(np.floor(len(self.list_IDs) / self.batch_size))
+        except ZeroDivisionError:
+            print("Your data duration in mseed file is too short! Try either longer files or reducing batch_size. ")
+        
     def __getitem__(self, index):
         'Generate one batch of data'
         indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]           
@@ -1080,7 +1092,10 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
         plt.plot(data[:, 0], 'k')
         plt.xlim(0, 6000)
         x = np.arange(6000)
-        plt.title(save_figs.split('/')[-2].split('_')[0]+':'+str(evi))
+        if platform.system() == 'Windows':
+            plt.title(save_figs.split("\\")[-2].split("_")[0]+":"+str(evi))
+        else:
+            plt.title(save_figs.split("/")[-2].split("_")[0]+":"+str(evi))
                      
         ax.set_xticks([])
         plt.rcParams["figure.figsize"] = (10, 10)
@@ -1251,8 +1266,12 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
         ax = fig.add_subplot(spec5[0, 0])         
         plt.plot(data[:, 0], 'k')
         x = np.arange(6000)
-        plt.xlim(0, 6000)            
-        plt.title(save_figs.split('/')[-2].split('_')[0]+':'+str(evi))
+        plt.xlim(0, 6000) 
+        
+        if platform.system() == 'Windows':  
+            plt.title(save_figs.split("\\")[-2].split("_")[0]+":"+str(evi))
+        else:
+            plt.title(save_figs.split("/")[-2].split("_")[0]+":"+str(evi))
 
         plt.ylabel('Amplitude\nCounts')
                                           
