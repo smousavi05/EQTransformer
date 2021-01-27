@@ -62,7 +62,8 @@ BibTeX:
     conda activate eqt
 
     conda install -c smousavi05 eqtransformer 
-  
+    
+##### Note: You may need to repeat executing the last line multiple time to succeed.  
 
 #### Via PyPI:
 
