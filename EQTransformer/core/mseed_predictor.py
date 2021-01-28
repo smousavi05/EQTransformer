@@ -308,7 +308,10 @@ def mseed_predictor(input_dir='downloads_mseeds',
                 
             pred_generator = PreLoadGeneratorTest(meta["trace_start_time"], data_set, **params_pred)
 
-            predD, predP, predS = model.predict_generator(pred_generator)
+            try:
+                predD, predP, predS = model.predict_generator(pred_generator)
+            except ValueError:
+                continue
 
             detection_memory = []
             for ix in range(len(predD)):
