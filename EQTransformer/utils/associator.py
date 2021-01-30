@@ -5,7 +5,7 @@ Created on Fri Dec 27 18:52:42 2019
 
 @author: mostafamousavi
 
-last update: 06/23/2020
+last update: 01/29/2021
 """
 
 from datetime import datetime, timedelta
@@ -66,7 +66,9 @@ def run_associator(input_dir,
     Returns
     ----------        
     output_dir/Y2000.phs: Phase information for the associated events in hypoInverse format.     
-    
+
+    output_dir/associations.xml: quakeml output (containing origin and pick objects - using ObsPy functions). QuakeML is useful so that the user can then easily use ObsPy to generate input for other relocator methods (e.g. NonLinLoc). Contributed by Stephen Hicks  
+
     output_dir/traceNmae_dic.json: A dictionary where the trace name for all the detections associated to an event are listed. This can be used later to access the traces for calculating the cross-correlations during the relocation process. 
         
         

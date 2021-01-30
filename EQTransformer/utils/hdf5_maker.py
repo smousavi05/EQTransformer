@@ -5,7 +5,7 @@ Created on Sat Aug 31 21:21:31 2019
 
 @author: mostafamousavi
 
-last update: 06-21-2020 
+last update: 01/29/2021
 
 - downsampling using the interpolation function can cause false segmentaiton error. 
     This depend on your data and its sampling rate. If you kept getting this error when 
@@ -29,6 +29,8 @@ from multiprocessing.pool import ThreadPool
 import multiprocessing
 import pickle
 import faulthandler; faulthandler.enable()
+from obspy import read
+
 
 
 def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor=None):
@@ -457,6 +459,58 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
     with open(os.path.join(preproc_dir,'time_tracks.pkl'), 'wb') as f:
         pickle.dump(data_track, f, pickle.HIGHEST_PROTOCOL)
 
+
+
+def stationListFromMseed(mseed_directory, station_locations):
+    """
+    Contributed by: Tyler Newton
+        
+    Reads all miniseed files contained within subdirectories in the specified directory and generates a station_list.json file that describes the miniseed files in the correct format for EQTransformer.
+    
+    Parameters
+    ----------
+    mseed_directory: str
+        String specifying the absolute path to the directory containing miniseed files. Directory must contain subdirectories of station names, which contain miniseed files in the EQTransformer format. 
+        Each component must be a seperate miniseed file, and the naming
+        convention is GS.CA06.00.HH1__20190901T000000Z__20190902T000000Z
+        .mseed, or more generally 
+        NETWORK.STATION.LOCATION.CHANNEL__STARTTIMESTAMP__ENDTIMESTAMP.mseed
+        where LOCATION is optional.
+    station_locations: dict
+        Dictonary with station names as keys and lists of latitude,
+        longitude, and elevation as items. For example: {"CA06": [35.59962,
+        -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+   
+    Returns
+    -------
+    stations_list.json: A dictionary containing information for the available stations.
+    
+    Example
+    -------
+    directory = '/Users/human/Downloads/eqt/examples/downloads_mseeds'
+    locations = {"CA06": [35.59962, -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+    stationListFromMseed(directoy, locations)
+    """
+
+    station_list = {}
+
+    # loop through subdirectories of specified directory
+    for subdirectory in os.scandir(mseed_directory):
+        if subdirectory.is_dir():
+            channels = []
+            # build channel list from miniseed files
+            for mseed_file in os.scandir(subdirectory.path):
+                temp_stream = read(mseed_file.path, debug_headers=True)
+                channels.append(temp_stream[0].stats.channel)
+            # add entry to station list for the current station
+            station_list[str(temp_stream[0].stats.station)] = {"network":
+                        temp_stream[0].stats.network, "channels": list(set(
+                        channels)), "coords": station_locations[str(
+                        temp_stream[0].stats.station)]}
+
+    with open('station_list.json', 'w') as fp:
+        json.dump(station_list, fp)             
+        
 def _resampling(st):
     need_resampling = [tr for tr in st if tr.stats.sampling_rate != 100.0]
     if len(need_resampling) > 0:
