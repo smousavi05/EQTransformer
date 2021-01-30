@@ -36,9 +36,12 @@ The following will download the information on the stations that are available b
  
 .. code:: python
 
+    import os
+    json_basepath = os.path.join(os.getcwd(),"json/station_list.json")
+	
     from EQTransformer.utils.downloader import makeStationList
     
-    makeStationList(client_list=["SCEDC"], min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", channel_list=["HH[ZNE]", "HH[Z21]", "BH[ZNE]"], filter_network=["SY"], filter_station=[])
+    makeStationList(json_path=json_basepath, client_list=["SCEDC"], min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", channel_list=["HH[ZNE]", "HH[Z21]", "BH[ZNE]"], filter_network=["SY"], filter_station=[])
 
 
 The above function will generate ``station_list.json`` file containing the station information. Next, you can use this file and download 1 day of data for the available stations at Ridgecrest, California from Southern California Earthquake Data Center or IRIS using the following:
@@ -47,7 +50,7 @@ The above function will generate ``station_list.json`` file containing the stati
 
     from EQTransformer.utils.downloader import downloadMseeds
     
-    downloadMseeds(client_list=["SCEDC", "IRIS"], stations_json='station_list.json', output_dir="downloads_mseeds", min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", chunk_size=1, channel_list=[], n_processor=2)
+    downloadMseeds(client_list=["SCEDC", "IRIS"], stations_json=json_basepath, output_dir="downloads_mseeds", min_lat=35.50, max_lat=35.60, min_lon=-117.80, max_lon=-117.40, start_time="2019-09-01 00:00:00.00", end_time="2019-09-03 00:00:00.00", chunk_size=1, channel_list=[], n_processor=2)
 
 This will download the continous data (in MiniSeed) and save them into individual folders for each station insider your defined output directory (i.e. downloads_mseeds).
 
@@ -74,7 +77,7 @@ For this option, you first need to convert your MiniSeed files for each station 
 
     from EQTransformer.utils.hdf5_maker import preprocessor
     
-    preprocessor(mseed_dir='downloads_mseeds', stations_json='station_list.json', overlap=0.3, n_processor=2)
+    preprocessor(preproc_dir="preproc", mseed_dir='downloads_mseeds', stations_json=json_basepath, overlap=0.3, n_processor=2)
 
 
 This will generate one ``station_name.hdf5`` and one ``station_name.csv`` file for each of your station's data and put them into a directory named ``mseed_dir+_hdfs``. Then you need to pass the name of this directory (which contains all of your hdf5 & CSV files) and a model to the following command: 
@@ -100,6 +103,15 @@ In the figures folder, you can find the plots for some detected events:
 
 These plots are helpful to check if you are getting too many false positives (non-earthquake signals) and get a better sense that if your selected threshold values for the detection and picking is too high or too low.
 
+If you are using local MiniSeed files you can generate a station_list.json by supplying an absolute path to a directory containing Miniseed files and a station location dictionary using the stationListFromMseed function like the following:
+
+.. code:: python
+	from EQTransformer.utils.hdf5_maker import stationListFromMseed
+
+	mseed_directory = '/Users/username/Downloads/EQTransformer/examples/downloads_mseeds'
+	station_locations = {"CA06": [35.59962, -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+	stationListFromMseed(mseed_directory, station_locations)
+
 
 * Option (II) directly from mseed files:
 
@@ -111,7 +123,7 @@ This option also does not allow you to estimate the uncertainties, save the pred
 
     from EQTransformer.core.mseed_predictor import mseed_predictor
     
-    mseed_predictor(input_dir= 'downloads_mseeds', input_model='EqT_model.h5', stations_json='station_list.json', output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time_frequency', overlap=0.3, batch_size=500) 
+    mseed_predictor(input_dir='downloads_mseeds', input_model='EqT_model.h5', stations_json=json_basepath, output_dir='detections', detection_threshold=0.3, P_threshold=0.1, S_threshold=0.1, number_of_plots=100, plot_mode='time_frequency', overlap=0.3, batch_size=500) 
 
 As you can see from the above example, you can choose between two different modes for your plots. The selected time_frequency mode will output following plots that can be useful to identify non-earthquake signals from earthquake ones based on their frequency contents:
 
