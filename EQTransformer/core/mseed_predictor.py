@@ -5,7 +5,7 @@ Created on Sun Jun 21 21:55:54 2020
 
 @author: mostafamousavi
 
-last update: 06/28/2020
+last update: 01/29/2021
 
 """
 
@@ -54,7 +54,7 @@ try:
         if li == 8:
             EQT_VERSION = l.split('"')[1]
 except Exception:
-    EQT_VERSION = "0.1.58"
+    EQT_VERSION = "0.1.59"
     
 
 def mseed_predictor(input_dir='downloads_mseeds',
@@ -308,10 +308,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
                 
             pred_generator = PreLoadGeneratorTest(meta["trace_start_time"], data_set, **params_pred)
 
-            try:
-                predD, predP, predS = model.predict_generator(pred_generator)
-            except ValueError:
-                continue
+            predD, predP, predS = model.predict_generator(pred_generator)
 
             detection_memory = []
             for ix in range(len(predD)):

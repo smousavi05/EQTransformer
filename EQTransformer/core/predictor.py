@@ -4,7 +4,7 @@
 Created on Wed Apr 25 17:44:14 2018
 
 @author: mostafamousavi
-last update: 06/25/2020
+last update: 01/29/2021
 
 """
 
@@ -47,7 +47,7 @@ try:
         if li == 8:
             EQT_VERSION = l.split('"')[1]
 except Exception:
-    EQT_VERSION = "0.1.58"
+    EQT_VERSION = "0.1.59"
 
 def predictor(input_dir=None,
               input_model=None,
