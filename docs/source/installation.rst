@@ -18,7 +18,8 @@ It is recommended that you use a Python virtual environment (e.g., conda) to tes
   conda install -c smousavi05 eqtransformer
 
 
-This will download and install **EQTransformer** and all required packages (including Tensorflow and Obspy) into your machine. 
+This will download and install **EQTransformer** and all required packages (including Tensorflow and Obspy) into your machine.
+*Note:* Keep executing the last line if it did not succeed in the first try. 
 
 .. |anaconda environment| raw:: html
 
