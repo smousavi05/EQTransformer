@@ -291,7 +291,7 @@ Warnings and Recommendations
 In the following figures, EqT detected some small earthquakes with weaker signals while it was insensitive to non-earthquake signals with strong impulsive energies. 
 
 .. figure:: figures/Picture1.png
-    :scale: 30 %
+    :scale: 40 %
 
 .. figure:: figures/Picture11.png
     :scale: 30 %
