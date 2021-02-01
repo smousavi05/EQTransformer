@@ -291,14 +291,14 @@ Warnings and Recommendations
 In the following figures, EqT detected some small earthquakes with weaker signals while it was insensitive to non-earthquake signals with strong impulsive energies. 
 
 .. figure:: figures/Picture1.png
-    :scale: 70 %
+    :scale: 30 %
 
 .. figure:: figures/Picture11.png
-    :scale: 70 %
+    :scale: 30 %
     
 Here, EqT detected many smaller earthquakes while ignoring a large teleseismic event. This is an inherent characteristic of EQTransformer to be only sensitive to local events (mainly within 150 km) and filter out regional and teleseismic ones.  
 
 .. figure:: figures/Picture12.png
-    :scale: 70 %
+    :scale: 30 %
     
 * Good Luck
