@@ -212,7 +212,7 @@ Check the visualization.ipynb_ or API Documentations for more details.
 Phase Association
 ---------------------
 
-After detection, the following performs a simple and fast association and writes down the results in HypoInverse format (``Y2000.phs``) which can directly be used to locate the detected earthquakes. This also outputs ``traceNmae_dic.json``, a dictionary where the trace names for source waveforms of all the detections associated with an event are listed. This can be used later to access the original waveform traces for calculating the cross-correlations during the relocation process or magnitude estimation.
+After detection, the following performs a simple and fast association and writes down the results in HypoInverse format (``Y2000.phs``) and ObsPy QuakeML format (``associations.xml``) which can directly be used to locate the detected earthquakes using conventional location algorithms like HypoInverse or NonLinLoc. This also outputs ``traceName_dic.json``, a dictionary where the trace names for source waveforms of all the detections associated with an event are listed. This can be used later to access the original waveform traces for calculating the cross-correlations during the relocation process or magnitude estimation.
 
 .. code:: python
 
@@ -279,4 +279,26 @@ Warnings and Recommendations
 
 * The examples subfolder in the GitHub repository contains small and quick examples for each module. As a quick start, you can run them one by one after you installed the package. 
 
+
+* The provided models (e.g. ``EqT_model.h5``, and ``EqT_model2.h5``) have been trained using different settings and have different attributes. While ``EqT_model.h5`` has been trained to minimize false positives, ``EqT_model2.h5`` has been trained to minimize false-negative rate. 
+
+
+* EqT models use the dropout sampling technique. At each inference, a different set of neurons are randomly used. Thus the output prediction values and as a result, the number of detected events might differ from one prediction run to another. This is what we use to estimate the model uncertainties. 
+
+
+* And finaly these are a few interesting cases:
+
+In the following figures, EqT detected some small earthquakes with weaker signals while it was insensitive to non-earthquake signals with strong impulsive energies. 
+
+.. figure:: figures/Picture1.png
+    :scale: 70 %
+
+.. figure:: figures/Picture11.png
+    :scale: 70 %
+    
+Here, EqT detected many smaller earthquakes while ignoring a large teleseismic event. This is an inherent characteristic of EQTransformer to be only sensitive to local events (mainly within 150 km) and filter out regional and teleseismic ones.  
+
+.. figure:: figures/Picture12.png
+    :scale: 70 %
+    
 * Good Luck
