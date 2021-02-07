@@ -83,6 +83,10 @@ You can either clone the public repository:
 
 Once you have a copy of the source, you can cd to **EQTransformer** directory and install it with:
 
+    conda create -n eqt python=3.7
+
+    conda activate eqt
+
     python setup.py install
 
 
