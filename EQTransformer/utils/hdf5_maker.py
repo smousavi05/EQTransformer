@@ -121,7 +121,7 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
         else:
             file_list = [join(station, ev) for ev in listdir(station) if ev.split("/")[-1] != ".DS_Store"];
             
-        mon = [ev.split('__')[1]+'__'+ev.split('__')[2] for ev in file_list ];
+        mon = [ev.split('_')[1]+'_'+ev.split('_')[2] for ev in file_list ];
         uni_list = list(set(mon))
         uni_list.sort()        
         tim_shift = int(60-(overlap*60))
