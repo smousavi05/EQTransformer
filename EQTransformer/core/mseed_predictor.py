@@ -1229,9 +1229,9 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
         axes.yaxis.grid(color='lightgray')        
     
         ax = fig.add_subplot(spec5[6, 1])  
-        custom_lines = [Line2D([0], [0], linestyle='--', color='mediumblue', lw=2),
-                        Line2D([0], [0], linestyle='--', color='c', lw=2),
-                        Line2D([0], [0], linestyle='--', color='m', lw=2)]
+        custom_lines = [Line2D([0], [0], linestyle='--', color='g', lw=2),
+                        Line2D([0], [0], linestyle='--', color='b', lw=2),
+                        Line2D([0], [0], linestyle='--', color='r', lw=2)]
         plt.legend(custom_lines, ['Earthquake', 'P_arrival', 'S_arrival'], fancybox=True, shadow=True)
         plt.axis('off')
             
