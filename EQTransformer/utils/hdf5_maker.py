@@ -55,7 +55,7 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
         If set, detection, and picking are performed in overlapping windows.
            
     n_processor: int, default=None 
-        The number of CPU processors for parallel downloading.         
+        The number of CPU processors for parallel preprocessing.         
 
     Returns
     ----------
