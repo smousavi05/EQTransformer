@@ -422,23 +422,6 @@ def _dbs_associator(start_time, end_time, moving_window,
                             s_unc = row['s_unc']
                             s_prob = row['s_prob']
             
-                            if p_unc:                    
-                                Pweihgt = _weighcalculator_prob(p_prob*(1-p_unc))
-                            else:
-                                Pweihgt = _weighcalculator_prob(p_prob)
-                            try:
-                                Pweihgt = int(Pweihgt)
-                            except Exception:
-                                Pweihgt = 4
-            
-                            if s_unc: 
-                                Sweihgt = _weighcalculator_prob(s_prob*(1-s_unc))
-                            else:
-                                Sweihgt = _weighcalculator_prob(s_prob)  
-                            try:
-                                Sweihgt = int(Sweihgt)
-                            except Exception:
-                                Sweihgt = 4
                                 
                             station = "{:<5}".format(row['station'])
                             network = "{:<2}".format(row['network']) 
@@ -454,6 +437,16 @@ def _dbs_associator(start_time, end_time, moving_window,
                                          station_code=station.rstrip()),
                                          phase_hint="P")
                                 picks.append(p)
+                                
+                                if p_unc:                    
+                                    Pweihgt = _weighcalculator_prob(p_prob*(1-p_unc))
+                                else:
+                                    Pweihgt = _weighcalculator_prob(p_prob)
+                                try:
+                                    Pweihgt = int(Pweihgt)
+                                except Exception:
+                                    Pweihgt = 4
+                                
                             except Exception:
                                 sec_p = None
 
@@ -468,6 +461,16 @@ def _dbs_associator(start_time, end_time, moving_window,
                                          waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
                                          phase_hint="S")
                                 picks.append(p)
+                                
+                                if s_unc: 
+                                    Sweihgt = _weighcalculator_prob(s_prob*(1-s_unc))
+                                else:
+                                    Sweihgt = _weighcalculator_prob(s_prob)  
+                                try:
+                                    Sweihgt = int(Sweihgt)
+                                except Exception:
+                                    Sweihgt = 4
+                                
                             except Exception:
                                 sec_s = None
                             
@@ -585,23 +588,6 @@ def _dbs_associator(start_time, end_time, moving_window,
                     s_unc = row['s_unc']
                     s_prob = row['s_prob']
     
-                    if p_unc:                    
-                        Pweihgt = _weighcalculator_prob(p_prob*(1-p_unc))
-                    else:
-                        Pweihgt =_weighcalculator_prob(p_prob)
-                    try:
-                        Pweihgt = int(Pweihgt)
-                    except Exception:
-                        Pweihgt = 4
-    
-                    if s_unc: 
-                        Sweihgt = _weighcalculator_prob(s_prob*(1-s_unc))
-                    else:
-                        Sweihgt = _weighcalculator_prob(s_prob)  
-                    try:
-                        Sweihgt = int(Sweihgt)
-                    except Exception:
-                        Sweihgt = 4
                         
                     station = "{:<5}".format(row['station'])
                     network = "{:<2}".format(row['network'])
@@ -617,6 +603,16 @@ def _dbs_associator(start_time, end_time, moving_window,
                                      waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
                                      phase_hint="P", method_id="EqTransformer")
                         picks.append(p)
+                        
+                        if p_unc:                    
+                            Pweihgt = _weighcalculator_prob(p_prob*(1-p_unc))
+                        else:
+                            Pweihgt = _weighcalculator_prob(p_prob)
+                        try:
+                            Pweihgt = int(Pweihgt)
+                        except Exception:
+                            Pweihgt = 4
+                        
                     except Exception:
                         sec_p = None
 
@@ -631,6 +627,16 @@ def _dbs_associator(start_time, end_time, moving_window,
                                      waveform_id=WaveformStreamID(network_code=network, station_code=station.rstrip()),
                                      phase_hint="S", method_id="EqTransformer")
                         picks.append(p)
+                        
+                        if s_unc: 
+                            Sweihgt = _weighcalculator_prob(s_prob*(1-s_unc))
+                        else:
+                            Sweihgt = _weighcalculator_prob(s_prob)  
+                        try:
+                            Sweihgt = int(Sweihgt)
+                        except Exception:
+                            Sweihgt = 4
+                        
                     except Exception:
                         sec_s = None                              
     
