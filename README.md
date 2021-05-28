@@ -81,7 +81,7 @@ You can either clone the public repository:
 
     git clone git://github.com/smousavi05/EQTransformer
     
-or 
+or (if you are working on Colab)
 
     pip install git+https://github.com/smousavi05/EQTransformer
 
