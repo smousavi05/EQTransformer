@@ -75,11 +75,14 @@ If you already have `Obspy` installed on your machine, you can get **EQTransform
 #### From source:
 
 The sources for **EQTransformer** can be downloaded from the `Github repo`.
+##### Note: the gitgub version has been modified for Tensorflow 2.5.0
 
 You can either clone the public repository:
 
     git clone git://github.com/smousavi05/EQTransformer
     
+or 
+    pip install git+https://github.com/smousavi05/EQTransformer
 
 Once you have a copy of the source, you can cd to **EQTransformer** directory and install it with:
 
