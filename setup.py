@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name="EQTransformer",
     author="S. Mostafa Mousavi",
-    version="0.1.59",
+    version="0.1.61",
     author_email="smousavi05@gmail.com",
     description="A python package for making and using attentive deep-learning models for earthquake signal detection and phase picking.",
     long_description=long_description,
@@ -20,7 +20,7 @@ setup(
 	'keyring>=15.1', 
 	'pkginfo>=1.4.2',
 	'scipy==1.4.1', 
-	'tensorflow==2.0.0', 
+	'tensorflow==2.5.0', 
 	'keras==2.3.1', 
 	'matplotlib', 
 	'pandas',
