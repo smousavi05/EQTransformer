@@ -4,15 +4,17 @@
 Created on Wed Apr 25 17:44:14 2018
 
 @author: mostafamousavi
-last update: 06/25/2020
+last update: 05/27/2021
 
 """
 
 from __future__ import print_function
-import keras
-from keras import backend as K
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler, ReduceLROnPlateau, EarlyStopping
-from keras.layers import Input
+import os
+os.environ['KERAS_BACKEND']='tensorflow'
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler, ReduceLROnPlateau, EarlyStopping
+from tensorflow.keras.layers import Input
 import tensorflow as tf
 import matplotlib
 matplotlib.use('agg')
@@ -21,7 +23,7 @@ import numpy as np
 import pandas as pd
 import h5py
 import time
-import os
+
 import shutil
 import multiprocessing
 from .EqT_utils import DataGenerator, _lr_schedule, cred2, PreLoadGenerator, data_reader
@@ -59,8 +61,6 @@ def trainer(input_hdf5=None,
             epochs=200, 
             monitor='val_loss',
             patience=12,
-            multi_gpu=False,
-            number_of_gpus=4,
             gpuid=None,
             gpu_limit=None,
             use_multiprocessing=True):
@@ -154,12 +154,6 @@ def trainer(input_hdf5=None,
            
     patience: int, default=12
         The number of epochs without any improvement in the monitoring measure to automatically stop the training.          
-        
-    multi_gpu: bool, default=False
-        If True, multiple GPUs will be used for the training. 
-           
-    number_of_gpus: int, default=4
-        Number of GPUs uses for multi-GPU training.
            
     gpuid: int, default=None
         Id of GPU used for the prediction. If using CPU set to None. 
@@ -224,9 +218,7 @@ def trainer(input_hdf5=None,
     "batch_size": batch_size,
     "epochs": epochs,
     "monitor": monitor,
-    "patience": patience,           
-    "multi_gpu": multi_gpu,
-    "number_of_gpus": number_of_gpus,           
+    "patience": patience,                    
     "gpuid": gpuid,
     "gpu_limit": gpu_limit,
     "use_multiprocessing": use_multiprocessing
@@ -423,9 +415,7 @@ def _build_model(args):
               loss_weights=args['loss_weights'],
               loss_types=args['loss_types'],
               kernel_regularizer=keras.regularizers.l2(1e-6),
-              bias_regularizer=keras.regularizers.l1(1e-4),
-              multi_gpu=args['multi_gpu'], 
-              gpu_number=args['number_of_gpus'],  
+              bias_regularizer=keras.regularizers.l1(1e-4)
                )(inp)  
     model.summary()  
     return model  
@@ -721,8 +711,6 @@ def _document_training(history, model, start_training, end_training, save_dir, s
         the_file.write('total number of validation: '+str(validation_size)+'\n')
         the_file.write('monitor: '+str(args['monitor'])+'\n')
         the_file.write('patience: '+str(args['patience'])+'\n') 
-        the_file.write('multi_gpu: '+str(args['multi_gpu'])+'\n')
-        the_file.write('number_of_gpus: '+str(args['number_of_gpus'])+'\n') 
         the_file.write('gpuid: '+str(args['gpuid'])+'\n')
         the_file.write('gpu_limit: '+str(args['gpu_limit'])+'\n')             
         the_file.write('use_multiprocessing: '+str(args['use_multiprocessing'])+'\n')  

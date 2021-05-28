@@ -4,14 +4,16 @@
 Created on Wed Apr 25 17:44:14 2018
 
 @author: mostafamousavi
-last update: 06/26/2020
+last update: 05/27/2021
 
 """
 
 from __future__ import print_function
-from keras import backend as K
-from keras.models import load_model
-from keras.optimizers import Adam
+import os
+os.environ['KERAS_BACKEND']='tensorflow'
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import load_model
+from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 import matplotlib
 matplotlib.use('agg')
@@ -20,7 +22,6 @@ import numpy as np
 import csv
 import h5py
 import time
-import os
 import shutil
 from .EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
 from .EqT_utils import generate_arrays_from_file, picker

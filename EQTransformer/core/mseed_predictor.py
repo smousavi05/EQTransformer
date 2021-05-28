@@ -5,15 +5,17 @@ Created on Sun Jun 21 21:55:54 2020
 
 @author: mostafamousavi
 
-last update: 01/29/2021
+last update: 05/27/2021
 
 """
 
 from __future__ import print_function
 from __future__ import division
-from keras import backend as K
-from keras.models import load_model
-from keras.optimizers import Adam
+import os
+os.environ['KERAS_BACKEND']='tensorflow'
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import load_model
+from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 import matplotlib
 matplotlib.use('agg')
@@ -22,10 +24,9 @@ import numpy as np
 import pandas as pd
 import math
 import csv
-import keras
+from tensorflow import keras
 import time
 from os import listdir
-import os
 import platform
 import shutil
 from tqdm import tqdm
@@ -54,7 +55,7 @@ try:
         if li == 8:
             EQT_VERSION = l.split('"')[1]
 except Exception:
-    EQT_VERSION = "0.1.59"
+    EQT_VERSION = "0.1.61"
     
 
 def mseed_predictor(input_dir='downloads_mseeds',

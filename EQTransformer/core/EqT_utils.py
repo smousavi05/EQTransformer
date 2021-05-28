@@ -12,13 +12,14 @@ import h5py
 import matplotlib
 matplotlib.use('agg')
 from tqdm import tqdm
-import keras
-from keras import backend as K
-from keras.layers import add, Activation, LSTM, Conv1D
-from keras.layers import MaxPooling1D, UpSampling1D, Cropping1D, SpatialDropout1D, Bidirectional, BatchNormalization 
-from keras.models import Model
-from keras.utils import multi_gpu_model
-from keras.optimizers import Adam
+import os
+os.environ['KERAS_BACKEND']='tensorflow'
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import add, Activation, LSTM, Conv1D, InputSpec
+from tensorflow.keras.layers import MaxPooling1D, UpSampling1D, Cropping1D, SpatialDropout1D, Bidirectional, BatchNormalization 
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 from obspy.signal.trigger import trigger_onset
 import matplotlib
 from tensorflow.python.util import deprecation
@@ -2208,7 +2209,7 @@ class LayerNormalization(keras.layers.Layer):
         return input_mask
 
     def build(self, input_shape):
-        self.input_spec = keras.engine.InputSpec(shape=input_shape)
+        self.input_spec = InputSpec(shape=input_shape)
         shape = input_shape[-1:]
         if self.scale:
             self.gamma = self.add_weight(
@@ -2376,7 +2377,7 @@ class SeqSelfAttention(keras.layers.Layer):
                  attention_regularizer_weight=0.0,
                  **kwargs):
 
-        super(SeqSelfAttention, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.supports_masking = True
         self.units = units
         self.attention_width = attention_width
@@ -2717,12 +2718,6 @@ class cred2():
 
     bias_regularizer: str
         l1 norm regularizer.
-
-    multi_gpu: bool
-        If use multiple GPUs for the training. 
-
-    gpu_number: int
-        The number of GPUs for the muli-GPU training. 
            
     Returns
     ----------
@@ -2744,8 +2739,6 @@ class cred2():
                  loss_types=['binary_crossentropy', 'binary_crossentropy', 'binary_crossentropy'],                                 
                  kernel_regularizer=keras.regularizers.l1(1e-4),
                  bias_regularizer=keras.regularizers.l1(1e-4),
-                 multi_gpu=False, 
-                 gpu_number=4, 
                  ):
         
         self.kernel_size = kernel_size
@@ -2761,8 +2754,6 @@ class cred2():
         self.loss_types = loss_types       
         self.kernel_regularizer = kernel_regularizer     
         self.bias_regularizer = bias_regularizer 
-        self.multi_gpu = multi_gpu
-        self.gpu_number = gpu_number
 
         
     def __call__(self, inp):
@@ -2837,11 +2828,7 @@ class cred2():
         S = Conv1D(1, 11, padding = self.padding, activation='sigmoid', name='picker_S')(decoder_S)
         
 
-        if self.multi_gpu == True:
-            parallel_model = Model(inputs=inp, outputs=[d, P, S])
-            model = multi_gpu_model(parallel_model, gpus=self.gpu_number)
-        else:
-            model = Model(inputs=inp, outputs=[d, P, S])
+        model = Model(inputs=inp, outputs=[d, P, S])
 
         model.compile(loss=self.loss_types, loss_weights=self.loss_weights,    
             optimizer=Adam(lr=_lr_schedule(0)), metrics=[f1])
