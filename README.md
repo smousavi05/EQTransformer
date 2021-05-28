@@ -82,6 +82,7 @@ You can either clone the public repository:
     git clone git://github.com/smousavi05/EQTransformer
     
 or 
+
     pip install git+https://github.com/smousavi05/EQTransformer
 
 Once you have a copy of the source, you can cd to **EQTransformer** directory and install it with:
