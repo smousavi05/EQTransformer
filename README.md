@@ -127,7 +127,7 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
                     overlap=0.3)
 ```
 -------------
-# If you think that EqT does not detected all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
+## If you think that EqT does not detected all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
 
 -------------
 ## Test set
