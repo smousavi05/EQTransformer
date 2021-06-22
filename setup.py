@@ -25,7 +25,7 @@ setup(
 	'matplotlib', 
 	'pandas',
 	'tqdm==4.48.0', 
-	'h5py==2.10.0', 
+	'h5py==3.1.0', 
 	'obspy',
 	'jupyter'], 
 
