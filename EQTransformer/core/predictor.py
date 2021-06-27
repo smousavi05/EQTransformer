@@ -143,7 +143,7 @@ def predictor(input_dir=None,
         If True, multiple CPUs will be used for the preprocessing of data even when GPU is used for the prediction.        
 
     keepPS: bool, default=False
-        If True, only detected events that have both P and S picks will be written otherwise those events with either P or S pick.
+        If True, detected events require both P and S picks to be written. If False, individual P or S (see allowonlyS) picks may be written.
         
     allowonlyS: bool, default=True
         If True, detected events with "only S" picks will be allowed. If False, an associated P pick is required.         
@@ -646,8 +646,8 @@ def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, sa
         Keep the track of detected events.  
 
     keepPS: bool, default=False
-        If True, only detected events that have both P and S picks will be written otherwise those events with either P or S pick.
-        
+        If True, detected events require both P and S picks to be written. If False, individual P or S (see allowonlyS) picks may be written.
+
     allowonlyS: bool, default=True
         If True, detected events with "only S" picks will be allowed. If False, an associated P pick is required.
         
