@@ -71,6 +71,7 @@ def predictor(input_dir=None,
               number_of_cpus=5,
               use_multiprocessing=True,
               keepPS=True,
+              allowonlyS=True,
               spLimit=60): 
     
     
@@ -142,7 +143,10 @@ def predictor(input_dir=None,
         If True, multiple CPUs will be used for the preprocessing of data even when GPU is used for the prediction.        
 
     keepPS: bool, default=False
-        If True, only detected events that have both P and S picks will be written otherwise those events with either P or S pick. 
+        If True, detected events require both P and S picks to be written. If False, individual P or S (see allowonlyS) picks may be written.
+        
+    allowonlyS: bool, default=True
+        If True, detected events with "only S" picks will be allowed. If False, an associated P pick is required.         
         
     spLimit: int, default=60
         S - P time in seconds. It will limit the results to those detections with events that have a specific S-P time limit. 
@@ -190,6 +194,7 @@ def predictor(input_dir=None,
     "number_of_cpus": number_of_cpus,
     "use_multiprocessing": use_multiprocessing,
     "keepPS": keepPS,
+    "allowonlyS": allowonlyS,
     "spLimit": spLimit   
     }
         
@@ -330,7 +335,7 @@ def predictor(input_dir=None,
                     dataset = fl.get('data/'+str(ID))
                     pred_set.update( {str(ID) : dataset})  
                     
-                plt_n, detection_memory= _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, spLimit)    
+                plt_n, detection_memory= _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, allowonlyS, spLimit)    
     
             end_Predicting = time.time() 
             delta = (end_Predicting - start_Predicting) 
@@ -372,7 +377,8 @@ def predictor(input_dir=None,
                 the_file.write('use_multiprocessing: '+str(args['use_multiprocessing'])+'\n')            
                 the_file.write('gpuid: '+str(args['gpuid'])+'\n')
                 the_file.write('gpu_limit: '+str(args['gpu_limit'])+'\n')    
-                the_file.write('keepPS: '+str(args['keepPS'])+'\n')      
+                the_file.write('keepPS: '+str(args['keepPS'])+'\n')
+                the_file.write('allowonlyS: '+str(args['allowonlyS'])+'\n')  
                 the_file.write('spLimit: '+str(args['spLimit'])+' seconds\n')      
     else:
         NN_in = len(args['output_dir'])
@@ -470,7 +476,7 @@ def predictor(input_dir=None,
                         dataset = fl.get('data/'+str(ID))
                         pred_set.update( {str(ID) : dataset})  
                         
-                    plt_n, detection_memory= _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, spLimit)    
+                    plt_n, detection_memory= _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, allowonlyS, spLimit)    
         
                 HDF_PROB.close()
         
@@ -514,7 +520,8 @@ def predictor(input_dir=None,
                     the_file.write('use_multiprocessing: '+str(args['use_multiprocessing'])+'\n')            
                     the_file.write('gpuid: '+str(args['gpuid'])+'\n')
                     the_file.write('gpu_limit: '+str(args['gpu_limit'])+'\n')    
-                    the_file.write('keepPS: '+str(args['keepPS'])+'\n')      
+                    the_file.write('keepPS: '+str(args['keepPS'])+'\n')
+                    the_file.write('allowonlyS: '+str(args['allowonlyS'])+'\n')
                     the_file.write('spLimit: '+str(args['spLimit'])+' seconds\n') 
     
             
@@ -599,11 +606,11 @@ def _gen_predictor(new_list, args, model):
      
       
     
-def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, spLimit):
+def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, save_figs, csvPr_gen, plt_n, detection_memory, keepPS, allowonlyS, spLimit):
     
     """ 
     
-    Applies the detection and picking on the output predicted probabilities and if it founds any, write them out in the CSV file,
+    Applies the detection and picking on the output predicted probabilities and if it finds any, write them out in the CSV file,
     makes the plots, and save the probabilities and uncertainties.
 
     Parameters
@@ -638,6 +645,12 @@ def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, sa
     detection_memory: list
         Keep the track of detected events.  
 
+    keepPS: bool, default=False
+        If True, detected events require both P and S picks to be written. If False, individual P or S (see allowonlyS) picks may be written.
+
+    allowonlyS: bool, default=True
+        If True, detected events with "only S" picks will be allowed. If False, an associated P pick is required.
+        
     spLimit: int, default : 60
         S - P time in seconds. It will limit the results to those detections with events that have a specific S-P time limit.
         
@@ -676,6 +689,11 @@ def _gen_writer(new_list, args, prob_dic, pred_set, HDF_PROB, predict_writer, sa
                                
         matches, pick_errors, yh3 =  picker(args, prob_dic['DD_mean'][ts], prob_dic['PP_mean'][ts], prob_dic['SS_mean'][ts],
                                             prob_dic['DD_std'][ts], prob_dic['PP_std'][ts], prob_dic['SS_std'][ts])
+
+        if not allowonlyS: #if NOT limiting to "only S" picks
+            if len(matches)>=1 and matches[list(matches)[0]][6] and not matches[list(matches)[0]][3]: #if S picks exist but no P...
+                continue
+        
         if keepPS:
             if (len(matches) >= 1) and (matches[list(matches)[0]][3] and matches[list(matches)[0]][6]):
                 if (matches[list(matches)[0]][6] - matches[list(matches)[0]][3]) < spLimit*100:
