@@ -330,7 +330,8 @@ def trainer(input_hdf5=None,
                                        norm_mode=args['normalization_mode'],
                                        augmentation=args['augmentation'],
                                        add_event_r=args['add_event_r'],
-                                       add_gap_r=args['add_gap_r'], 
+                                       add_gap_r=args['add_gap_r'],
+                                       coda_ratio=args['coda_ratio'],
                                        shift_event_r=args['shift_event_r'], 
                                        add_noise_r=args['add_noise_r'],  
                                        drop_channe_r=args['drop_channel_r'],
@@ -567,7 +568,8 @@ def _pre_loading(args, training, validation):
                        'label_type': args['label_type'],
                        'augmentation': args['augmentation'],
                        'add_event_r': args['add_event_r'], 
-                       'add_gap_r': args['add_gap_r'],                         
+                       'add_gap_r': args['add_gap_r'],
+                       'coda_ratio'=args['coda_ratio'],
                        'shift_event_r': args['shift_event_r'],  
                        'add_noise_r': args['add_noise_r'], 
                        'drop_channe_r': args['drop_channel_r'],
@@ -738,6 +740,8 @@ def _document_training(history, model, start_training, end_training, save_dir, s
         the_file.write('add_event_r: '+str(args['add_event_r'])+'\n')
         the_file.write('add_noise_r: '+str(args['add_noise_r'])+'\n')   
         the_file.write('shift_event_r: '+str(args['shift_event_r'])+'\n')                            
-        the_file.write('drop_channel_r: '+str(args['drop_channel_r'])+'\n')            
+        the_file.write('drop_channel_r: '+str(args['drop_channel_r'])+'\n')
+        the_file.write('add_gap_r: '+str(args['add_gap_r'])+
+        the_file.write('coda_ratio: '+str(args['coda_ratio'])+
         the_file.write('scale_amplitude_r: '+str(args['scale_amplitude_r'])+'\n')            
         the_file.write('pre_emphasis: '+str(args['pre_emphasis'])+'\n')
