@@ -569,7 +569,7 @@ def _pre_loading(args, training, validation):
                        'augmentation': args['augmentation'],
                        'add_event_r': args['add_event_r'], 
                        'add_gap_r': args['add_gap_r'],
-                       'coda_ratio'=args['coda_ratio'],
+                       'coda_ratio': args['coda_ratio'],
                        'shift_event_r': args['shift_event_r'],  
                        'add_noise_r': args['add_noise_r'], 
                        'drop_channe_r': args['drop_channel_r'],
