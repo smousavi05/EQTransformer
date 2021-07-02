@@ -1,5 +1,5 @@
   
-![event](docs/source/figures/logo.png)         
+![event](docs/source/figures/logo.png)            
 
 # An AI-Based Earthquake Signal Detector and Phase Picker   
 
