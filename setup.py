@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/smousavi05/EQTransformer",
-    licence="MIT",
+    license="MIT",
     packages=find_packages(),
     keywords='Seismology, Earthquakes Detection, P&S Picking, Deep Learning, Attention Mechanism',
     install_requires=[
