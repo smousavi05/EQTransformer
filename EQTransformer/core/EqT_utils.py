@@ -2539,7 +2539,8 @@ class SeqSelfAttention(keras.layers.Layer):
 
     def _call_additive_emission(self, inputs):
         input_shape = K.shape(inputs)
-        batch_size, input_len = input_shape[0], input_shape[1]
+        batch_size = input_shape[0]
+        input_len = inputs.get_shape().as_list()[1]
 
         # h_{t, t'} = \tanh(x_t^T W_t + x_{t'}^T W_x + b_h)
         q = K.expand_dims(K.dot(inputs, self.Wt), 2)
