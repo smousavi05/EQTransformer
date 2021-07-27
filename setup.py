@@ -17,7 +17,7 @@ setup(
     keywords='Seismology, Earthquakes Detection, P&S Picking, Deep Learning, Attention Mechanism',
     install_requires=[
 	'pytest',
-	'numpy=1.20.3',
+	'numpy==1.20.3',
 	'keyring>=15.1', 
 	'pkginfo>=1.4.2',
 	'scipy==1.4.1', 
