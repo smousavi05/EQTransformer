@@ -23,11 +23,15 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 
 Developer: S. Mostafa Mousavi
 
-* [Links](#Links)                                 * [Reference](#Reference)
-* [Installation](#Installation)                   * [Tutorials](#Tutorials) 
-* [A Quick Example](#A-Quick-Example)             * [Test Set](#Test-Set) 
-* [Contributing](#Contributing)                   * [Reporting Bugs](#Reporting-Bugs)
-   
+* [Links](#Links) 
+* [Reference](#Reference)                                
+* [Installation](#Installation) 
+* [Tutorials](#Tutorials)                   
+* [A Quick Example](#A-Quick-Example)  
+* [Test Set](#Test-Set)            
+* [Contributing](#Contributing)                   
+* [Reporting Bugs](#Reporting-Bugs)
+
 -----------
 ## Links
 
