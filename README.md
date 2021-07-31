@@ -13,19 +13,6 @@
 ![GitHub followers](https://img.shields.io/github/followers/smousavi05?style=social)
 ![GitHub stars](https://img.shields.io/github/stars/smousavi05/EQTransformer?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
-
-
-## Table of contents
-   * [Description](#Description).   
-   * [Links](#Links). 
-   * [Reference](#Reference). 
-   * [Installation](#Installation). 
-   * [Tutorials](#Tutorials). 
-   * [A Quick Example](#A-Quick-Example).  
-   * [Test Set](#Test-Set). 
-   * [Contributing](#Contributing). 
-   * [License](#License). 
-   * [Reporting Bugs](#Reporting-Bugs). 
  
 --------------
 ## Description
@@ -36,7 +23,16 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 
 Developer: S. Mostafa Mousavi
 
-
+* [Links](#Links). 
+* [Reference](#Reference). 
+* [Installation](#Installation). 
+* [Tutorials](#Tutorials). 
+* [A Quick Example](#A-Quick-Example).  
+* [Test Set](#Test-Set). 
+* [Contributing](#Contributing). 
+* [License](#License). 
+* [Reporting Bugs](#Reporting-Bugs). 
+   
 -----------
 ## Links
 
