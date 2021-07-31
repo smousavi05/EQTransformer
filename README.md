@@ -14,6 +14,19 @@
 ![GitHub stars](https://img.shields.io/github/stars/smousavi05/EQTransformer?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/smousavi05/EQTransformer?style=social)
 
+
+## Table of contents
+   * [Description](#Description).   
+   * [Links](#Links). 
+   * [Reference](#Reference). 
+   * [Installation](#Installation). 
+   * [Tutorials](#Tutorials). 
+   * [A Quick Example](#A-Quick-Example).  
+   * [Test Set](#Test-Set). 
+   * [Contributing](#Contributing). 
+   * [License](#License). 
+   * [Reporting Bugs](#Reporting-Bugs). 
+ 
 --------------
 ## Description
 
@@ -130,7 +143,7 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 ## If you think that EqT does not detected all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
 
 -------------
-## Test set
+## Test Set
 
 test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
 Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tabels 1, 2, and 3 in the paper. 
