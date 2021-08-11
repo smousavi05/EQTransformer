@@ -29,7 +29,7 @@ from multiprocessing.pool import ThreadPool
 import multiprocessing
 import pickle
 import faulthandler; faulthandler.enable()
-from obspy import read
+
 
 
 
@@ -129,9 +129,9 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
         time_slots, comp_types = [], []
         
         if platform.system() == 'Windows':
-            print('============ Station {} has {} chunks of data.'.format(station.split("\\")[1], len(uni_list)), flush=True)   
+            print('============ Station {} has {} chunks of data.'.format(station.split("\\")[-1], len(uni_list)), flush=True)   
         else:
-            print('============ Station {} has {} chunks of data.'.format(station.split("/")[1], len(uni_list)), flush=True)  
+            print('============ Station {} has {} chunks of data.'.format(station.split("/")[-1], len(uni_list)), flush=True)  
             
         count_chuncks=0; fln=0; c1=0; c2=0; c3=0; fl_counts=1; slide_estimates=[];
         
@@ -155,9 +155,9 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
                 st1.detrend('demean') 
                 count_chuncks += 1; c3 += 1
                 if platform.system() == 'Windows':
-                    print('  * '+station.split("\\")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 3 components .. sampling rate: '+str(org_samplingRate))  
+                    print('  * '+station.split("\\")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 3 components .. sampling rate: '+str(org_samplingRate))  
                 else:
-                    print('  * '+station.split("/")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 3 components .. sampling rate: '+str(org_samplingRate))  
+                    print('  * '+station.split("/")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 3 components .. sampling rate: '+str(org_samplingRate))  
                  
                 st2 = read(matching[1], debug_headers=True) 
                 try:
@@ -266,9 +266,9 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
                  st1.detrend('demean')
                  
                  if platform.system() == 'Windows':
-                     print('  * '+station.split("\\")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 1 components .. sampling rate: '+str(org_samplingRate)) 
+                     print('  * '+station.split("\\")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 1 components .. sampling rate: '+str(org_samplingRate)) 
                  else:
-                     print('  * '+station.split("/")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 1 components .. sampling rate: '+str(org_samplingRate)) 
+                     print('  * '+station.split("/")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 1 components .. sampling rate: '+str(org_samplingRate)) 
                  
                  st1.filter('bandpass',freqmin = 1.0, freqmax = 45, corners=2, zerophase=True)
                  st1.taper(max_percentage=0.001, type='cosine', max_length=2)
@@ -345,9 +345,9 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
                 org_samplingRate = st1[0].stats.sampling_rate
                 
                 if platform.system() == 'Windows':
-                    print('  * '+station.split("\\")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 2 components .. sampling rate: '+str(org_samplingRate)) 
+                    print('  * '+station.split("\\")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 2 components .. sampling rate: '+str(org_samplingRate)) 
                 else:    
-                    print('  * '+station.split("/")[1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 2 components .. sampling rate: '+str(org_samplingRate)) 
+                    print('  * '+station.split("/")[-1]+' ('+str(count_chuncks)+') .. '+month.split('T')[0]+' --> '+month.split('__')[1].split('T')[0]+' .. 2 components .. sampling rate: '+str(org_samplingRate)) 
                  
                 st2 = read(matching[1], debug_headers=True)  
                 try:
@@ -461,7 +461,7 @@ def preprocessor(preproc_dir, mseed_dir, stations_json, overlap=0.3, n_processor
 
 
 
-def stationListFromMseed(mseed_directory, station_locations):
+def stationListFromMseed(mseed_directory, station_locations, dir_json='./'):
     """
     Contributed by: Tyler Newton
         
@@ -480,6 +480,8 @@ def stationListFromMseed(mseed_directory, station_locations):
         Dictonary with station names as keys and lists of latitude,
         longitude, and elevation as items. For example: {"CA06": [35.59962,
         -117.49268, 796.4], "CA10": [35.56736, -117.667427, 835.9]}
+    dir_json: str
+        String specifying the path to the output json file.
    
     Returns
     -------
@@ -507,8 +509,11 @@ def stationListFromMseed(mseed_directory, station_locations):
                         temp_stream[0].stats.network, "channels": list(set(
                         channels)), "coords": station_locations[str(
                         temp_stream[0].stats.station)]}
-
-    with open('station_list.json', 'w') as fp:
+    
+    if not os.path.exists(dir_json):
+        os.makedirs(dir_json)
+    jfilename = os.path.join(dir_json, 'station_list.json')
+    with open(jfilename, 'w') as fp:
         json.dump(station_list, fp)             
         
 def _resampling(st):

@@ -6,7 +6,7 @@ last update: 06/05/2020
 
 """
 import pandas as pd
-from os import listdir
+from os import listdir, path
 import platform
 import json
 import matplotlib.pyplot as plt
@@ -38,8 +38,7 @@ def plot_helicorder(input_mseed, input_csv=None, save_plot=False):
         Path to the "X_prediction_results.csv" file associated with the miniseed file.                   
         
     save_plot: str, default=False
-        If set to True the generated plot will be saved with the name of miniseed file. 
-                          
+        If set to True the generated plot will be saved with the name of miniseed file.                     
 
     Returns
     ----------       
@@ -59,19 +58,19 @@ def plot_helicorder(input_mseed, input_csv=None, save_plot=False):
     if input_csv:
         detlist = pd.read_csv(input_csv)       
         detlist['event_start_time'] = detlist['event_start_time'].apply(lambda row : _date_convertor(row)) 
-        detlist = detlist[(detlist.event_start_time > st[0].stats['starttime']) & (detlist.event_start_time < st[0].stats['endtime'])]
+        detlist = detlist[(detlist.event_start_time > st[0].stats['starttime']) & (detlist.event_start_time < st[-1].stats['endtime'])]
         ev_list = detlist['event_end_time'].to_list()
         for ev in ev_list:
             event_list.append({"time": UTCDateTime(ev)})
     if save_plot:    
         if platform.system() == 'Windows':
-            st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("\\")[-1].split('.mseed')[0]+'.png')
+            st.plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("\\")[-1].split('.mseed')[0]+'.png')
             print('saved the plot as '+input_mseed.split("\\")[-1].split('.mseed')[0]+'.png')
         else:    
-            st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("/")[-1].split('.mseed')[0]+'.png')
+            st.plot(type='dayplot', color=['k'],interval=60, events=event_list, outfile=input_mseed.split("/")[-1].split('.mseed')[0]+'.png')
             print('saved the plot as '+input_mseed.split("/")[-1].split('.mseed')[0]+'.png')
     else:    
-        st[0].plot(type='dayplot', color=['k'],interval=60, events=event_list)
+        st.plot(type='dayplot', color=['k'],interval=60, events=event_list)
 
 
 
@@ -175,7 +174,7 @@ def plot_detections(input_dir, input_json, plot_type=None, time_window=60, marke
          
 
 
-def plot_data_chart(time_tracks, time_interval):
+def plot_data_chart(time_tracks, time_interval, dir_output=None):
     
     """
     
@@ -188,6 +187,9 @@ def plot_data_chart(time_tracks, time_interval):
     
     time_interval: int 
         Time interval in hours for tick spaces in xaxes. 
+    
+    dir_output: str, default=None
+        Directory for saving figure.
                
 
     Returns
@@ -287,7 +289,11 @@ def plot_data_chart(time_tracks, time_interval):
     plt.locator_params(axis='x', nbins=10)
     fig.autofmt_xdate()
     fig.tight_layout()
-    plt.savefig('data_chart.png', dpi=300)
+    if dir_output is None:
+        fname = path.join('.', 'data_chart.png')
+    else:
+        fname = path.join(dir_output, 'data_chart.png')
+    plt.savefig(fname, dpi=300)
     plt.show()
 
 
