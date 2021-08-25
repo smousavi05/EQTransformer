@@ -21,7 +21,7 @@ setup(
 	'keyring>=15.1', 
 	'pkginfo>=1.4.2',
 	'scipy==1.4.1', 
-	'tensorflow==2.5.0', 
+	'tensorflow==2.5.1', 
 	'keras==2.3.1', 
 	'matplotlib', 
 	'pandas',
