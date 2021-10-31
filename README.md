@@ -115,7 +115,7 @@ https://rebrand.ly/EQT-examples
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
-QuakeLabeler (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled taining dataset for EQTransformer (i.e. STEAD format). 
+**QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled taining dataset for EQTransformer (i.e. STEAD format). 
 
 -------------------
 ## A Quick Example
