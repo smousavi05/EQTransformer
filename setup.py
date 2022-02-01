@@ -17,16 +17,16 @@ setup(
     keywords='Seismology, Earthquakes Detection, P&S Picking, Deep Learning, Attention Mechanism',
     install_requires=[
 	'pytest',
-	'numpy>=1.20.3',
+	'numpy~=1.19.2',     # appox version: numpy 1.19.x but at least 1.19.2
 	'keyring>=15.1', 
 	'pkginfo>=1.4.2',
 	'scipy>=1.4.1', 
-	'tensorflow==2.5.2', 
+	'tensorflow~=2.5.0', # tensorflow <2.7.0 needs numpy <1.20.0
 	'keras==2.3.1', 
 	'matplotlib', 
 	'pandas',
 	'tqdm>=4.48.0', 
-	'h5py>=3.1.0', 
+	'h5py~=3.1.0', 
 	'obspy',
 	'jupyter'], 
 
