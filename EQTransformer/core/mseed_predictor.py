@@ -74,7 +74,8 @@ def mseed_predictor(input_dir='downloads_mseeds',
               overlap = 0.3,
               gpuid=None,
               gpu_limit=None,
-              overwrite=False): 
+              overwrite=False,
+              manual_pick=None): 
     
     """ 
     
@@ -132,6 +133,9 @@ def mseed_predictor(input_dir='downloads_mseeds',
 
     overwrite: Bolean, default=False
         Overwrite your results automatically.
+    
+    manual_pick: str, default = None
+        path to the dat file for manual phase arrivals
            
     Returns
     --------        
@@ -306,7 +310,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
                     detection_memory=_output_writter_prediction(meta, predict_writer, csvPr_gen, matches, snr, detection_memory, ix)
                     post_write = len(detection_memory)
                     if plt_n < args['number_of_plots'] and post_write > pre_write:
-                        _plotter_prediction(data_set[meta["trace_start_time"][ix]], args, save_figs, predD[ix][:, 0], predP[ix][:, 0], predS[ix][:, 0], meta["trace_start_time"][ix], matches)
+                        _plotter_prediction(data_set[meta["trace_start_time"][ix]], args, save_figs, predD[ix][:, 0], predP[ix][:, 0], predS[ix][:, 0], meta["trace_start_time"][ix], matches, manual_pick)
                         plt_n += 1            
                                                        
         end_Predicting = time.time() 
@@ -1011,7 +1015,7 @@ def _normalize(data, mode = 'max'):
 
 
 
-def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
+def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches, mpickdir = None):
 
     """ 
     
@@ -1042,7 +1046,9 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
 
     matches: dic
         Contains the information for the detected and picked event. 
-                  
+
+    mpickdic: dic
+        Contains the station, channel, arrival time info of the manual picks. 
         
     """  
 
@@ -1265,6 +1271,34 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
         plt.rcParams["figure.figsize"] = (8,6)
         legend_properties = {'weight':'bold'}  
         
+        ######## Plot manual pick ########
+        eppt = epst = nppt = npst = zppt = zpst = []
+        man_sta = save_figs.split("/")[-2].split("_")[0]
+        if mpickdir != None or man_sta not in mpickdir.keys():
+            man_start = obspy.core.utcdatetime.UTCDateTime('T'.join(str(evi).split(' ')))
+
+            def find_mp(chadic, man_start):
+                ppt = []
+                spt = []
+                man_end = man_start + 60
+                for man_p in chadic['P']:
+                    if man_p >= man_start and man_p <= man_end:
+                        ppt.append((man_p - man_start) * 100)
+                for man_p in chadic['S']:
+                    if man_p >= man_start and man_p <= man_end:
+                        spt.append((man_p - man_start) * 100)
+                return ppt, spt
+
+            for cha in mpickdir[man_sta]:
+                if cha[2] == 'E' or cha[2] == '1':
+                    eppt, espt = find_mp(mpickdir[man_sta][cha], man_start)
+
+                if cha[2] == 'N' or cha[2] == '2':
+                    nppt, nspt = find_mp(mpickdir[man_sta][cha], man_start)
+                
+                if cha[2] == 'Z':
+                    zppt, zspt = find_mp(mpickdir[man_sta][cha], man_start)
+        ##################################
         pl = sl = None        
         if len(spt) > 0 and np.count_nonzero(data[:, 0]) > 10:
             ymin, ymax = ax.get_ylim()
@@ -1273,13 +1307,23 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2, label='Picked P')
                 elif pt and ipt > 0:
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2)
-                    
+            
+            ###
+            for pt in eppt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='b', linestyles='dashed', linewidth=2)
+            ###
+        
         if len(sst) > 0 and np.count_nonzero(data[:, 0]) > 10: 
             for ist, st in enumerate(sst): 
                 if st and ist == 0:
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2, label='Picked S')
                 elif st and ist > 0:
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2)
+            
+            ###
+            for pt in espt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='r', linestyles='dashed', linewidth=2)
+            ###
                     
         if pl or sl:    
             box = ax.get_position()
@@ -1303,6 +1347,11 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2, label='Picked P')
                 elif pt and ipt > 0:
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2)
+            
+            ###
+            for pt in nppt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='b', linestyles='dashed', linewidth=2)
+            ###
                     
         if len(sst) > 0 and np.count_nonzero(data[:, 1]) > 10: 
             for ist, st in enumerate(sst): 
@@ -1310,6 +1359,11 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2, label='Picked S')
                 elif st and ist > 0:
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2)
+            
+            ###
+            for pt in nspt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='r', linestyles='dashed', linewidth=2)
+            ###
     
         if pl or sl:
             box = ax.get_position()
@@ -1335,6 +1389,11 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2, label='Picked P')
                 elif pt and ipt > 0:
                     pl = plt.vlines(int(pt), ymin, ymax, color='c', linewidth=2)
+        
+            ###
+            for pt in zppt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='b', linestyles='dashed', linewidth=2)
+            ###
                     
         if len(sst) > 0 and np.count_nonzero(data[:, 2]) > 10:
             for ist, st in enumerate(sst): 
@@ -1342,6 +1401,11 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2, label='Picked S')
                 elif st and ist > 0:
                     sl = plt.vlines(int(st), ymin, ymax, color='m', linewidth=2)
+
+            ###
+            for pt in zspt:
+                pl = plt.vlines(int(pt), ymin, ymax, color='r', linestyles='dashed', linewidth=2)
+            ###
                     
         if pl or sl:    
             box = ax.get_position()
@@ -1389,3 +1453,35 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
         plt.clf()
         
         
+def sort_manual_pick(mpickf, etcol, stacol, chacol, arrivalcol, phasecol):
+    '''
+    Sort the phase picks into directory
+    Parameters
+    ---------
+    datf: str
+        path to the file of arrivals
+    
+    etcol, stacol, chacol, arrivalcol, phasecol: int
+        column number of eventtime, station, channel, phase arrival
+    
+    Return
+    ------
+    mpickdir: dict
+        mpickdir = { sta: { channel: {P: [], S: []} } }
+    '''
+
+    mpickdir = {}
+    etime, sta, cha, arrival, phase = np.loadtxt(mpickf, dtype = str, skiprows=1, usecols=(etcol, stacol, chacol, arrivalcol, phasecol),unpack=True)
+
+    for i in range(len(arrival)):
+        if sta[i] not in mpickdir.keys():
+            mpickdir[sta[i]] = {}
+        if cha[i] not in mpickdir[sta[i]].keys():
+            mpickdir[sta[i]][cha[i]] = {'P':[], 'S':[]}
+        
+        if phase[i] == 'P':
+            mpickdir[sta[i]][cha[i]]['P'].append(obspy.core.utcdatetime.UTCDateTime(etime[i])+float(arrival[i]))
+        elif phase[i] == 'S':
+            mpickdir[sta[i]][cha[i]]['S'].append(obspy.core.utcdatetime.UTCDateTime(etime[i])+float(arrival[i]))
+
+    return mpickdir    
