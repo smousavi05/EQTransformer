@@ -26,6 +26,7 @@ import math
 import csv
 from tensorflow import keras
 import time
+import h5py
 from os import listdir
 import platform
 import shutil
@@ -74,7 +75,8 @@ def mseed_predictor(input_dir='downloads_mseeds',
               overlap = 0.3,
               gpuid=None,
               gpu_limit=None,
-              overwrite=False): 
+              overwrite=False,
+              output_probabilities=False): 
     
     """ 
     
@@ -130,9 +132,14 @@ def mseed_predictor(input_dir='downloads_mseeds',
     gpu_limit: int
        Set the maximum percentage of memory usage for the GPU. 
 
-    overwrite: Bolean, default=False
+    overwrite: Boolean, default=False
         Overwrite your results automatically.
-           
+
+    output_probabilities: Boolean, default=False
+        Write probability in output_dir/prob.h5 for future plotting
+        Structure: prediction_probabilities.hdf5{begintime: {Earthquake: probability, P_arrival: probability, S_arrival: probability}}
+        Notice: It you turn this parameter on, it will generate larges file (A test shows ~150 Mb file generated for a three-components station for 3 months)
+
     Returns
     --------        
     output_dir/STATION_OUTPUT/X_prediction_results.csv: A table containing all the detection, and picking results. Duplicated events are already removed.
@@ -164,7 +171,8 @@ def mseed_predictor(input_dir='downloads_mseeds',
     "overlap": overlap,
     "batch_size": batch_size,    
     "gpuid": gpuid,
-    "gpu_limit": gpu_limit 
+    "gpu_limit": gpu_limit,
+    "output_probabilities": output_probabilities
     }        
         
     if args['gpuid']:     
@@ -226,12 +234,12 @@ def mseed_predictor(input_dir='downloads_mseeds',
         else:
             print("Okay.")
             return
-     
+    
     if platform.system() == 'Windows':
         station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split("\\")[-1] != ".DS_Store"];
     else:     
         station_list = [ev.split(".")[0] for ev in listdir(args['input_dir']) if ev.split("/")[-1] != ".DS_Store"];
-        
+
     station_list = sorted(set(station_list))
     
     data_track = dict()
@@ -240,13 +248,21 @@ def mseed_predictor(input_dir='downloads_mseeds',
     for ct, st in enumerate(station_list):
     
         save_dir = os.path.join(out_dir, str(st)+'_outputs')
+        out_probs = os.path.join(save_dir, 'prediction_probabilities.hdf5')
         save_figs = os.path.join(save_dir, 'figures') 
         if os.path.isdir(save_dir):
             shutil.rmtree(save_dir)  
         os.makedirs(save_dir) 
+        try:
+            os.remove(out_probs)
+        except Exception:
+            pass 
         if args['number_of_plots']:
             os.makedirs(save_figs)
-            
+
+        if args['output_probabilities']:           
+            HDF_PROB = h5py.File(out_probs, 'w')
+
         plt_n = 0            
         csvPr_gen = open(os.path.join(save_dir,'X_prediction_results.csv'), 'w')          
         predict_writer = csv.writer(csvPr_gen, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -305,6 +321,13 @@ def mseed_predictor(input_dir='downloads_mseeds',
                     pre_write = len(detection_memory)
                     detection_memory=_output_writter_prediction(meta, predict_writer, csvPr_gen, matches, snr, detection_memory, ix)
                     post_write = len(detection_memory)
+
+                    if args['output_probabilities']:
+                        HDF_PROB.create_dataset(f'{meta["trace_start_time"][ix]}/Earthquake', data=predD[ix][:, 0], dtype= np.float32) 
+                        HDF_PROB.create_dataset(f'{meta["trace_start_time"][ix]}/P_arrival', data=predP[ix][:, 0], dtype= np.float32) 
+                        HDF_PROB.create_dataset(f'{meta["trace_start_time"][ix]}/S_arrival', data=predS[ix][:, 0], dtype= np.float32) 
+                        HDF_PROB.flush()
+                    
                     if plt_n < args['number_of_plots'] and post_write > pre_write:
                         _plotter_prediction(data_set[meta["trace_start_time"][ix]], args, save_figs, predD[ix][:, 0], predP[ix][:, 0], predS[ix][:, 0], meta["trace_start_time"][ix], matches)
                         plt_n += 1            
@@ -316,7 +339,10 @@ def mseed_predictor(input_dir='downloads_mseeds',
         delta -= hour * 3600
         minute = int(delta / 60)
         delta -= minute * 60
-        seconds = delta     
+        seconds = delta
+
+        if args['output_probabilities']:
+            HDF_PROB.close()
                         
         dd = pd.read_csv(os.path.join(save_dir,'X_prediction_results.csv'))
         print(f'\n', flush=True)
