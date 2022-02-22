@@ -261,7 +261,7 @@ def mseed_predictor(input_dir='downloads_mseeds',
             os.makedirs(save_figs)
 
         if args['output_probabilities']:           
-            HDF_PROB = h5py.File(out_probs, 'w')
+            HDF_PROB = h5py.File(out_probs, 'a')
 
         plt_n = 0            
         csvPr_gen = open(os.path.join(save_dir,'X_prediction_results.csv'), 'w')          
