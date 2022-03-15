@@ -1262,7 +1262,7 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
             
         plt.xlim(0, 6000)
         fig.tight_layout()
-        fig.savefig(os.path.join(save_figs, str(evi)+'.png')) 
+        fig.savefig(os.path.join(save_figs, str(evi).replace(':', '-')+'.png')) 
         plt.close(fig)
         plt.clf()
     
@@ -1410,7 +1410,7 @@ def _plotter_prediction(data, args, save_figs, yh1, yh2, yh3, evi, matches):
             plt.text(7000, 0.1, str(EQT_VERSION), fontdict=font)
             
         fig.tight_layout()
-        fig.savefig(os.path.join(save_figs, str(evi)+'.png')) 
+        fig.savefig(os.path.join(save_figs, str(evi).replace(':', '-')+'.png')) 
         plt.close(fig)
         plt.clf()
         
