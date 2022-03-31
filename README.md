@@ -101,6 +101,9 @@ Once you have a copy of the source, you can cd to **EQTransformer** directory an
 If you have installed **EQTransformer** Python package before and want to upgrade to the latest version, you can use the following command:
 
     pip install EQTransformer -U
+    
+##### Note: You can install EqT on M1 laptop with python=3.9 from the source (GitHub) code by changing tensorflow ~= 2.5.0 to tensorflow-maco ~= 2.5.0 in the setup.py.  
+
 
 -------------
 ## Tutorials
