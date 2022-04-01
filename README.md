@@ -71,7 +71,7 @@ BibTeX:
 
     conda install -c smousavi05 eqtransformer 
     
-##### Note: You may need to repeat executing the last line multiple time to succeed.  
+##### Note: sometimes you need to keep repeating executing the last line multiple time to succeed.  
 
 #### Via PyPI:
 
@@ -83,6 +83,7 @@ If you already have `Obspy` installed on your machine, you can get **EQTransform
 #### From source:
 
 The sources for **EQTransformer** can be downloaded from the `Github repo`.
+
 ##### Note: the gitgub version has been modified for Tensorflow 2.5.0
 
 You can either clone the public repository:
