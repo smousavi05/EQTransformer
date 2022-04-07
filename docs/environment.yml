@@ -1,8 +1,0 @@
-channels:
-  - defaults
-  - conda-forge
-dependencies:
-  - sphinx
-  - sphinx_rtd_theme
-  - nbsphinx
-  - ipython
