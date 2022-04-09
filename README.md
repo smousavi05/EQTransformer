@@ -119,9 +119,9 @@ https://rebrand.ly/EQT-examples
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
-**QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled taining dataset for EQTransformer (i.e. STEAD format). 
+**QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
-**SeisBench** (https://github.com/seisbench/seisbench/)   (https://arxiv.org/abs/2111.00786) is an open source benchmarking package which makes it easy to apply pretrained EqT model, retraine it, fine tune it (transfer learning), or compare it with other models. 
+**SeisBench** (https://github.com/seisbench/seisbench/)   (https://arxiv.org/abs/2111.00786) is an open source benchmarking package which makes it easy to apply pre trained EqT model, retrain it, fine tune it (transfer learning), or compare it with other models. 
 
 -------------------
 ## A Quick Example
