@@ -170,6 +170,7 @@ The **EQTransformer** package is distributed under the `MIT license`, a permissi
 
 -----------------
 ## Reporting Bugs
+#### Please see https://github.com/smousavi05/EQTransformer/issues?q=is%3Aissue+is%3Aclosed for a list of issues/bugs that have been already reported/fixed before filing a new bug report.
 
 Report bugs at https://github.com/smousavi05/EQTransformer/issues.
 
