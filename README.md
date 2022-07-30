@@ -103,8 +103,14 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
     pip install EQTransformer -U
     
-##### Note: You can install EqT on M1 laptop with python=3.9 from the source (GitHub) code by changing tensorflow ~= 2.5.0 to tensorflow-maco ~= 2.5.0 in the setup.py.  
+##### To nstall EqT on M1 laptop with python>=3.9 from the source (GitHub) code by changing tensorflow to tensorflow-maco in the setup.py and follow the these steps:
 
+      conda create -n eqt python=3.10
+      conda activate eqt
+      conda install -c apple tensorflow-deps
+      conda install obspy jupyter pandas
+      pip install tensorflow-macos
+      python3 setup.py install
 
 -------------
 ## Tutorials
