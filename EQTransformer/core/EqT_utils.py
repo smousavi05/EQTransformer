@@ -412,7 +412,7 @@ class DataGenerator(keras.utils.Sequence):
                     elif spt and (spt-20 < self.dim):
                         y2[i, 0:spt+20, 0] = np.exp(-(np.arange(0,spt+20)-spt)**2/(2*(10)**2))[:self.dim-(spt-20)]
     
-                    if sst and (sst-20 >= 0) and (sst-20 < self.dim):
+                    if sst and (sst-20 >= 0) and (sst+20 < self.dim):
                         y3[i, sst-20:sst+20, 0] = np.exp(-(np.arange(sst-20,sst+20)-sst)**2/(2*(10)**2))[:self.dim-(sst-20)]
                     elif sst and (sst-20 < self.dim):
                         y3[i, 0:sst+20, 0] = np.exp(-(np.arange(0,sst+20)-sst)**2/(2*(10)**2))[:self.dim-(sst-20)]
@@ -918,9 +918,9 @@ class PreLoadGenerator(keras.utils.Sequence):
                     elif spt and (spt-20 < self.dim):
                         y2[i, 0:spt+20, 0] = np.exp(-(np.arange(0,spt+20)-spt)**2/(2*(10)**2))[:self.dim-(spt-20)]
     
-                    if sst and (sst-20 >= 0) and (sst-20 < self.dim):
+                    if sst and (sst-20 >= 0) and (sst+20 < self.dim):
                         y3[i, sst-20:sst+20, 0] = np.exp(-(np.arange(sst-20,sst+20)-sst)**2/(2*(10)**2))[:self.dim-(sst-20)]
-                    elif sst and (sst-20 < self.dim):
+                    elif sst and (sst+20 < self.dim):
                         y3[i, 0:sst+20, 0] = np.exp(-(np.arange(0,sst+20)-sst)**2/(2*(10)**2))[:self.dim-(sst-20)]
 
                     if additions: 
