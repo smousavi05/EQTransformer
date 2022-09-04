@@ -123,6 +123,8 @@ and/or
 
 https://rebrand.ly/EQT-examples
 
+Note: there is not much difference between the two models (i.e. original and conservative models) regarding the network architecture (only 1 or 2 layers). The main difference comes from the training procedure and the hyperparameters used for data augmentation during the training. So if you are interested in maximizing the number of detections and are not concerned about the false positive rates (which you can remove in association and location steps), you should use the original model with higher threshold values. In contrast, if you care about only detecting true events, the conservative model (with much lower threshold levels) suits you better. 
+
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
 **QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
