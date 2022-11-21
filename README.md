@@ -31,6 +31,7 @@ Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 * [Test Set](#Test-Set)            
 * [Contributing](#Contributing)                   
 * [Reporting Bugs](#Reporting-Bugs)
+* [Studies That Used EqT](#Some-of-the-studies-in-which-EqT-has-been-used)
 
 -----------
 ## Links
