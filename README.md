@@ -188,3 +188,34 @@ If you are reporting a bug, please include:
 * Any details about your local setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
 
+-----------------
+## Some of the studies in which EqT has been used:
+
+* Zhang, Z., Deng, Y., Qiu, H., Peng, Z., & Liu‐Zeng, J. (2022). High‐Resolution Imaging of Fault Zone Structure Along the Creeping Section of the Haiyuan Fault, NE Tibet, From Data Recorded by Dense Seismic Arrays. Journal of Geophysical Research: Solid Earth, 127(9), e2022JB024468.
+
+* Bannister, S., Bertrand, E. A., Heimann, S., Bourguignon, S., Asher, C., Shanks, J., & Harvison, A. (2022). Imaging sub-caldera structure with local seismicity, Okataina Volcanic Centre, Taupo Volcanic Zone, using double-difference seismic tomography. Journal of Volcanology and Geothermal Research, 431, 107653.
+
+* Michailos, K., Carpenter, N. S., & Hetényi, G. (2021). Spatio-temporal evolution of intermediate-depth seismicity beneath the Himalayas: Implications for metamorphism and tectonics. Frontiers in Earth Science, 859.
+
+* Gong, J., Fan, W., & Parnell‐Turner, R. (2022). Microseismicity Indicates Atypical Small‐Scale Plate Rotation at the Quebrada Transform Fault System, East Pacific Rise. Geophysical Research Letters, 49(3), e2021GL097000.
+
+* Jiang, C., Zhang, P., White, M. C., Pickle, R., & Miller, M. S. (2022). A Detailed Earthquake Catalog for Banda Arc–Australian Plate Collision Zone Using Machine‐Learning Phase Picker and an Automated Workflow. The Seismic Record, 2(1), 1-10.
+
+* Kemna, K. B., Roth, M. P., Wache, R. M., Harrington, R. M., & Liu, Y. Small magnitude events highlight the correlation between hydraulic fracturing injection parameters, geological factors, and earthquake occurrence. Geophysical Research Letters, e2022GL099995.
+
+* Cianetti, S., Bruni, R., Gaviano, S., Keir, D., Piccinini, D., Saccorotti, G., & Giunchi, C. (2021). Comparison of deep learning techniques for the investigation of a seismic sequence: An application to the 2019, Mw 4.5 Mugello (Italy) earthquake. Journal of Geophysical Research: Solid Earth, 126(12), e2021JB023405.
+
+* van der Laat, L., Baldares, R. J., Chaves, E. J., & Meneses, E. (2021, November). OKSP: A Novel Deep Learning Automatic Event Detection Pipeline for Seismic Monitoring in Costa Rica. In 2021 IEEE 3rd International Conference on BioInspired Processing (BIP) (pp. 1-6). IEEE.
+
+* Caudron, C., Aoki, Y., Lecocq, T., De Plaen, R., Soubestre, J., Mordret, A., ... & Terakawa, T. (2022). Hidden pressurized fluids prior to the 2014 phreatic eruption at Mt Ontake. Nature communications, 13(1), 1-9.
+
+* WEN, X., SHEN, X., & ZHOU, Q. (2022). Study on the characters of the aftershocks of Beiliu 5.2 earthquake using machine learning method and dense nodal seismic array. Chinese Journal of Geophysics, 65(9), 3297-3308.
+
+* Sheng, Y., Pepin, K. S., & Ellsworth, W. L. (2022). On the Depth of Earthquakes in the Delaware Basin: A Case Study along the Reeves–Pecos County Line. The Seismic Record, 2(1), 29-37.
+
+* Walter, J. I., Ogwari, P., Thiel, A., Ferrer, F., & Woelfel, I. (2021). easyQuake: Putting machine learning to work for your regional seismic network or local earthquake study. Seismological Research Letters, 92(1), 555-563.
+
+* Shi, P., Grigoli, F., Lanza, F., Beroza, G. C., Scarabello, L., & Wiemer, S. (2022). MALMI: An Automated Earthquake Detection and Location Workflow Based on Machine Learning and Waveform Migration. Seismological Research Letters.
+
+
+
