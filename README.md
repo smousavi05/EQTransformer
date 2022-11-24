@@ -128,11 +128,21 @@ Note: there is not much difference between the two models (i.e. original and con
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
+-------------------
+## Related Software Packages:
+
 ***Blocky Earthquake Transformer*** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
+
+***Siamese Earthquake Transformer*** (https://github.com/MrXiaoXiao/SiameseEarthquakeTransformer) performes a secondary template-matching-type post-processing step (by using the learned features in EqT layers as the templates and measure the similarities using a Siamese neural network instead of cross-correlation) to reduce the false-negative rate of the EqT retrieving previously missed phase picks in low SNR seismograms.
 
 ***QuakeLabeler*** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
 ***SeisBench*** (https://github.com/seisbench/seisbench/) is an open source benchmarking package with Pytorch implementaion of EgT that makes it easy to either apply pre-trained EqT model, retrain it, or compare it with other models. 
+
+***MALMI*** (https://github.com/speedshi/MALMI/) is an earthquake monitoring pipline, i.e. picking and event location determination, that uses EqT for event detection and phase picking.  
+
+***easyQuake*** (https://github.com/jakewalter/easyQuake) is an earthquake monitoring pipline, i.e. detection, picking, association, location, and magnitude determination, that icludes EqT and other DL-pickers for event detection and phase picking.  
+
 
 -------------------
 ## A Quick Example
