@@ -24,10 +24,11 @@ The **EQTransformer** python 3 package includes modules for downloading continuo
 Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 
 * [Links](#Links) 
-* [Reference](#Reference)                                
 * [Installation](#Installation) 
-* [Tutorials](#Tutorials)                   
+* [Tutorials](#Tutorials)  
+* [Related Software Packages](#Related-Software-Packages)                 
 * [A Quick Example](#A-Quick-Example)  
+* [Reference](#Reference)                                
 * [Test Set](#Test-Set)            
 * [Contributing](#Contributing)                   
 * [Reporting Bugs](#Reporting-Bugs)
@@ -40,24 +41,6 @@ Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 
 * Paper:https://rdcu.be/b58li
 
-
--------------
-## Reference
-
-Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L, Y., and Beroza, G, C. Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nat Commun 11, 3952 (2020). https://doi.org/10.1038/s41467-020-17591-w
-
-BibTeX:
-
-    @article{mousavi2020earthquake,
-        title={Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking},
-        author={Mousavi, S Mostafa and Ellsworth, William L and Zhu, Weiqiang and Chuang, Lindsay Y and Beroza, Gregory C},
-        journal={Nature Communications},
-        volume={11},
-        number={1},
-        pages={1--12},
-        year={2020},
-        publisher={Nature Publishing Group}
-    }
 
 -----------------
 ## Installation
@@ -163,6 +146,31 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
                     batch_size=500,
                     overlap=0.3)
 ```
+
+-------------
+## Reference
+
+Mousavi, S.M., Ellsworth, W.L., Zhu, W., Chuang, L, Y., and Beroza, G, C. Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nat Commun 11, 3952 (2020). https://doi.org/10.1038/s41467-020-17591-w
+
+BibTeX:
+
+    @article{mousavi2020earthquake,
+        title={Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking},
+        author={Mousavi, S Mostafa and Ellsworth, William L and Zhu, Weiqiang and Chuang, Lindsay Y and Beroza, Gregory C},
+        journal={Nature Communications},
+        volume={11},
+        number={1},
+        pages={1--12},
+        year={2020},
+        publisher={Nature Publishing Group}
+    }
+
+
+-----------
+## License
+
+The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
+
 -------------
 ## If you think that EqT does not detected all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
 
@@ -183,11 +191,6 @@ If you would like to contribute to the project as a developer, follow these inst
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
-
------------
-## License
-
-The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
 
 -----------------
 ## Reporting Bugs
