@@ -128,7 +128,7 @@ Note: there is not much difference between the two models (i.e. original and con
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
-**Blocky Earthquake Transformer** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
+***Blocky Earthquake Transformer*** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
 
 **QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
