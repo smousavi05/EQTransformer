@@ -130,9 +130,9 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 
 ***Blocky Earthquake Transformer*** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
 
-**QuakeLabeler** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
+***QuakeLabeler*** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
-**SeisBench** (https://github.com/seisbench/seisbench/)   (https://arxiv.org/abs/2111.00786) is an open source benchmarking package which makes it easy to apply pre trained EqT model, retrain it, fine tune it (transfer learning), or compare it with other models. 
+***SeisBench*** (https://github.com/seisbench/seisbench/) is an open source benchmarking package with Pytorch implementaion of EgT that makes it easy to either apply pre-trained EqT model, retrain it, or compare it with other models. 
 
 -------------------
 ## A Quick Example
