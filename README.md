@@ -107,7 +107,16 @@ and/or
 
 https://rebrand.ly/EQT-examples
 
-Note: there is not much difference between the two models (i.e. original and conservative models) regarding the network architecture (only 1 or 2 layers). The main difference comes from the training procedure and the hyperparameters used for data augmentation during the training. So if you are interested in maximizing the number of detections and are not concerned about the false positive rates (which you can remove in association and location steps), you should use the original model with higher threshold values. In contrast, if you care about only detecting true events, the conservative model (with much lower threshold levels) suits you better. 
+### Important Notes:
+There is not much difference between the two models (i.e. original and conservative models) regarding the network architecture (only 1 or 2 layers). The main difference comes from the training procedure and the hyperparameters used for data augmentation during the training. 
+
+***Original model*** (the one in the paper) has been optimized to minimize the false negative rate (maximize the number of detected events). This is a good choice when high false positive rates is not an issue in your application. For instance, in event location workfolow most of the false positives will automatically be removed during the association, location, and - especially - relocation procedure. You can use the original model with higher threshold values (~ 0.3 for P and S and 0.5 for detection).
+
+***Conservative Model***, on the other hand, has been optimized to minimize the false positive rate (maximum number of valid detections). This model is useful when your application can not tolerate a high false positive rate. For example, in travel time tomography or using the detected events by EqT as the templates for template matching. You should use this model with a much lower threshold levels (0.03 for P and S). 
+
+***Suggestions for Optimal Catalog Building***:
+1) use the original model for detection and picking and have a cross-correlation-based event relocation at the end to clean up false positives.
+2) use detected events by the conservative model as template events and then perform a complementary template-matching to detect the rest of events. See this paper (https://academic.oup.com/gji/advance-article-abstract/doi/10.1093/gji/ggac487/6881721) as an example.
 
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
@@ -207,6 +216,8 @@ If you are reporting a bug, please include:
 -----------------
 ## Some of the studies in which EqT has been used:
 
+* di Uccio, F. S., Scala, A., Festa, G., Picozzi, M., & Beroza, G. C. (2022). Comparing and integrating artificial intelligence and similarity search detection techniques: application to seismic sequences in Southern Italy. Authorea Preprints.
+
 * Zhang, Z., Deng, Y., Qiu, H., Peng, Z., & Liu‐Zeng, J. (2022). High‐Resolution Imaging of Fault Zone Structure Along the Creeping Section of the Haiyuan Fault, NE Tibet, From Data Recorded by Dense Seismic Arrays. Journal of Geophysical Research: Solid Earth, 127(9), e2022JB024468.
 
 * Bannister, S., Bertrand, E. A., Heimann, S., Bourguignon, S., Asher, C., Shanks, J., & Harvison, A. (2022). Imaging sub-caldera structure with local seismicity, Okataina Volcanic Centre, Taupo Volcanic Zone, using double-difference seismic tomography. Journal of Volcanology and Geothermal Research, 431, 107653.
@@ -232,6 +243,5 @@ If you are reporting a bug, please include:
 * Walter, J. I., Ogwari, P., Thiel, A., Ferrer, F., & Woelfel, I. (2021). easyQuake: Putting machine learning to work for your regional seismic network or local earthquake study. Seismological Research Letters, 92(1), 555-563.
 
 * Shi, P., Grigoli, F., Lanza, F., Beroza, G. C., Scarabello, L., & Wiemer, S. (2022). MALMI: An Automated Earthquake Detection and Location Workflow Based on Machine Learning and Waveform Migration. Seismological Research Letters.
-
 
 
