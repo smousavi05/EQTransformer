@@ -118,6 +118,9 @@ There is not much difference between the two models (i.e. original and conservat
 1) use the original model for detection and picking and have a cross-correlation-based event relocation at the end to clean up false positives.
 2) use detected events by the conservative model as template events and then perform a complementary template-matching to detect the rest of events. See this paper (https://academic.oup.com/gji/advance-article-abstract/doi/10.1093/gji/ggac487/6881721) as an example.
 
+***If you feel some larger events are missed while smaller ones are detected***:
+Use larger overlapping value (e.g. 0.9) for moving windows.
+
 Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
 -------------------
