@@ -221,6 +221,10 @@ If you are reporting a bug, please include:
 
 * di Uccio, F. S., Scala, A., Festa, G., Picozzi, M., & Beroza, G. C. (2022). Comparing and integrating artificial intelligence and similarity search detection techniques: application to seismic sequences in Southern Italy. Authorea Preprints.
 
+* Gong, J., & Fan, W. (2022). Seismicity, fault architecture, and slip mode of the westernmost Gofar transform fault. Journal of Geophysical Research: Solid Earth, 127(11), e2022JB024918.
+
+* Chin, S. J., Sutherland, R., Savage, M. K., Townend, J., Collot, J., Pelletier, B., ... & Illsley‐Kemp, F. (2022). Earthquakes and Seismic Hazard in Southern New Caledonia, Southwest Pacific. Journal of Geophysical Research: Solid Earth, e2022JB024207.
+
 * Zhang, Z., Deng, Y., Qiu, H., Peng, Z., & Liu‐Zeng, J. (2022). High‐Resolution Imaging of Fault Zone Structure Along the Creeping Section of the Haiyuan Fault, NE Tibet, From Data Recorded by Dense Seismic Arrays. Journal of Geophysical Research: Solid Earth, 127(9), e2022JB024468.
 
 * Bannister, S., Bertrand, E. A., Heimann, S., Bourguignon, S., Asher, C., Shanks, J., & Harvison, A. (2022). Imaging sub-caldera structure with local seismicity, Okataina Volcanic Centre, Taupo Volcanic Zone, using double-difference seismic tomography. Journal of Volcanology and Geothermal Research, 431, 107653.
