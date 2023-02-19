@@ -239,6 +239,8 @@ If you are reporting a bug, please include:
 
 * Jiang, C., Zhang, P., White, M. C., Pickle, R., & Miller, M. S. (2022). A Detailed Earthquake Catalog for Banda Arc–Australian Plate Collision Zone Using Machine‐Learning Phase Picker and an Automated Workflow. The Seismic Record, 2(1), 1-10.
 
+* Chuang, L. Y., Peng, Z., Lei, X., Wang, B., Liu, J., Zhai, Q., & Tu, H. (2023). Foreshocks of the 2010 Mw 6.7 Yushu, China Earthquake Occurred Near an Extensional Step‐Over. Journal of Geophysical Research: Solid Earth, 128(1), e2022JB025176.
+
 * Kemna, K. B., Roth, M. P., Wache, R. M., Harrington, R. M., & Liu, Y. Small magnitude events highlight the correlation between hydraulic fracturing injection parameters, geological factors, and earthquake occurrence. Geophysical Research Letters, e2022GL099995.
 
 * Cianetti, S., Bruni, R., Gaviano, S., Keir, D., Piccinini, D., Saccorotti, G., & Giunchi, C. (2021). Comparison of deep learning techniques for the investigation of a seismic sequence: An application to the 2019, Mw 4.5 Mugello (Italy) earthquake. Journal of Geophysical Research: Solid Earth, 126(12), e2021JB023405.
