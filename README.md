@@ -223,7 +223,11 @@ If you are reporting a bug, please include:
 
 * Gong, J., & Fan, W. (2022). Seismicity, fault architecture, and slip mode of the westernmost Gofar transform fault. Journal of Geophysical Research: Solid Earth, 127(11), e2022JB024918.
 
+* Shiddiqi, H. A., Ottemöller, L., Rondenay, S., Custódio, S., Halpaap, F., & Gahalaut, V. K. (2023). Comparison of Earthquake Clusters in a Stable Continental Region: A Case Study from Nordland, Northern Norway. Seismological Research Letters.
+
 * Chin, S. J., Sutherland, R., Savage, M. K., Townend, J., Collot, J., Pelletier, B., ... & Illsley‐Kemp, F. (2022). Earthquakes and Seismic Hazard in Southern New Caledonia, Southwest Pacific. Journal of Geophysical Research: Solid Earth, e2022JB024207.
+
+* Miller, M. S., Pickle, R., Murdie, R., Yuan, H., Allen, T. I., Gessner, K., ... & Whitney, J. (2023). Southwest Australia Seismic Network (SWAN): Recording Earthquakes in Australia’s Most Active Seismic Zone. Seismological Research Letters.
 
 * Zhang, Z., Deng, Y., Qiu, H., Peng, Z., & Liu‐Zeng, J. (2022). High‐Resolution Imaging of Fault Zone Structure Along the Creeping Section of the Haiyuan Fault, NE Tibet, From Data Recorded by Dense Seismic Arrays. Journal of Geophysical Research: Solid Earth, 127(9), e2022JB024468.
 
