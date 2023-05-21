@@ -130,6 +130,8 @@ Note: to run the notebook exampels, you may need to reinstall the jupyter on the
 
 ***Siamese Earthquake Transformer*** (https://github.com/MrXiaoXiao/SiameseEarthquakeTransformer) performes a secondary template-matching-type post-processing step (by using the learned features in EqT layers as the templates and measure the similarities using a Siamese neural network instead of cross-correlation) to reduce the false-negative rate of the EqT retrieving previously missed phase picks in low SNR seismograms.
 
+***OBSTransformer*** (https://github.com/alirezaniki/OBSTransformer)) is a transfer-learned seismic phase picker for Ocean Bottom Seismometer (OBS) data adopted from the EqTransformer model. OBSTransformer has been trained on an auto-labeled tectonically inclusive OBS dataset comprising ~36k earthquake and 25k noise samples.
+
 ***QuakeLabeler*** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
 ***SeisBench*** (https://github.com/seisbench/seisbench/) is an open source benchmarking package with Pytorch implementaion of EgT that makes it easy to either apply pre-trained EqT model, retrain it, or compare it with other models. 
