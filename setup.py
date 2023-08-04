@@ -20,7 +20,7 @@ setup(
 	'numpy==1.22.4',     # appox version: numpy 1.19.x but at least 1.19.2
 	'keyring==23.7.0', 
 	'pkginfo==1.8.3',
-	'scipy==1.8.1',
+	'scipy==1.10.0',
 	'tensorflow-deps==2.9.0',
 	'tensorflow-estimator==2.9.0',
 	'tensorflow-macos==2.9.2',
