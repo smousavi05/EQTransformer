@@ -39,7 +39,7 @@ Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 
 * Documentation: https://rebrand.ly/EQT-documentations
 
-* Paper:https://rdcu.be/b58li
+* Paper: https://rdcu.be/b58li
 
 
 -----------------
@@ -66,9 +66,9 @@ If you already have `Obspy` installed on your machine, you can get **EQTransform
 
 #### From source:
 
-The sources for **EQTransformer** can be downloaded from the `Github repo`.
+The sources for **EQTransformer** can be downloaded from the `GitHub repo`.
 
-##### Note: the gitgub version has been modified for Tensorflow 2.5.0
+##### Note: the GitHub version has been modified for Tensorflow 2.5.0
 
 You can either clone the public repository:
 
@@ -87,7 +87,7 @@ If you have installed **EQTransformer** Python package before and want to upgrad
 
     pip install EQTransformer -U
     
-##### To nstall EqT on M1 laptop with python>=3.9 from the source (GitHub) code by changing tensorflow to tensorflow-maco in the setup.py and follow the these steps:
+##### To install EqT on M1 laptop with python>=3.9 from the source (GitHub) code by changing tensorflow to tensorflow-maco in the setup.py and follow these steps:
 
       conda create -n eqt python=3.10
       conda activate eqt
@@ -110,7 +110,7 @@ https://rebrand.ly/EQT-examples
 ### Important Notes:
 There is not much difference between the two models (i.e. original and conservative models) regarding the network architecture (only 1 or 2 layers). The main difference comes from the training procedure and the hyperparameters used for data augmentation during the training. 
 
-***Original model*** (the one in the paper) has been optimized to minimize the false negative rate (maximize the number of detected events). This is a good choice when high false positive rates is not an issue in your application. For instance, in event location workfolow most of the false positives will automatically be removed during the association, location, and - especially - relocation procedure. You can use the original model with higher threshold values (~ 0.3 for P and S and 0.5 for detection).
+***Original model*** (the one in the paper) has been optimized to minimize the false negative rate (maximize the number of detected events). This is a good choice when high false positive rates is not an issue in your application. For instance, in event location workflow most of the false positives will automatically be removed during the association, location, and - especially - relocation procedure. You can use the original model with higher threshold values (~ 0.3 for P and S and 0.5 for detection).
 
 ***Conservative Model***, on the other hand, has been optimized to minimize the false positive rate (maximum number of valid detections). This model is useful when your application can not tolerate a high false positive rate. For example, in travel time tomography or using the detected events by EqT as the templates for template matching. You should use this model with a much lower threshold levels (0.03 for P and S). 
 
@@ -121,24 +121,24 @@ There is not much difference between the two models (i.e. original and conservat
 ***If you feel some larger events are missed while smaller ones are detected***:
 Use larger overlapping value (e.g. 0.9) for moving windows.
 
-Note: to run the notebook exampels, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
+Note: to run the notebook examples, you may need to reinstall the jupyter on the same environment that **EQTransformer** has been installed.
 
 -------------------
 ## Related Software Packages:
 
 ***Blocky Earthquake Transformer*** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
 
-***Siamese Earthquake Transformer*** (https://github.com/MrXiaoXiao/SiameseEarthquakeTransformer) performes a secondary template-matching-type post-processing step (by using the learned features in EqT layers as the templates and measure the similarities using a Siamese neural network instead of cross-correlation) to reduce the false-negative rate of the EqT retrieving previously missed phase picks in low SNR seismograms.
+***Siamese Earthquake Transformer*** (https://github.com/MrXiaoXiao/SiameseEarthquakeTransformer) performs a secondary template-matching-type post-processing step (by using the learned features in EqT layers as the templates and measure the similarities using a Siamese neural network instead of cross-correlation) to reduce the false-negative rate of the EqT retrieving previously missed phase picks in low SNR seismograms.
 
 ***OBSTransformer*** (https://github.com/alirezaniki/OBSTransformer)) is a transfer-learned seismic phase picker for Ocean Bottom Seismometer (OBS) data adopted from the EqTransformer model. OBSTransformer has been trained on an auto-labeled tectonically inclusive OBS dataset comprising ~36k earthquake and 25k noise samples.
 
 ***QuakeLabeler*** (https://maihao14.github.io/QuakeLabeler/) is a software package that can be used to create labeled training dataset for EQTransformer (i.e. STEAD format). 
 
-***SeisBench*** (https://github.com/seisbench/seisbench/) is an open source benchmarking package with Pytorch implementaion of EgT that makes it easy to either apply pre-trained EqT model, retrain it, or compare it with other models. 
+***SeisBench*** (https://github.com/seisbench/seisbench/) is an open source benchmarking package with PyTorch implementation of EgT that makes it easy to either apply pre-trained EqT model, retrain it, or compare it with other models. 
 
 ***MALMI*** (https://github.com/speedshi/MALMI/) is an earthquake monitoring pipline, i.e. picking and event location determination, that uses EqT for event detection and phase picking.  
 
-***easyQuake*** (https://github.com/jakewalter/easyQuake) is an earthquake monitoring pipline, i.e. detection, picking, association, location, and magnitude determination, that icludes EqT and other DL-pickers for event detection and phase picking.  
+***easyQuake*** (https://github.com/jakewalter/easyQuake) is an earthquake monitoring pipline, i.e. detection, picking, association, location, and magnitude determination, that includes EqT and other DL-pickers for event detection and phase picking.  
 
 
 -------------------
@@ -186,13 +186,13 @@ BibTeX:
 The **EQTransformer** package is distributed under the `MIT license`, a permissive open-source (free software) license.
 
 -------------
-## If you think that EqT does not detected all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
+## If you think that EqT does not detect all of the events in your experiment or produces too many false positives, please let us know. We are always interested to learn more about out of distribution cases to be able to improve our models.  
 
 -------------
 ## Test Set
 
 test.npy fine in the ModelsAndSampleData folder contains the trace names for the test set used in the paper. 
-Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tabels 1, 2, and 3 in the paper. 
+Based on these trace names you can retrieve our test data along with their labels from STEAD. Applying your model to these test traces you can directly compare the performance of your model to those in Tables 1, 2, and 3 in the paper. 
 The remaining traces in the STEAD were used for the training (85 %) and validation (5 %) respectively. 
 
 ---------------
