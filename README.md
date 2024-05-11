@@ -126,9 +126,13 @@ Note: to run the notebook examples, you may need to reinstall the jupyter on the
 -------------------
 ## Related Software Packages:
 
+***QuakePhase*** (https://github.com/speedshi/quakephase) the quakephase can be used to largely enhance the results of pre-trained EQT model for picking phases on traces recorded in epicentral distances > 100 km, different types of instruments, larger events, etc.
+
 ***Blocky Earthquake Transformer*** (https://github.com/maihao14/BlocklyEQTransformer) is a user-interface no-code-based platform that makes it easy to fine-tune EqT for specific data/regions. It also provides a user-friendly interface to create your own EqT model and train it without dealing with coding or knowing in-depth ML. 
 
 ***Siamese Earthquake Transformer*** (https://github.com/MrXiaoXiao/SiameseEarthquakeTransformer) performs a secondary template-matching-type post-processing step (by using the learned features in EqT layers as the templates and measure the similarities using a Siamese neural network instead of cross-correlation) to reduce the false-negative rate of the EqT retrieving previously missed phase picks in low SNR seismograms.
+
+***EdgePhase*** (https://github.com/lovelytt0/EdgePhase) Graph-based EQTransformer for picking phases using multi-station data.
 
 ***OBSTransformer*** (https://github.com/alirezaniki/OBSTransformer)) is a transfer-learned seismic phase picker for Ocean Bottom Seismometer (OBS) data adopted from the EqTransformer model. OBSTransformer has been trained on an auto-labeled tectonically inclusive OBS dataset comprising ~36k earthquake and 25k noise samples.
 
