@@ -61,7 +61,7 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    git clone git://github.com/smousavi05/EQTransformer
+    git clone https://github.com/smousavi05/EQTransformer.git
 
 
 Once you have a copy of the source, you can cd to EQTransformer directory and install it with:
