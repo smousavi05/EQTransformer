@@ -72,7 +72,7 @@ The sources for **EQTransformer** can be downloaded from the `GitHub repo`.
 
 You can either clone the public repository:
 
-    git clone git://github.com/smousavi05/EQTransformer
+    git clone https://github.com/smousavi05/EQTransformer.git
     
 or (if you are working on Colab)
 
