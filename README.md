@@ -53,6 +53,8 @@ Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 
     conda activate eqt
 
+    conda install conda-forge::obspy
+
     conda install -c smousavi05 eqtransformer 
     
 ##### Note: sometimes you need to keep repeating executing the last line multiple time to succeed.  
