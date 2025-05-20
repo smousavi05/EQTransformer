@@ -53,6 +53,8 @@ Developer: S. Mostafa Mousavi (smousavi05@gmail.com)
 
     conda activate eqt
 
+    conda install conda-forge::obspy
+
     conda install -c smousavi05 eqtransformer 
     
 ##### Note: sometimes you need to keep repeating executing the last line multiple time to succeed.  
@@ -72,7 +74,7 @@ The sources for **EQTransformer** can be downloaded from the `GitHub repo`.
 
 You can either clone the public repository:
 
-    git clone git://github.com/smousavi05/EQTransformer
+    git clone https://github.com/smousavi05/EQTransformer.git
     
 or (if you are working on Colab)
 
