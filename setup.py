@@ -25,7 +25,7 @@ setup(
 	'tensorflow-estimator==2.9.0',
 	'tensorflow-macos==2.9.2',
 	'tensorflow~=2.5.0', # tensorflow <2.7.0 needs numpy <1.20.0
-	'keras==2.9.0', 
+	'keras==3.12.0', 
 	'matplotlib-base==3.5.2', 
 	'pandas==1.4.3',
 	'tqdm==4.64.0', 
