@@ -16,7 +16,7 @@ setup(
     packages=find_packages(),
     keywords='Seismology, Earthquakes Detection, P&S Picking, Deep Learning, Attention Mechanism',
     install_requires=[
-	'pytest==7.1.2',
+	'pytest==9.0.3',
 	'numpy==1.22.4',     # appox version: numpy 1.19.x but at least 1.19.2
 	'keyring==23.7.0', 
 	'pkginfo==1.8.3',
